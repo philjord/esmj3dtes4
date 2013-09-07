@@ -2,11 +2,11 @@ package esmj3dtes4.data.subrecords;
 
 import utils.ESMByteConvert;
 
-public class TNAM
+public class TNAM_b
 {
 	public float turningSpeed;
 
-	public TNAM(byte[] bytes)
+	public TNAM_b(byte[] bytes)
 	{
 		turningSpeed = ESMByteConvert.extractFloat(bytes, 0);
 	}

@@ -7,9 +7,9 @@ import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.InstRECO;
 import esmj3d.data.shared.subrecords.FormID;
+import esmj3d.data.shared.subrecords.XRNK;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes4.data.subrecords.XRGD;
-import esmj3dtes4.data.subrecords.XRNK;
 
 //TODO: does not appear in oblivion esm and I cna't load esp files yet
 public class ACRE extends InstRECO
