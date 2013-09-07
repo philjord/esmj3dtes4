@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 import javax.vecmath.Color3f;
 
-import utils.ESMByteConvert;
-
+import tools.io.ESMByteConvert;
 import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
