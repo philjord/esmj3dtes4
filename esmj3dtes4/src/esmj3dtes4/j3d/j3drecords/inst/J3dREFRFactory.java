@@ -163,8 +163,7 @@ public class J3dREFRFactory
 
 			DOOR door = new DOOR(baseRecord);
 			J3dDOOR j3dDoor = new J3dDOOR(door, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
-			j3dinst.xtel = refr.XTEL;
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);			 
 			j3dinst.setJ3dRECOType(j3dDoor);
 			return j3dinst;
 		}
