@@ -11,6 +11,7 @@ import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.j3drecords.inst.J3dRECODynInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOStatInst;
+import esmj3d.j3d.j3drecords.type.J3dDOOR;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeGeneral;
 import esmj3dtes4.data.records.ACTI;
@@ -39,7 +40,6 @@ import esmj3dtes4.data.records.TREE;
 import esmj3dtes4.data.records.WEAP;
 import esmj3dtes4.data.subrecords.LVLO;
 import esmj3dtes4.j3d.j3drecords.type.J3dCREA;
-import esmj3dtes4.j3d.j3drecords.type.J3dDOOR;
 import esmj3dtes4.j3d.j3drecords.type.J3dLIGH;
 import esmj3dtes4.j3d.j3drecords.type.J3dNPC_;
 import esmj3dtes4.j3d.j3drecords.type.J3dSOUN;
@@ -67,7 +67,7 @@ public class J3dREFRFactory
 	public static J3dRECOInst makeJ3DRefer(REFR refr, boolean makePhys, IRecordStore master, MeshSource meshSource,
 			TextureSource textureSource, SoundSource soundSource)
 	{
-		 
+
 		Record baseRecord = master.getRecord(refr.NAME.formId);
 
 		if (baseRecord.getRecordType().equals("STAT"))
@@ -162,8 +162,8 @@ public class J3dREFRFactory
 		{
 
 			DOOR door = new DOOR(baseRecord);
-			J3dDOOR j3dDoor = new J3dDOOR(door, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);			 
+			J3dDOOR j3dDoor = new J3dDOOR(door, door.MODL.model.str, makePhys, meshSource, textureSource);
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
 			j3dinst.setJ3dRECOType(j3dDoor);
 			return j3dinst;
 		}
