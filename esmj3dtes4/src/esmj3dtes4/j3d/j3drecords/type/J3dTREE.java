@@ -15,7 +15,7 @@ public class J3dTREE extends J3dRECOType
 	{
 		super(tree, null);
 
-		Node node = TreeMaker.makeLODTree(tree.MODL.model.str, tree.billBoardWidth * ESConfig.ES_TO_METERS_SCALE, tree.billBoardHeight
+		Node node = TreeMaker.makeLODTreeX(tree.MODL.model.str, tree.billBoardWidth * ESConfig.ES_TO_METERS_SCALE, tree.billBoardHeight
 				* ESConfig.ES_TO_METERS_SCALE, textureSource);
 		addChild(node);
 	}
