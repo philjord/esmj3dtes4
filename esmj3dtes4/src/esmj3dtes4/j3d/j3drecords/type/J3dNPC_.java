@@ -40,6 +40,8 @@ public class J3dNPC_ extends J3dRECOType
 
 	private boolean female = false;
 
+	private NifCharacter nifCharacter;
+
 	public J3dNPC_(NPC_ npc_, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
 	{
 		super(npc_, null);
@@ -184,8 +186,8 @@ public class J3dNPC_ extends J3dRECOType
 		ArrayList<String> idleAnimations = new ArrayList<String>();
 		idleAnimations.add(ESConfig.TES_MESH_PATH + "characters\\_male\\idleanims\\idleguard.kf");
 		idleAnimations.add(ESConfig.TES_MESH_PATH + "characters\\_male\\idleanims\\sedance.kf");
-		
-		NifCharacter nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
+
+		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
 		addChild(nifCharacter);
 	}
 

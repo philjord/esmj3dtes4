@@ -13,7 +13,6 @@ import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes4.data.subrecords.ACBS;
 import esmj3dtes4.data.subrecords.AIDT;
-import esmj3dtes4.data.subrecords.BNAM;
 import esmj3dtes4.data.subrecords.CSCR;
 import esmj3dtes4.data.subrecords.CSDC;
 import esmj3dtes4.data.subrecords.CSDT;
@@ -283,6 +282,16 @@ public class CREA extends RECO
 		private DATA(byte[] bytes)
 		{
 			data = bytes;
+		}
+	}
+	
+	public class BNAM
+	{
+		public float baseScale;
+
+		public BNAM(byte[] bytes)
+		{
+			baseScale = ESMByteConvert.extractFloat(bytes, 0);
 		}
 	}
 }

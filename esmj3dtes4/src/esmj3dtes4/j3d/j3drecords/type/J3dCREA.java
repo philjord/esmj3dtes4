@@ -2,6 +2,9 @@ package esmj3dtes4.j3d.j3drecords.type;
 
 import java.util.ArrayList;
 
+import javax.media.j3d.Transform3D;
+import javax.media.j3d.TransformGroup;
+
 import nif.character.NifCharacter;
 import utils.source.MeshSource;
 import utils.source.SoundSource;
@@ -36,6 +39,8 @@ public class J3dCREA extends J3dRECOType
 
 	private boolean female = false;
 
+	private NifCharacter nifCharacter;
+
 	public J3dCREA(CREA crea, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
 	{
 		super(crea, null);
@@ -43,7 +48,7 @@ public class J3dCREA extends J3dRECOType
 		if (crea.NIFZ != null && crea.MODL != null)
 		{
 			String path = crea.MODL.model.str.substring(0, crea.MODL.model.str.lastIndexOf("\\"));
-			
+
 			String skeletonNifFile = crea.MODL.model.str;
 
 			ArrayList<String> fileNames = new ArrayList<String>();
@@ -175,8 +180,22 @@ public class J3dCREA extends J3dRECOType
 
 			idleAnimations.add(path + "\\idle.kf");
 
-			NifCharacter nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
+			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
 			addChild(nifCharacter);
+
+			if (crea.BNAM.baseScale == 1)
+			{
+				addChild(nifCharacter);
+			}
+			else
+			{
+				TransformGroup scaler = new TransformGroup();
+				Transform3D t = new Transform3D();
+				t.setScale(crea.BNAM.baseScale);
+				scaler.setTransform(t);
+				addChild(scaler);
+				scaler.addChild(nifCharacter);
+			}
 
 		}
 		else
