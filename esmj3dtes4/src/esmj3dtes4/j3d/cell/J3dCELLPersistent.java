@@ -15,6 +15,7 @@ import utils.source.TextureSource;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
+import esmj3d.data.shared.records.InstRECO;
 import esmj3d.j3d.cell.GridSpace;
 import esmj3d.j3d.cell.J3dICELLPersistent;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
@@ -63,47 +64,46 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 		{
 			Record record = i.next();
 
-			float recordX = 0;
-			float recordY = 0;
 			if (record.getRecordType().equals("REFR"))
 			{
 				REFR refr = new REFR(record);
-				recordX = refr.x * ESConfig.ES_TO_METERS_SCALE;
-				recordY = refr.y * ESConfig.ES_TO_METERS_SCALE;
+				sortOutBucket(refr, record);
 			}
 			else if (record.getRecordType().equals("ACRE"))
 			{
 				ACRE acre = new ACRE(record);
-				recordX = acre.x * ESConfig.ES_TO_METERS_SCALE;
-				recordY = acre.y * ESConfig.ES_TO_METERS_SCALE;
+				sortOutBucket(acre, record);
 			}
 			else if (record.getRecordType().equals("ACHR"))
 			{
 				ACHR achr = new ACHR(record);
-				recordX = achr.x * ESConfig.ES_TO_METERS_SCALE;
-				recordY = achr.y * ESConfig.ES_TO_METERS_SCALE;
+				sortOutBucket(achr, record);
 			}
 			else
 			{
 				System.out.println("CELL_PERSISTENT Record type not converted to j3d " + record.getRecordType());
 			}
+		}
+	}
 
-			int xGridIdx = (int) Math.floor(recordX / BUCKET_RANGE);
-			int yGridIdx = (int) Math.floor(recordY / BUCKET_RANGE);
-			Point key = new Point(xGridIdx, yGridIdx);
+	private void sortOutBucket(InstRECO reco, Record record)
+	{
+		float recordX = reco.getTrans().x * ESConfig.ES_TO_METERS_SCALE;
+		float recordY = reco.getTrans().y * ESConfig.ES_TO_METERS_SCALE;
+		int xGridIdx = (int) Math.floor(recordX / BUCKET_RANGE);
+		int yGridIdx = (int) Math.floor(recordY / BUCKET_RANGE);
+		Point key = new Point(xGridIdx, yGridIdx);
 
-			GridSpace gs = allGridSpaces.get(key);
-			if (gs == null)
-			{
-				gs = new GridSpace(this, key);
-				allGridSpaces.put(key, gs);
-			}
-
-			gs.addRecord(record);
-			recordsById.put(new Integer(record.getFormID()), record);
-			gridSpaceByRecordId.put(new Integer(record.getFormID()), gs);
+		GridSpace gs = allGridSpaces.get(key);
+		if (gs == null)
+		{
+			gs = new GridSpace(this, key);
+			allGridSpaces.put(key, gs);
 		}
 
+		gs.addRecord(record);
+		recordsById.put(new Integer(record.getFormID()), record);
+		gridSpaceByRecordId.put(new Integer(record.getFormID()), gs);
 	}
 
 	public void update(float charX, float charY, float loadDist)
@@ -154,6 +154,7 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 
 		return gridsToAdd;
 	}
+
 	public List<GridSpace> getGridSpacesToRemove(float charX, float charY, float loadDist)
 	{
 		int newLowX = (int) Math.floor((charX - loadDist) / BUCKET_RANGE);

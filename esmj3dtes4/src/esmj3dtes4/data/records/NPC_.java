@@ -27,9 +27,7 @@ public class NPC_ extends RECO
 
 	public LString FULL = null;
 
-	public MODL MODL = null;
-
-	 
+	public MODL MODL = null;	 
 
 	public ACBS ACBS = null;
 

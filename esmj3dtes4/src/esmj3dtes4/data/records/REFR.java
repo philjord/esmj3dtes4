@@ -13,8 +13,6 @@ public class REFR extends CommonREFR
 
 	public XSED XSED;//in fallout3 but string
 
-
-
 	public XPCI XPCI;//not in fallout3, not in tes5
 
 	public REFR(Record recordData)
@@ -31,7 +29,7 @@ public class REFR extends CommonREFR
 			{
 				XSED = new XSED(bs);
 			}
-			
+
 			else if (sr.getSubrecordType().equals("XPCI"))
 			{
 				XPCI = new XPCI(bs);

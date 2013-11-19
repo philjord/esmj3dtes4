@@ -14,8 +14,6 @@ public class STAT extends RECO
 
 	public MODL MODL;
 
- 
-
 	public STAT(Record recordData)
 	{
 		super(recordData);

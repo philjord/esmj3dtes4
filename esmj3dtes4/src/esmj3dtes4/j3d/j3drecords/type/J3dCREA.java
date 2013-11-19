@@ -1,14 +1,15 @@
 package esmj3dtes4.j3d.j3drecords.type;
 
-import javax.media.j3d.Node;
+import java.util.ArrayList;
 
-import nif.NifToJ3d;
+import nif.character.NifCharacter;
 import utils.source.MeshSource;
 import utils.source.SoundSource;
 import utils.source.TextureSource;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
+import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3dtes4.data.records.ARMO;
 import esmj3dtes4.data.records.CLOT;
@@ -19,185 +20,206 @@ import esmj3dtes4.data.subrecords.LVLO;
 
 public class J3dCREA extends J3dRECOType
 {
-	private boolean upper = false;
+	private String helmetStr = null;
 
-	private boolean lower = false;
+	private String upperStr = null;
 
-	private boolean hand = false;
+	private String lowerStr = null;
 
-	private boolean foot = false;
+	private String handStr = null;
 
-	private boolean shield = false;
+	private String footStr = null;
+
+	private String shieldStr = null;
+
+	private String weapStr = null;
 
 	private boolean female = false;
 
 	public J3dCREA(CREA crea, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
 	{
-		super(crea,null);
+		super(crea, null);
+		//MODL is a bone file and the NIFZ are no path othe files to add
 		if (crea.NIFZ != null && crea.MODL != null)
 		{
 			String path = crea.MODL.model.str.substring(0, crea.MODL.model.str.lastIndexOf("\\"));
+			
+			String skeletonNifFile = crea.MODL.model.str;
+
+			ArrayList<String> fileNames = new ArrayList<String>();
+
 			for (int i = 0; i < crea.NIFZ.fileNames.length; i++)
 			{
-				Node node = NifToJ3d.loadShapes(path + "\\" + crea.NIFZ.fileNames[i], meshSource, textureSource).getVisualRoot();
-				addChild(node);
+				fileNames.add(path + "\\" + crea.NIFZ.fileNames[i]);
 			}
-		}
-		else
-		{
-			//CREA has no NIFs like the will o the wisp
-		}
 
-		female = crea.ACBS.isFemale();
+			female = crea.ACBS.isFemale();
 
-		CNTO[] cntos = crea.CNTOs;
-		for (int i = 0; i < cntos.length; i++)
-		{
-			//	int count = cntos[i].count;
-			Record rec = master.getRecord(cntos[i].itemFormId);
-			if (rec.getRecordType().equals("CLOT"))
+			CNTO[] cntos = crea.CNTOs;
+			for (int i = 0; i < cntos.length; i++)
 			{
-				CLOT clot = new CLOT(rec);
-				addCLOT(clot, meshSource, textureSource);
-			}
-			else if (rec.getRecordType().equals("WEAP"))
-			{
-				WEAP weap = new WEAP(rec);
-				addWEAP(weap);
-			}
-			else if (rec.getRecordType().equals("ARMO"))
-			{
-				ARMO armo = new ARMO(rec);
-				addARMO(armo, meshSource, textureSource);
-			}
-			else if (rec.getRecordType().equals("AMMO"))
-			{
-				//AMMO ammo = new AMMO(rec);
-			}
-			else if (rec.getRecordType().equals("MISC"))
-			{
-				//MISC misc = new MISC(rec);
-			}
-			else if (rec.getRecordType().equals("KEYM"))
-			{
-				//KEYM keym = new KEYM(rec);
-			}
-			else if (rec.getRecordType().equals("INGR"))
-			{
-				//INGR keym = new INGR(rec);
-			}
-			else if (rec.getRecordType().equals("LIGH"))
-			{
-				//LIGH ligh = new LIGH(rec);
-			}
-			else if (rec.getRecordType().equals("ALCH"))
-			{
-				//ALCH alch = new ALCH(rec);
-			}
-			else if (rec.getRecordType().equals("BOOK"))
-			{
-				//BOOK book = new BOOK(rec);
-			}
-			else if (rec.getRecordType().equals("LVLI"))
-			{
-				LVLI lvli = new LVLI(rec);
-				LVLO[] LVLOs = lvli.LVLOs;
-
-				int idx = (int) (Math.random() * LVLOs.length);
-				idx = idx == LVLOs.length ? 0 : idx;
-
-				Record baseRecord = master.getRecord(LVLOs[idx].itemFormId);
-				if (baseRecord.getRecordType().equals("CLOT"))
+				//	int count = cntos[i].count;
+				Record rec = master.getRecord(cntos[i].itemFormId);
+				if (rec.getRecordType().equals("CLOT"))
 				{
-					CLOT clot = new CLOT(baseRecord);
-					addCLOT(clot, meshSource, textureSource);
+					CLOT clot = new CLOT(rec);
+					addCLOT(clot);
 				}
-				else if (baseRecord.getRecordType().equals("ARMO"))
+				else if (rec.getRecordType().equals("WEAP"))
 				{
-					ARMO armo = new ARMO(baseRecord);
-					addARMO(armo, meshSource, textureSource);
-				}
-				else if (baseRecord.getRecordType().equals("LVLI"))
-				{
-				}
-				else if (baseRecord.getRecordType().equals("MISC"))
-				{
-				}
-				else if (baseRecord.getRecordType().equals("AMMO"))
-				{
-				}
-				else if (baseRecord.getRecordType().equals("INGR"))
-				{
-				}
-				else if (baseRecord.getRecordType().equals("ALCH"))
-				{
-				}
-				else if (baseRecord.getRecordType().equals("WEAP"))
-				{
-					WEAP weap = new WEAP(baseRecord);
+					WEAP weap = new WEAP(rec);
 					addWEAP(weap);
+				}
+				else if (rec.getRecordType().equals("ARMO"))
+				{
+					ARMO armo = new ARMO(rec);
+					addARMO(armo);
+				}
+				else if (rec.getRecordType().equals("AMMO"))
+				{
+					//AMMO ammo = new AMMO(rec);
+				}
+				else if (rec.getRecordType().equals("MISC"))
+				{
+					//MISC misc = new MISC(rec);
+				}
+				else if (rec.getRecordType().equals("KEYM"))
+				{
+					//KEYM keym = new KEYM(rec);
+				}
+				else if (rec.getRecordType().equals("INGR"))
+				{
+					//INGR keym = new INGR(rec);
+				}
+				else if (rec.getRecordType().equals("LIGH"))
+				{
+					//LIGH ligh = new LIGH(rec);
+				}
+				else if (rec.getRecordType().equals("ALCH"))
+				{
+					//ALCH alch = new ALCH(rec);
+				}
+				else if (rec.getRecordType().equals("BOOK"))
+				{
+					//BOOK book = new BOOK(rec);
+				}
+				else if (rec.getRecordType().equals("LVLI"))
+				{
+					LVLI lvli = new LVLI(rec);
+					LVLO[] LVLOs = lvli.LVLOs;
+
+					int idx = (int) (Math.random() * LVLOs.length);
+					idx = idx == LVLOs.length ? 0 : idx;
+
+					Record baseRecord = master.getRecord(LVLOs[idx].itemFormId);
+					if (baseRecord.getRecordType().equals("CLOT"))
+					{
+						CLOT clot = new CLOT(baseRecord);
+						addCLOT(clot);
+					}
+					else if (baseRecord.getRecordType().equals("ARMO"))
+					{
+						ARMO armo = new ARMO(baseRecord);
+						addARMO(armo);
+					}
+					else if (baseRecord.getRecordType().equals("LVLI"))
+					{
+					}
+					else if (baseRecord.getRecordType().equals("MISC"))
+					{
+					}
+					else if (baseRecord.getRecordType().equals("AMMO"))
+					{
+					}
+					else if (baseRecord.getRecordType().equals("INGR"))
+					{
+					}
+					else if (baseRecord.getRecordType().equals("ALCH"))
+					{
+					}
+					else if (baseRecord.getRecordType().equals("WEAP"))
+					{
+						WEAP weap = new WEAP(baseRecord);
+						addWEAP(weap);
+					}
+					else
+					{
+						System.out.println("LVLI record type not converted to j3d " + baseRecord.getRecordType());
+					}
 				}
 				else
 				{
-					System.out.println("LVLI record type not converted to j3d " + baseRecord.getRecordType());
+					System.out.println("CREA has unknown contained item " + rec.getRecordType());
+				}
+
+			}
+
+			fileNames.add(helmetStr);
+			fileNames.add(upperStr);
+			fileNames.add(lowerStr);
+			fileNames.add(handStr);
+			fileNames.add(footStr);
+			fileNames.add(shieldStr);
+			fileNames.add(weapStr);
+
+			ArrayList<String> idleAnimations = new ArrayList<String>();
+			if (crea.KFFZ != null)
+			{
+				for (int i = 0; i < crea.KFFZ.fileNames.length; i++)
+				{
+					//Mainly specials under specialanims??
+					//System.out.println("crea.KFFZ.fileNames[i] " + crea.KFFZ.fileNames[i]);
+					//idleAnimations.add(path + "\\specialanims\\" + crea.KFFZ.fileNames[i]);
 				}
 			}
-			else
-			{
-				System.out.println("CREA has unknown contained item " + rec.getRecordType());
-			}
 
+			idleAnimations.add(path + "\\idle.kf");
+
+			NifCharacter nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
+			addChild(nifCharacter);
+
+		}
+		else
+		{
+			//CREA has no NIFs like the will o the wisp (but it has skeleton with particles effects)
+			// let's do these later shall we
 		}
 	}
 
-	private void addCLOT(CLOT clot, MeshSource meshSource, TextureSource textureSource)
+	private void addCLOT(CLOT clot)
 	{
-		if ((clot.BMDT.isUpperBody() && upper != true) || (clot.BMDT.isLowerBody() && lower != true)
-				|| (clot.BMDT.isHand() && hand != true) || (clot.BMDT.isFoot() && foot != true) || (clot.BMDT.isShield() && shield != true))
+		MODL m = clot.MODL;
+		if (female && clot.MOD3 != null)
 		{
-			upper = clot.BMDT.isUpperBody() ? true : upper;
-			lower = clot.BMDT.isLowerBody() ? true : lower;
-			hand = clot.BMDT.isHand() ? true : hand;
-			foot = clot.BMDT.isFoot() ? true : foot;
-
-			if (!female || clot.MOD3 == null)
-			{
-				addChild(NifToJ3d.loadShapes(clot.MODL.model.str, meshSource, textureSource).getVisualRoot());
-			}
-			else
-			{
-				addChild(NifToJ3d.loadShapes(clot.MOD3.model.str, meshSource, textureSource).getVisualRoot());
-			}
-
+			m = clot.MOD3;
 		}
+		helmetStr = clot.BMDT.isHair() ? m.model.str : helmetStr;
+		upperStr = clot.BMDT.isUpperBody() ? m.model.str : upperStr;
+		lowerStr = clot.BMDT.isLowerBody() ? m.model.str : lowerStr;
+		handStr = clot.BMDT.isHand() ? m.model.str : handStr;
+		footStr = clot.BMDT.isFoot() ? m.model.str : footStr;
+
 	}
 
-	private void addARMO(ARMO armo, MeshSource meshSource, TextureSource textureSource)
+	private void addARMO(ARMO armo)
 	{
-		if ((armo.BMDT.isUpperBody() && upper != true) || (armo.BMDT.isLowerBody() && lower != true)
-				|| (armo.BMDT.isHand() && hand != true) || (armo.BMDT.isFoot() && foot != true) || (armo.BMDT.isShield() && shield != true))
-		{
-			upper = armo.BMDT.isUpperBody() ? true : upper;
-			lower = armo.BMDT.isLowerBody() ? true : lower;
-			hand = armo.BMDT.isHand() ? true : hand;
-			foot = armo.BMDT.isFoot() ? true : foot;
-			shield = armo.BMDT.isShield() ? true : shield;
 
-			if (!female || armo.MOD3 == null)
-			{
-				addChild(NifToJ3d.loadShapes(armo.MODL.model.str, meshSource, textureSource).getVisualRoot());
-			}
-			else
-			{
-				addChild(NifToJ3d.loadShapes(armo.MOD3.model.str, meshSource, textureSource).getVisualRoot());
-			}
+		MODL m = armo.MODL;
+		if (female && armo.MOD3 != null)
+		{
+			m = armo.MOD3;
 		}
+		helmetStr = armo.BMDT.isHair() ? m.model.str : helmetStr;
+		upperStr = armo.BMDT.isUpperBody() ? m.model.str : upperStr;
+		lowerStr = armo.BMDT.isLowerBody() ? m.model.str : lowerStr;
+		handStr = armo.BMDT.isHand() ? m.model.str : handStr;
+		footStr = armo.BMDT.isFoot() ? m.model.str : footStr;
+		shieldStr = armo.BMDT.isShield() ? m.model.str : shieldStr;
 	}
 
 	private void addWEAP(WEAP weap)
 	{
-		//TODO: add weapon!
-		weap.getClass();
+		weapStr = weap.MODL.model.str;
 	}
 
 }
