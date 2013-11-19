@@ -181,7 +181,6 @@ public class J3dCREA extends J3dRECOType
 			idleAnimations.add(path + "\\idle.kf");
 
 			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
-			addChild(nifCharacter);
 
 			if (crea.BNAM.baseScale == 1)
 			{
