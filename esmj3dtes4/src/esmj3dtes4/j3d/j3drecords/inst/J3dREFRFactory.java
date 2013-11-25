@@ -174,10 +174,12 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("LIGH"))
 		{
 			LIGH ligh = new LIGH(baseRecord);
+
 			J3dLIGH j3dLIGH = new J3dLIGH(ligh, makePhys, meshSource, textureSource);
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
 			j3dinst.setJ3dRECOType(j3dLIGH);
 			return j3dinst;
+
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
@@ -194,7 +196,7 @@ public class J3dREFRFactory
 			if (!makePhys)
 			{
 				SOUN soun = new SOUN(baseRecord);
-				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
+				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, makePhys);
 				j3dinst.addNodeChild(new J3dSOUN(soun, master, soundSource));
 				return j3dinst;
 			}
