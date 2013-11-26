@@ -37,7 +37,7 @@ public class REFR extends CommonREFR
 			else
 			{
 				//CommonREFR makes this no use now
-				//	System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
+				//	System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 

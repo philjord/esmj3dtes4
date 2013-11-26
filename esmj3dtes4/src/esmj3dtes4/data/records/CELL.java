@@ -47,7 +47,7 @@ public class CELL extends CommonCELL
 			else
 			{
 				// no longer possible with CommonCELL
-				//System.out.println("unhandled : " + sr.getSubrecordType() + " in " + recordData);
+				//System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 
 		}

@@ -14,7 +14,7 @@ public class J3dACRE extends J3dRECODynInst
 {
 	public J3dACRE(ACRE acre, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
 	{
-		super(acre, false);
+		super(acre, false, false);
 		Record baseRecord = master.getRecord(acre.NAME.formId);
 		if (baseRecord.getRecordType().equals("CREA"))
 		{

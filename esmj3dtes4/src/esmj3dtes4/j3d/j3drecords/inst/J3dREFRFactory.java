@@ -59,7 +59,7 @@ public class J3dREFRFactory
 	private static J3dRECOStatInst makeJ3dRECOStatInst(REFR refr, RECO reco, ZString nifFileName, boolean makePhys, MeshSource meshSource,
 			TextureSource textureSource)
 	{
-		J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
+		J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
 		j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, nifFileName.str, makePhys, meshSource, textureSource));
 		return j3dinst;
 	}
@@ -163,7 +163,7 @@ public class J3dREFRFactory
 
 			DOOR door = new DOOR(baseRecord);
 			J3dDOOR j3dDoor = new J3dDOOR(door, door.MODL.model.str, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
 			j3dinst.setJ3dRECOType(j3dDoor);
 			return j3dinst;
 		}
@@ -176,7 +176,7 @@ public class J3dREFRFactory
 			LIGH ligh = new LIGH(baseRecord);
 
 			J3dLIGH j3dLIGH = new J3dLIGH(ligh, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, makePhys);
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
 			j3dinst.setJ3dRECOType(j3dLIGH);
 			return j3dinst;
 
@@ -206,7 +206,7 @@ public class J3dREFRFactory
 			if (!makePhys)
 			{
 				LVLC lvlc = new LVLC(baseRecord);
-				J3dRECODynInst j3dinst = new J3dRECODynInst(refr, makePhys);
+				J3dRECODynInst j3dinst = new J3dRECODynInst(refr, false, makePhys);
 				j3dinst.setJ3dRECOType(makeLVLC(lvlc, master, meshSource, textureSource, soundSource));
 				return j3dinst;
 			}

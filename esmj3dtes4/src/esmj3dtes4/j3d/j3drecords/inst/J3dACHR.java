@@ -14,7 +14,7 @@ public class J3dACHR extends J3dRECODynInst
 {
 	public J3dACHR(ACHR achr, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
 	{
-		super(achr, false);
+		super(achr, false, false);
 		Record baseRecord = master.getRecord(achr.NAME.formId);
 		if (baseRecord.getRecordType().equals("NPC_"))
 		{
