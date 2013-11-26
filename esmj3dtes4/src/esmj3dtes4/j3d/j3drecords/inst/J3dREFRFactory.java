@@ -11,6 +11,7 @@ import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.j3drecords.inst.J3dRECODynInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOStatInst;
+import esmj3d.j3d.j3drecords.type.J3dCONT;
 import esmj3d.j3d.j3drecords.type.J3dDOOR;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeGeneral;
@@ -99,8 +100,9 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("CONT"))
 		{
-			CONT cont = new CONT(baseRecord);
-			return makeJ3dRECOStatInst(refr, cont, cont.MODL.model, makePhys, meshSource, textureSource);
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, new J3dCONT(new CONT(baseRecord), makePhys, meshSource, textureSource),
+					true, makePhys);
+			return j3dinst;
 		}
 		else if (baseRecord.getRecordType().equals("CLOT"))
 		{
@@ -112,7 +114,6 @@ public class J3dREFRFactory
 			FLOR flor = new FLOR(baseRecord);
 			return makeJ3dRECOStatInst(refr, flor, flor.MODL.model, makePhys, meshSource, textureSource);
 		}
-
 		else if (baseRecord.getRecordType().equals("BOOK"))
 		{
 			BOOK book = new BOOK(baseRecord);
