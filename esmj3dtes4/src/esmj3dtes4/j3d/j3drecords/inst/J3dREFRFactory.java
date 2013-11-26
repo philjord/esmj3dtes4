@@ -100,9 +100,7 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("CONT"))
 		{
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, new J3dCONT(new CONT(baseRecord), makePhys, meshSource, textureSource),
-					true, makePhys);
-			return j3dinst;
+			return new J3dRECOStatInst(refr, new J3dCONT(new CONT(baseRecord), makePhys, meshSource, textureSource), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("CLOT"))
 		{
@@ -161,46 +159,31 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("DOOR"))
 		{
+			return new J3dRECOStatInst(refr, new J3dDOOR(new DOOR(baseRecord), makePhys, meshSource, textureSource), true, makePhys);
+		}
 
-			DOOR door = new DOOR(baseRecord);
-			J3dDOOR j3dDoor = new J3dDOOR(door, door.MODL.model.str, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(j3dDoor);
-			return j3dinst;
-		}
-		else if (baseRecord.getRecordType().equals("SBSP"))
-		{
-			//SBSP sbsp = new SBSP(baseRecord);
-		}
 		else if (baseRecord.getRecordType().equals("LIGH"))
 		{
-			LIGH ligh = new LIGH(baseRecord);
-
-			J3dLIGH j3dLIGH = new J3dLIGH(ligh, makePhys, meshSource, textureSource);
-			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(j3dLIGH);
-			return j3dinst;
+			return new J3dRECOStatInst(refr, new J3dLIGH(new LIGH(baseRecord), makePhys, meshSource, textureSource), true, makePhys);
 
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
 			if (!makePhys)
 			{
-				TREE tree = new TREE(baseRecord);
-				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, makePhys);
-				j3dinst.addNodeChild(new J3dTREE(tree, textureSource));
-				return j3dinst;
+				return new J3dRECOStatInst(refr, new J3dTREE(new TREE(baseRecord), textureSource), false, makePhys);
 			}
 		}
 		else if (baseRecord.getRecordType().equals("SOUN"))
 		{
 			if (!makePhys)
 			{
-				SOUN soun = new SOUN(baseRecord);
-				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, makePhys);
-				j3dinst.addNodeChild(new J3dSOUN(soun, master, soundSource));
-				return j3dinst;
+				return new J3dRECOStatInst(refr, new J3dSOUN(new SOUN(baseRecord), master, soundSource), false, makePhys);
 			}
+		}
+		else if (baseRecord.getRecordType().equals("SBSP"))
+		{
+			//SBSP sbsp = new SBSP(baseRecord);
 		}
 		else if (baseRecord.getRecordType().equals("LVLC"))
 		{
