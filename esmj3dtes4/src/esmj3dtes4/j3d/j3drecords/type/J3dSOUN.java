@@ -18,7 +18,6 @@ public class J3dSOUN extends J3dRECOType
 		super(soun, null);
 		if (soun.FNAM != null)
 		{
-
 			if (soun.FNAM.str.endsWith(".wav") || soun.FNAM.str.endsWith(".mp3"))
 			{
 				playSound(soun, soundSource);
