@@ -47,7 +47,7 @@ public class Tes4LODLandscape extends Beth32LODLandscape
 
 				// we know it is a NiTriStripsData at block 1
 
-				IndexedGeometryArray baseItsa = makeGeometry2((NiTriStripsData) blocks.getNiObjects()[1], false);
+				IndexedGeometryArray baseItsa = makeGeometry((NiTriStripsData) blocks.getNiObjects()[1]);
 
 				Shape3D shape = new Shape3D();
 				shape.setGeometry(baseItsa);
@@ -77,7 +77,7 @@ public class Tes4LODLandscape extends Beth32LODLandscape
 
 	}
 
-	public static IndexedGeometryArray makeGeometry2(NiTriStripsData data, boolean compact)
+	private static IndexedGeometryArray makeGeometry(NiTriStripsData data)
 	{
 		GeometryInfo gi = new GeometryInfo(GeometryInfo.TRIANGLE_STRIP_ARRAY);
 
@@ -164,6 +164,7 @@ public class Tes4LODLandscape extends Beth32LODLandscape
 			gi.setUseCoordIndexOnly(true);
 		}
 
+		boolean compact = false;
 		IndexedGeometryArray g = gi.getIndexedGeometryArray(compact, !compact, compact, true, false);
 
 		return g;
