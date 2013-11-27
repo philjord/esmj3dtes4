@@ -62,14 +62,14 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 	}
 
-	public J3dRECOInst makeJ3dRECO(Record record)
+	public J3dRECOInst makeJ3dRECO(Record record, boolean noFade)
 	{
 		J3dRECOInst ret = null;
 		try
 		{
 			if (record.getRecordType().equals("REFR"))
 			{
-				ret = J3dREFRFactory.makeJ3DRefer(new REFR(record), makePhys, master, meshSource, textureSource, soundSource);
+				ret = J3dREFRFactory.makeJ3DRefer(new REFR(record), makePhys, noFade, master, meshSource, textureSource, soundSource);
 			}
 			else if (record.getRecordType().equals("ACRE"))
 			{

@@ -65,10 +65,9 @@ public class J3dREFRFactory
 		return j3dinst;
 	}
 
-	public static J3dRECOInst makeJ3DRefer(REFR refr, boolean makePhys, IRecordStore master, MeshSource meshSource,
+	public static J3dRECOInst makeJ3DRefer(REFR refr, boolean makePhys, boolean noFade, IRecordStore master, MeshSource meshSource,
 			TextureSource textureSource, SoundSource soundSource)
 	{
-
 		Record baseRecord = master.getRecord(refr.NAME.formId);
 
 		if (baseRecord.getRecordType().equals("STAT"))
@@ -76,7 +75,16 @@ public class J3dREFRFactory
 			STAT stat = new STAT(baseRecord);
 			if (!stat.isFlagSet(0x00800000) || BethRenderSettings.isShowEditorMarkers())
 			{
-				return makeJ3dRECOStatInst(refr, stat, stat.MODL.model, makePhys, meshSource, textureSource);
+				//distant stat no fade
+				if (noFade)
+				{
+					return new J3dRECOStatInst(refr,
+							new J3dRECOTypeGeneral(stat, stat.MODL.model.str, makePhys, meshSource, textureSource), false, makePhys);
+				}
+				else
+				{
+					return makeJ3dRECOStatInst(refr, stat, stat.MODL.model, makePhys, meshSource, textureSource);
+				}
 			}
 			else
 			{
@@ -161,11 +169,9 @@ public class J3dREFRFactory
 		{
 			return new J3dRECOStatInst(refr, new J3dDOOR(new DOOR(baseRecord), makePhys, meshSource, textureSource), true, makePhys);
 		}
-
 		else if (baseRecord.getRecordType().equals("LIGH"))
 		{
 			return new J3dRECOStatInst(refr, new J3dLIGH(new LIGH(baseRecord), makePhys, meshSource, textureSource), true, makePhys);
-
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{

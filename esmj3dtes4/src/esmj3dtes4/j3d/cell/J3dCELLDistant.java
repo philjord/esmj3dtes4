@@ -25,7 +25,7 @@ public class J3dCELLDistant extends J3dCELL
 		for (Iterator<Record> i = children.iterator(); i.hasNext();)
 		{
 			Record record = i.next();
-			J3dRECOInst jri = makeJ3dRECO(record);
+			J3dRECOInst jri = makeJ3dRECO(record, true);
 			addJ3dRECOInst(jri);
 		}
 	}
