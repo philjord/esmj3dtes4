@@ -42,6 +42,14 @@ public class ACHR extends InstRECO
 			{
 				NAME = new FormID(bs);
 			}
+			else if (sr.getSubrecordType().equals("FULL"))
+			{
+
+			}
+			else if (sr.getSubrecordType().equals("XPCI"))
+			{
+
+			}
 			else if (sr.getSubrecordType().equals("XESP"))
 			{
 				XESP = new FormID(bs);
