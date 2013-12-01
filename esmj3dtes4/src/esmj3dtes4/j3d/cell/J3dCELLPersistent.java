@@ -13,10 +13,13 @@ import esmj3d.j3d.cell.J3dICELLPersistent;
 import esmj3dtes4.data.records.ACHR;
 import esmj3dtes4.data.records.ACRE;
 import esmj3dtes4.data.records.REFR;
+import esmj3dtes4.data.records.WRLD;
 
 public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 {
 	private GridSpaces gridSpaces = new GridSpaces(this);
+	
+	private WRLD wrld;
 
 	/**
 	 * CELL presistent is different from temp and distant as it's dynamic refs and achar can move away
@@ -30,11 +33,11 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	 * @param recordToRECO
 	 */
 
-	public J3dCELLPersistent(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MeshSource meshSource,
+	public J3dCELLPersistent(WRLD wrld, IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MeshSource meshSource,
 			TextureSource textureSource, SoundSource soundSource)
 	{
 		super(master, cellRecord, children, makePhys, meshSource, textureSource, soundSource);
-
+		this.wrld = wrld;
 		addChild(gridSpaces);
 		indexRecords();
 	}
@@ -73,5 +76,4 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	{
 		return gridSpaces;
 	}
-
 }

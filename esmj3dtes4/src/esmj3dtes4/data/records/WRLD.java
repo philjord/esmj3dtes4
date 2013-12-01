@@ -10,7 +10,7 @@ import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes4.data.subrecords.SNAM_d;
 
-public class __WRLD extends RECO
+public class WRLD extends RECO
 {
 	public ZString EDID = null;
 
@@ -28,7 +28,7 @@ public class __WRLD extends RECO
 
 	public byte DATA = 0;
 
-	public __WRLD(Record recordData)
+	public WRLD(Record recordData)
 	{
 		super(recordData);
 		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
