@@ -68,11 +68,15 @@ public class Tes4LODLandscape extends Beth32LODLandscape
 				baseItsa.setCapability(GeometryArray.ALLOW_REF_DATA_WRITE);
 				this.setGeometryArray(baseItsa);
 			}
+			else
+			{
+				System.out.println("Bad landscape nf " + meshName);
+			}
 		}
 		else
 		{
 			//fine the systems just askign for empty space which is fine
-			//			System.out.println("Bad landscape name " + meshName + " lodX " + lodX + " lodY " + lodY);
+			System.out.println("Bad landscape name " + meshName);
 		}
 
 	}
