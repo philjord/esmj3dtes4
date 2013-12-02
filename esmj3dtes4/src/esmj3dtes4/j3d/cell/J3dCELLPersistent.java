@@ -8,6 +8,7 @@ import utils.source.SoundSource;
 import utils.source.TextureSource;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
+import esmj3d.data.shared.records.CommonWRLD;
 import esmj3d.j3d.cell.GridSpaces;
 import esmj3d.j3d.cell.J3dICELLPersistent;
 import esmj3dtes4.data.records.ACHR;
@@ -18,7 +19,7 @@ import esmj3dtes4.data.records.WRLD;
 public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 {
 	private GridSpaces gridSpaces = new GridSpaces(this);
-	
+
 	private WRLD wrld;
 
 	/**
@@ -33,8 +34,8 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	 * @param recordToRECO
 	 */
 
-	public J3dCELLPersistent(WRLD wrld, IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MeshSource meshSource,
-			TextureSource textureSource, SoundSource soundSource)
+	public J3dCELLPersistent(WRLD wrld, IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys,
+			MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
 	{
 		super(master, cellRecord, children, makePhys, meshSource, textureSource, soundSource);
 		this.wrld = wrld;
@@ -75,5 +76,11 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	public GridSpaces getGridSpaces()
 	{
 		return gridSpaces;
+	}
+
+	@Override
+	public CommonWRLD getWRLD()
+	{
+		return wrld;
 	}
 }

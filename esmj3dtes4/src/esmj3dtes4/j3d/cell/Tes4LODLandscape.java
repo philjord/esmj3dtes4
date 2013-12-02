@@ -32,7 +32,7 @@ public class Tes4LODLandscape extends Beth32LODLandscape
 	public Tes4LODLandscape(int lodX, int lodY, int scale, int worldFormId, MeshSource meshSource, TextureSource textureSource)
 	{
 		super(lodX, lodY);
-		//TODO: there is a distantlod directory with lod files in it how do they work?
+
 		String xy = (lodX == 0 ? "00" : "" + lodX) + "." + (lodY == 0 ? "00" : "" + lodY);
 		String meshName = "landscape\\lod\\" + worldFormId + "." + xy + "." + scale + ".nif";
 		String textureName = "landscapelod\\generated\\" + worldFormId + "." + xy + "." + scale + ".dds";

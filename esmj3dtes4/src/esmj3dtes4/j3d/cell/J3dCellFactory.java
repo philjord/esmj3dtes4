@@ -40,17 +40,29 @@ public class J3dCellFactory implements J3dICellFactory
 	}
 
 	@Override
-	public Beth32LODLandscape makeLODLandscape(int lodX, int lodY, int scale, int worldFormId, String worldFormName)
+	public Beth32LODLandscape makeLODLandscape(int lodX, int lodY, int scale, int worldFormId)
 	{
-		return new Tes4LODLandscape(lodX, lodY, scale, worldFormId, meshSource, textureSource);
+		int formId = -1;
+		WRLD wrld = getWRLD(worldFormId);
+		// use parent first
+		if (wrld.WNAM != null && wrld.WNAM.formId != -1)
+		{
+			formId = wrld.WNAM.formId;
+		}
+		else
+		{
+			formId = worldFormId;
+		}
+		return new Tes4LODLandscape(lodX, lodY, scale, formId, meshSource, textureSource);
 	}
 
-	@Override
-	public boolean isWRLD(int formId)
+	private WRLD getWRLD(int formId)
 	{
 		try
 		{
-			return esmManager.getWRLD(new Integer(formId)) != null;
+			PluginRecord record = esmManager.getWRLD(formId);
+			WRLD wrld = new WRLD(new Record(record, -1));
+			return wrld;
 		}
 		catch (DataFormatException e)
 		{
@@ -64,19 +76,22 @@ public class J3dCellFactory implements J3dICellFactory
 		{
 			e.printStackTrace();
 		}
-		return false;
+		return null;
+	}
+
+	@Override
+	public boolean isWRLD(int formId)
+	{
+		return getWRLD(formId) != null;
 	}
 
 	@Override
 	public J3dCELLPersistent makeBGWRLDPersistent(int formId, boolean makePhys)
 	{
 
-		try
+		WRLD wrld = getWRLD(formId);
+		if (wrld != null)
 		{
-			PluginRecord record = esmManager.getWRLD(formId);
-
-			WRLD wrld = new WRLD(new Record(record, -1));
-
 			WRLDChildren children = esmManager.getWRLDChildren(formId);
 
 			PluginRecord cell = children.getCell();
@@ -91,17 +106,9 @@ public class J3dCellFactory implements J3dICellFactory
 			}
 
 		}
-		catch (DataFormatException e)
+		else
 		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch (PluginException e)
-		{
-			e.printStackTrace();
+			System.out.println("makeBGWRLDPersistent bad formId not wrld " + formId);
 		}
 		return null;
 	}
