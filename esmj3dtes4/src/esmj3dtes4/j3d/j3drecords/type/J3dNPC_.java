@@ -163,6 +163,7 @@ public class J3dNPC_ extends J3dRECOType
 				{
 					System.out.println("LVLI record type not converted to j3d " + baseRecord.getRecordType());
 				}
+
 			}
 			else
 			{
