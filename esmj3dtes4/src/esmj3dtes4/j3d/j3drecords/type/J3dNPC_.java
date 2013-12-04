@@ -50,25 +50,27 @@ public class J3dNPC_ extends J3dRECOType
 		Record rrec = master.getRecord(npc_.RNAM.formId);
 		RACE race = new RACE(rrec);
 		// to attach neutral head models
-		MODL[] modls = race.MODLs;
+		ArrayList<MODL> modls = race.MODLs;
 
 		// the defaults
 		if (female)
 		{
-			headStr = modls[0].model.str;//TODO: no female head
+			headStr = modls.get(0).model.str;//TODO: no female head
 			//All beast races are just humans with a different texture
 			upperStr = ESConfig.TES_MESH_PATH + "characters\\_male\\femaleupperbodynude.nif";
 			lowerStr = ESConfig.TES_MESH_PATH + "characters\\_male\\femalelowerbody.nif";
 			handStr = ESConfig.TES_MESH_PATH + "characters\\_male\\femalehand.nif";
 			footStr = ESConfig.TES_MESH_PATH + "characters\\_male\\femalefoot.nif";
+			helmetStr = ESConfig.TES_MESH_PATH + "characters\\hair\\style01.nif";
 		}
 		else
 		{
-			headStr = modls[0].model.str;
+			headStr = modls.get(0).model.str;
 			upperStr = ESConfig.TES_MESH_PATH + "characters\\_male\\upperbody.nif";
 			lowerStr = ESConfig.TES_MESH_PATH + "characters\\_male\\lowerbody.nif";
 			handStr = ESConfig.TES_MESH_PATH + "characters\\_male\\hand.nif";
 			footStr = ESConfig.TES_MESH_PATH + "characters\\_male\\foot.nif";
+			helmetStr = ESConfig.TES_MESH_PATH + "characters\\hair\\imperialheadband.nif";
 		}
 
 		CNTO[] cntos = npc_.CNTOs;

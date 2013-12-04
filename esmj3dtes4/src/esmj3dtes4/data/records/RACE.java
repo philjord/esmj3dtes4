@@ -2,6 +2,7 @@ package esmj3dtes4.data.records;
 
 import java.util.ArrayList;
 
+import tools.io.ESMByteConvert;
 import esmLoader.common.data.record.Record;
 import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
@@ -11,19 +12,15 @@ import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.MODB;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
-import esmj3dtes4.data.subrecords.ATTR;
-import esmj3dtes4.data.subrecords.CNAM_b;
 import esmj3dtes4.data.subrecords.DNAM;
 import esmj3dtes4.data.subrecords.FGGA;
 import esmj3dtes4.data.subrecords.FGGS;
 import esmj3dtes4.data.subrecords.FGTS;
-import esmj3dtes4.data.subrecords.HNAM_b;
 import esmj3dtes4.data.subrecords.INDX;
 import esmj3dtes4.data.subrecords.PNAM;
 import esmj3dtes4.data.subrecords.SNAM_c;
 import esmj3dtes4.data.subrecords.UNAM;
 import esmj3dtes4.data.subrecords.VNAM;
-import esmj3dtes4.data.subrecords.XNAM;
 
 public class RACE extends RECO
 {
@@ -33,7 +30,7 @@ public class RACE extends RECO
 
 	public DESC DESC = null;
 
-	public FormID[] SPLOs = null;
+	public ArrayList<FormID> SPLOs = new ArrayList<FormID>();
 
 	public XNAM XNAM = null;
 
@@ -41,20 +38,20 @@ public class RACE extends RECO
 
 	public DNAM DNAM = null;
 
-	public CNAM_b CNAM = null;
+	public CNAM CNAM = null;
 
 	public ATTR ATTR = null;
 
 	public boolean NAM0 = false;
 
 	// each index is an int idx and may be followed by a modl/modb/icon 
-	public INDX[] INDXs = null;
+	public ArrayList<INDX> INDXs = new ArrayList<INDX>();
 
-	public MODL[] MODLs = null;
+	public ArrayList<MODL> MODLs = new ArrayList<MODL>();
 
-	public MODB[] MODBs = null;
+	public ArrayList<MODB> MODBs = new ArrayList<MODB>();
 
-	public ZString[] ICONs = null;
+	public ArrayList<ZString> ICONs = new ArrayList<ZString>();
 
 	public boolean NAM1 = false;
 
@@ -62,7 +59,7 @@ public class RACE extends RECO
 
 	public boolean FNAM = false;
 
-	public HNAM_b HNAM = null;
+	public HNAM HNAM = null;
 
 	public FGGS FGGS = null;
 
@@ -84,12 +81,6 @@ public class RACE extends RECO
 	{
 		super(recordData);
 
-		ArrayList<FormID> SPLOsl = new ArrayList<FormID>();
-		ArrayList<INDX> INDXsl = new ArrayList<INDX>();
-		ArrayList<MODL> MODLsl = new ArrayList<MODL>();
-		ArrayList<MODB> MODBsl = new ArrayList<MODB>();
-		ArrayList<ZString> ICONsl = new ArrayList<ZString>();
-
 		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
@@ -110,7 +101,7 @@ public class RACE extends RECO
 			}
 			else if (sr.getSubrecordType().equals("SPLO"))
 			{
-				SPLOsl.add(new FormID(bs));
+				SPLOs.add(new FormID(bs));
 			}
 			else if (sr.getSubrecordType().equals("XNAM"))
 			{
@@ -126,7 +117,7 @@ public class RACE extends RECO
 			}
 			else if (sr.getSubrecordType().equals("CNAM"))
 			{
-				CNAM = new CNAM_b(bs);
+				CNAM = new CNAM(bs);
 			}
 			else if (sr.getSubrecordType().equals("ATTR"))
 			{
@@ -138,19 +129,19 @@ public class RACE extends RECO
 			}
 			else if (sr.getSubrecordType().equals("INDX"))
 			{
-				INDXsl.add(new INDX(bs));
+				INDXs.add(new INDX(bs));
 			}
 			else if (sr.getSubrecordType().equals("MODL"))
 			{
-				MODLsl.add(new MODL(bs));
+				MODLs.add(new MODL(bs));
 			}
 			else if (sr.getSubrecordType().equals("MODB"))
 			{
-				MODBsl.add(new MODB(bs));
+				MODBs.add(new MODB(bs));
 			}
 			else if (sr.getSubrecordType().equals("ICON"))
 			{
-				ICONsl.add(new ZString(bs));
+				ICONs.add(new ZString(bs));
 			}
 			else if (sr.getSubrecordType().equals("NAM1"))
 			{
@@ -166,7 +157,7 @@ public class RACE extends RECO
 			}
 			else if (sr.getSubrecordType().equals("HNAM"))
 			{
-				HNAM = new HNAM_b(bs);
+				HNAM = new HNAM(bs);
 			}
 			else if (sr.getSubrecordType().equals("ENAM"))
 			{
@@ -205,22 +196,6 @@ public class RACE extends RECO
 				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 
-			// transfer to arrays
-			SPLOs = new FormID[SPLOsl.size()];
-			SPLOsl.toArray(SPLOs);
-
-			INDXs = new INDX[INDXsl.size()];
-			INDXsl.toArray(INDXs);
-
-			MODLs = new MODL[MODLsl.size()];
-			MODLsl.toArray(MODLs);
-
-			MODBs = new MODB[MODBsl.size()];
-			MODBsl.toArray(MODBs);
-
-			ICONs = new ZString[ICONsl.size()];
-			ICONsl.toArray(ICONs);
-
 			//extract data data
 			if (DATA != null)
 			{
@@ -237,6 +212,46 @@ public class RACE extends RECO
 		private DATA(byte[] bytes)
 		{
 			data = bytes;
+		}
+	}
+
+	public class XNAM
+	{
+		public byte[] unknown;
+
+		public XNAM(byte[] bytes)
+		{
+			unknown = bytes;
+		}
+	}
+
+	public class CNAM
+	{
+		public byte unknown;
+
+		public CNAM(byte[] bytes)
+		{
+			unknown = ESMByteConvert.extractByte(bytes, 0);
+		}
+	}
+
+	public class ATTR
+	{
+		public byte[] unknown;
+
+		public ATTR(byte[] bytes)
+		{
+			unknown = bytes;
+		}
+	}
+
+	public class HNAM
+	{
+		public byte[] unknown;
+
+		public HNAM(byte[] bytes)
+		{
+			unknown = bytes;
 		}
 	}
 }
