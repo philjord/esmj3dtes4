@@ -6,7 +6,7 @@ import utils.source.TextureSource;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.records.RECO;
-import esmj3d.data.shared.subrecords.ZString;
+import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.j3drecords.inst.J3dRECODynInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
@@ -49,20 +49,36 @@ import esmj3dtes4.j3d.j3drecords.type.J3dTREE;
 public class J3dREFRFactory
 {
 
-	private static J3dRECODynInst makeJ3dRECOInstFader(REFR refr, RECO reco, ZString nifFileName, boolean makePhys, MeshSource meshSource,
+	private static J3dRECODynInst makeJ3dRECODynInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MeshSource meshSource,
 			TextureSource textureSource)
 	{
-		J3dRECODynInst j3dinst = new J3dRECODynInst(refr, true, makePhys);
-		j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, nifFileName.str, makePhys, meshSource, textureSource));
-		return j3dinst;
+		if (modl != null)
+		{
+			J3dRECODynInst j3dinst = new J3dRECODynInst(refr, true, makePhys);
+			j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, modl.model.str, makePhys, meshSource, textureSource));
+			return j3dinst;
+		}
+		else
+		{
+			System.out.println("null modl there " + reco);
+			return null;
+		}
 	}
 
-	private static J3dRECOStatInst makeJ3dRECOStatInst(REFR refr, RECO reco, ZString nifFileName, boolean makePhys, MeshSource meshSource,
+	private static J3dRECOStatInst makeJ3dRECOStatInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MeshSource meshSource,
 			TextureSource textureSource)
 	{
-		J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-		j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, nifFileName.str, makePhys, meshSource, textureSource));
-		return j3dinst;
+		if (modl != null)
+		{
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
+			j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, modl.model.str, makePhys, meshSource, textureSource));
+			return j3dinst;
+		}
+		else
+		{
+			System.out.println("null modl there " + reco);
+			return null;
+		}
 	}
 
 	public static J3dRECOInst makeJ3DRefer(REFR refr, boolean makePhys, boolean noFade, IRecordStore master, MeshSource meshSource,
@@ -83,7 +99,7 @@ public class J3dREFRFactory
 				}
 				else
 				{
-					return makeJ3dRECOStatInst(refr, stat, stat.MODL.model, makePhys, meshSource, textureSource);
+					return makeJ3dRECOStatInst(refr, stat, stat.MODL, makePhys, meshSource, textureSource);
 				}
 			}
 			else
@@ -94,17 +110,17 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("APPA"))
 		{
 			APPA appa = new APPA(baseRecord);
-			return makeJ3dRECOInstFader(refr, appa, appa.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, appa, appa.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("FURN"))
 		{
 			FURN furn = new FURN(baseRecord);
-			return makeJ3dRECOStatInst(refr, furn, furn.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECOStatInst(refr, furn, furn.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("MISC"))
 		{
 			MISC misc = new MISC(baseRecord);
-			return makeJ3dRECOInstFader(refr, misc, misc.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, misc, misc.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("CONT"))
 		{
@@ -113,57 +129,57 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("CLOT"))
 		{
 			CLOT clot = new CLOT(baseRecord);
-			return makeJ3dRECOInstFader(refr, clot, clot.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, clot, clot.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("FLOR"))
 		{
 			FLOR flor = new FLOR(baseRecord);
-			return makeJ3dRECOStatInst(refr, flor, flor.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECOStatInst(refr, flor, flor.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("BOOK"))
 		{
 			BOOK book = new BOOK(baseRecord);
-			return makeJ3dRECOInstFader(refr, book, book.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, book, book.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("ALCH"))
 		{
 			ALCH alch = new ALCH(baseRecord);
-			return makeJ3dRECOInstFader(refr, alch, alch.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, alch, alch.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("INGR"))
 		{
 			INGR ingr = new INGR(baseRecord);
-			return makeJ3dRECOInstFader(refr, ingr, ingr.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, ingr, ingr.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("ACTI"))
 		{
 			ACTI acti = new ACTI(baseRecord);
-			return makeJ3dRECOStatInst(refr, acti, acti.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECOStatInst(refr, acti, acti.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("WEAP"))
 		{
 			WEAP weap = new WEAP(baseRecord);
-			return makeJ3dRECOInstFader(refr, weap, weap.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, weap, weap.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("AMMO"))
 		{
 			AMMO ammo = new AMMO(baseRecord);
-			return makeJ3dRECOInstFader(refr, ammo, ammo.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, ammo, ammo.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("KEYM"))
 		{
 			KEYM keym = new KEYM(baseRecord);
-			return makeJ3dRECOInstFader(refr, keym, keym.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, keym, keym.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("SLGM"))
 		{
 			SLGM slgm = new SLGM(baseRecord);
-			return makeJ3dRECOInstFader(refr, slgm, slgm.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, slgm, slgm.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("ARMO"))
 		{
 			ARMO armo = new ARMO(baseRecord);
-			return makeJ3dRECOInstFader(refr, armo, armo.MODL.model, makePhys, meshSource, textureSource);
+			return makeJ3dRECODynInst(refr, armo, armo.MODL, makePhys, meshSource, textureSource);
 		}
 		else if (baseRecord.getRecordType().equals("DOOR"))
 		{
