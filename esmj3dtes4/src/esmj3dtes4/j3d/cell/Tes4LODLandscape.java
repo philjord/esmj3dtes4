@@ -24,14 +24,14 @@ import utils.source.TextureSource;
 
 import com.sun.j3d.utils.geometry.GeometryInfo;
 
-import esmj3d.j3d.cell.Beth32LODLandscape;
+import esmj3d.j3d.cell.MorphingLandscape;
 import esmj3d.j3d.j3drecords.inst.J3dLAND;
 
-public class Tes4LODLandscape extends Beth32LODLandscape
+public class Tes4LODLandscape extends MorphingLandscape
 {
 	public Tes4LODLandscape(int lodX, int lodY, int scale, int worldFormId, MeshSource meshSource, TextureSource textureSource)
 	{
-		super(lodX, lodY);
+		super(lodX, lodY, scale);
 
 		String xy = (lodX == 0 ? "00" : "" + lodX) + "." + (lodY == 0 ? "00" : "" + lodY);
 		String meshName = "landscape\\lod\\" + worldFormId + "." + xy + "." + scale + ".nif";

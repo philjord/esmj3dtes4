@@ -13,7 +13,7 @@ import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmLoader.loader.ESMManager;
 import esmLoader.loader.WRLDChildren;
-import esmj3d.j3d.cell.Beth32LODLandscape;
+import esmj3d.j3d.cell.MorphingLandscape;
 import esmj3d.j3d.cell.J3dICellFactory;
 import esmj3dtes4.data.records.WRLD;
 
@@ -40,7 +40,7 @@ public class J3dCellFactory implements J3dICellFactory
 	}
 
 	@Override
-	public Beth32LODLandscape makeLODLandscape(int lodX, int lodY, int scale, int worldFormId)
+	public MorphingLandscape makeLODLandscape(int lodX, int lodY, int scale, int worldFormId)
 	{
 		int formId = -1;
 		WRLD wrld = getWRLD(worldFormId);
