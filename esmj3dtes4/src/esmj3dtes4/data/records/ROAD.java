@@ -21,19 +21,19 @@ public class ROAD extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("PGRP"))
+			if (sr.getType().equals("PGRP"))
 			{
 				PGRP = bs; //????
 			}
-			else if (sr.getSubrecordType().equals("PGRR"))
+			else if (sr.getType().equals("PGRR"))
 			{
 				PGRR = bs; //????
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

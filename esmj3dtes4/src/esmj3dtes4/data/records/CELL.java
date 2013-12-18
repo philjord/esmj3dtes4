@@ -26,21 +26,21 @@ public class CELL extends CommonCELL
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("DATA"))
+			if (sr.getType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getSubrecordType().equals("XCMT"))
+			else if (sr.getType().equals("XCMT"))
 			{
 				musicType = bs[0];
 			}
-			else if (sr.getSubrecordType().equals("XRNK"))
+			else if (sr.getType().equals("XRNK"))
 			{
 				XRNK = ESMByteConvert.extractInt(bs, 0);
 			}
-			else if (sr.getSubrecordType().equals("XGLB"))
+			else if (sr.getType().equals("XGLB"))
 			{
 
 			}

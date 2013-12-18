@@ -19,159 +19,159 @@ public class PACK extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("PKDT"))
+			else if (sr.getType().equals("PKDT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PSDT"))
+			else if (sr.getType().equals("PSDT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PTDT"))
+			else if (sr.getType().equals("PTDT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CTDA"))
+			else if (sr.getType().equals("CTDA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CTDT"))
+			else if (sr.getType().equals("CTDT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PKDD"))
+			else if (sr.getType().equals("PKDD"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("POBA"))
+			else if (sr.getType().equals("POBA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("INAM"))
+			else if (sr.getType().equals("INAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCHR"))
+			else if (sr.getType().equals("SCHR"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("TNAM"))
+			else if (sr.getType().equals("TNAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("POEA"))
+			else if (sr.getType().equals("POEA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("POCA"))
+			else if (sr.getType().equals("POCA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PLDT"))
+			else if (sr.getType().equals("PLDT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCDA"))
+			else if (sr.getType().equals("SCDA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCTX"))
+			else if (sr.getType().equals("SCTX"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PKPT"))
+			else if (sr.getType().equals("PKPT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PLD2"))
+			else if (sr.getType().equals("PLD2"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCRO"))
+			else if (sr.getType().equals("SCRO"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PKW3"))
+			else if (sr.getType().equals("PKW3"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PTD2"))
+			else if (sr.getType().equals("PTD2"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PKFD"))
+			else if (sr.getType().equals("PKFD"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PKAM"))
+			else if (sr.getType().equals("PKAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PUID"))
+			else if (sr.getType().equals("PUID"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("CNAM"))
+			else if (sr.getType().equals("CNAM"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("IDLF"))
+			else if (sr.getType().equals("IDLF"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("IDLC"))
+			else if (sr.getType().equals("IDLC"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("IDLT"))
+			else if (sr.getType().equals("IDLT"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("IDLA"))
+			else if (sr.getType().equals("IDLA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("IDLB"))
+			else if (sr.getType().equals("IDLB"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PKED"))
+			else if (sr.getType().equals("PKED"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("PKE2"))
+			else if (sr.getType().equals("PKE2"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SLSD"))
+			else if (sr.getType().equals("SLSD"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCVR"))
+			else if (sr.getType().equals("SCVR"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCRV"))
+			else if (sr.getType().equals("SCRV"))
 			{
 
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}

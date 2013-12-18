@@ -19,44 +19,44 @@ public class SCPT extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("SCRV"))
+			else if (sr.getType().equals("SCRV"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCVR"))
+			else if (sr.getType().equals("SCVR"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCTX"))
+			else if (sr.getType().equals("SCTX"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SLSD"))
+			else if (sr.getType().equals("SLSD"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCDA"))
+			else if (sr.getType().equals("SCDA"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCRO"))
+			else if (sr.getType().equals("SCRO"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("SCHR"))
+			else if (sr.getType().equals("SCHR"))
 			{
 
 			}
 
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}

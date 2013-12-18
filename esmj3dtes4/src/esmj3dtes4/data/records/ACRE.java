@@ -37,47 +37,47 @@ public class ACRE extends InstRECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("NAME"))
+			else if (sr.getType().equals("NAME"))
 			{
 				NAME = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XESP"))
+			else if (sr.getType().equals("XESP"))
 			{
 				XESP = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XOWN"))
+			else if (sr.getType().equals("XOWN"))
 			{
 				XOWN = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XGLB"))
+			else if (sr.getType().equals("XGLB"))
 			{
 				XGLB = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("XRNK"))
+			else if (sr.getType().equals("XRNK"))
 			{
 				XRNK = new XRNK(bs);
 			}
-			else if (sr.getSubrecordType().equals("XSCL"))
+			else if (sr.getType().equals("XSCL"))
 			{
 				scale = ESMByteConvert.extractFloat(bs, 0);
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 				this.extractInstData(bs);
 			}
-			else if (sr.getSubrecordType().equals("XRGD"))
+			else if (sr.getType().equals("XRGD"))
 			{
 				XRGD = new XRGD(bs);
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}

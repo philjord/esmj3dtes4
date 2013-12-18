@@ -18,67 +18,67 @@ public class REGN extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("ICON"))
+			else if (sr.getType().equals("ICON"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("RDGS"))
+			else if (sr.getType().equals("RDGS"))
 			{
 
 			}
-			else if (sr.getSubrecordType().equals("RCLR"))
+			else if (sr.getType().equals("RCLR"))
 			{
 				//RCLR = new RCLR(bs);
 			}
-			else if (sr.getSubrecordType().equals("WNAM"))
+			else if (sr.getType().equals("WNAM"))
 			{
 				//WNAM = new WNAM(bs);
 			}
-			else if (sr.getSubrecordType().equals("RPLI"))
+			else if (sr.getType().equals("RPLI"))
 			{
 				//RPLI = new RPLI(bs);
 			}
-			else if (sr.getSubrecordType().equals("RPLD"))
+			else if (sr.getType().equals("RPLD"))
 			{
 				//RPLD = new RPLD(bs);
 			}
-			else if (sr.getSubrecordType().equals("RDAT"))
+			else if (sr.getType().equals("RDAT"))
 			{
 				//RDAT = new RDAT(bs);
 			}
-			else if (sr.getSubrecordType().equals("RDWT"))
+			else if (sr.getType().equals("RDWT"))
 			{
 				//RDWT = new RDWT(bs);
 			}
-			else if (sr.getSubrecordType().equals("RDAT"))
+			else if (sr.getType().equals("RDAT"))
 			{
 				//RDAT = new RDAT(bs);
 			}
-			else if (sr.getSubrecordType().equals("RDOT"))
+			else if (sr.getType().equals("RDOT"))
 			{
 				//RDOT = new RDOT(bs);
 			}
-			else if (sr.getSubrecordType().equals("RDMD"))
+			else if (sr.getType().equals("RDMD"))
 			{
 				//RDMD = new RDMD(bs);
 			}
-			else if (sr.getSubrecordType().equals("RDMP"))
+			else if (sr.getType().equals("RDMP"))
 			{
 				//RDMP = new RDMP(bs);
 			}
-			else if (sr.getSubrecordType().equals("RDSD"))
+			else if (sr.getType().equals("RDSD"))
 			{
 				//RDSD = new RDSD(bs);
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

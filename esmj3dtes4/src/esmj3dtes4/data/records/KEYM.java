@@ -34,43 +34,43 @@ public class KEYM extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("FULL"))
+			else if (sr.getType().equals("FULL"))
 			{
 				FULL = new LString(bs);
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getSubrecordType().equals("SCRI"))
+			else if (sr.getType().equals("SCRI"))
 			{
 				SCRI = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODL"))
+			else if (sr.getType().equals("MODL"))
 			{
 				MODL = new MODL(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODB"))
+			else if (sr.getType().equals("MODB"))
 			{
 				MODL.addMODBSub(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODT"))
+			else if (sr.getType().equals("MODT"))
 			{
 				MODL.addMODTSub(bs);
 			}
-			else if (sr.getSubrecordType().equals("ICON"))
+			else if (sr.getType().equals("ICON"))
 			{
 				ICON = new ZString(bs);
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

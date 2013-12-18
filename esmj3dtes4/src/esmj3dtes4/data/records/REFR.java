@@ -23,14 +23,14 @@ public class REFR extends CommonREFR
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("XSED"))
+			if (sr.getType().equals("XSED"))
 			{
 				XSED = new XSED(bs);
 			}
 
-			else if (sr.getSubrecordType().equals("XPCI"))
+			else if (sr.getType().equals("XPCI"))
 			{
 				XPCI = new XPCI(bs);
 			}

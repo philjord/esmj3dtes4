@@ -22,29 +22,29 @@ public class WRLD extends CommonWRLD
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("SNAM"))
+			if (sr.getType().equals("SNAM"))
 			{
 				SNAM = new SNAM_d(bs);
 			}
-			else if (sr.getSubrecordType().equals("ICON"))
+			else if (sr.getType().equals("ICON"))
 			{
 				ICON = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("NAM0"))
+			else if (sr.getType().equals("NAM0"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("NAM9"))
+			else if (sr.getType().equals("NAM9"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("OFST"))
+			else if (sr.getType().equals("OFST"))
 			{
 				//
 			}
-			else if (sr.getSubrecordType().equals("MNAM"))
+			else if (sr.getType().equals("MNAM"))
 			{
 				//
 			}

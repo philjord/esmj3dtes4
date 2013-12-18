@@ -27,21 +27,21 @@ public class CONT extends GenericCONT
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			  if (sr.getSubrecordType().equals("FULL"))
+			  if (sr.getType().equals("FULL"))
 			{
 				FULL = new LString(bs);
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getSubrecordType().equals("SCRI"))
+			else if (sr.getType().equals("SCRI"))
 			{
 				SCRI = new FormID(bs);
 			}			 
-			else if (sr.getSubrecordType().equals("MNAM"))
+			else if (sr.getType().equals("MNAM"))
 			{
 				MNAM = bs;
 			}			 

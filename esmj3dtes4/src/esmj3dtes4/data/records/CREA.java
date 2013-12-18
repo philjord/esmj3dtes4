@@ -117,123 +117,123 @@ public class CREA extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("FULL"))
+			else if (sr.getType().equals("FULL"))
 			{
 				FULL = new LString(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODL"))
+			else if (sr.getType().equals("MODL"))
 			{
 				MODL = new MODL(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODB"))
+			else if (sr.getType().equals("MODB"))
 			{
 				MODL.addMODBSub(bs);
 			}
-			else if (sr.getSubrecordType().equals("MODT"))
+			else if (sr.getType().equals("MODT"))
 			{
 				MODL.addMODTSub(bs);
 			}
-			else if (sr.getSubrecordType().equals("NIFZ"))
+			else if (sr.getType().equals("NIFZ"))
 			{
 				NIFZ = new NIFZ(bs);
 			}
-			else if (sr.getSubrecordType().equals("NIFT"))
+			else if (sr.getType().equals("NIFT"))
 			{
 				NIFT = new NIFT(bs);
 			}
-			else if (sr.getSubrecordType().equals("ACBS"))
+			else if (sr.getType().equals("ACBS"))
 			{
 				ACBS = new ACBS(bs);
 			}
-			else if (sr.getSubrecordType().equals("SNAM"))
+			else if (sr.getType().equals("SNAM"))
 			{
 				SNAMsl.add(new SNAM(bs));
 			}
-			else if (sr.getSubrecordType().equals("INAM"))
+			else if (sr.getType().equals("INAM"))
 			{
 				INAM = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("RNAM"))
+			else if (sr.getType().equals("RNAM"))
 			{
 				RNAM = new RNAM(bs);
 			}
-			else if (sr.getSubrecordType().equals("SPLO"))
+			else if (sr.getType().equals("SPLO"))
 			{
 				SPLOsl.add(new FormID(bs));
 			}
-			else if (sr.getSubrecordType().equals("SCRI"))
+			else if (sr.getType().equals("SCRI"))
 			{
 				SCRI = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("CNTO"))
+			else if (sr.getType().equals("CNTO"))
 			{
 				CNTOsl.add(new CNTO(bs));
 			}
-			else if (sr.getSubrecordType().equals("AIDT"))
+			else if (sr.getType().equals("AIDT"))
 			{
 				AIDT = new AIDT(bs);
 			}
-			else if (sr.getSubrecordType().equals("PKID"))
+			else if (sr.getType().equals("PKID"))
 			{
 				PKIDsl.add(new FormID(bs));
 			}
-			else if (sr.getSubrecordType().equals("DATA"))
+			else if (sr.getType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getSubrecordType().equals("ZNAM"))
+			else if (sr.getType().equals("ZNAM"))
 			{
 				ZNAM = new FormID(bs);
 			}
-			else if (sr.getSubrecordType().equals("CSCR"))
+			else if (sr.getType().equals("CSCR"))
 			{
 				CSCR = new CSCR(bs);
 			}
-			else if (sr.getSubrecordType().equals("CSDT"))
+			else if (sr.getType().equals("CSDT"))
 			{
 				CSDT csdt = new CSDT(bs);
 				i++;
 				Subrecord sr2 = subrecords.get(i);
-				csdt.csdi = new FormID(sr2.getSubrecordData());
+				csdt.csdi = new FormID(sr2.getData());
 				i++;
 				Subrecord sr3 = subrecords.get(i);
-				csdt.csdc = new CSDC(sr3.getSubrecordData());
+				csdt.csdc = new CSDC(sr3.getData());
 				CSDTsl.add(csdt);
 			}
-			else if (sr.getSubrecordType().equals("BNAM"))
+			else if (sr.getType().equals("BNAM"))
 			{
 				BNAM = new BNAM(bs);
 			}
-			else if (sr.getSubrecordType().equals("TNAM"))
+			else if (sr.getType().equals("TNAM"))
 			{
 				TNAM = new TNAM_b(bs);
 			}
-			else if (sr.getSubrecordType().equals("WNAM"))
+			else if (sr.getType().equals("WNAM"))
 			{
 				WNAM = new WNAM(bs);
 			}
-			else if (sr.getSubrecordType().equals("NAM0"))
+			else if (sr.getType().equals("NAM0"))
 			{
 				NAM0 = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("NAM1"))
+			else if (sr.getType().equals("NAM1"))
 			{
 				NAM1 = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("KFFZ"))
+			else if (sr.getType().equals("KFFZ"))
 			{
 				KFFZ = new KFFZ(bs);
 			}
 
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 			// transfer to arrays

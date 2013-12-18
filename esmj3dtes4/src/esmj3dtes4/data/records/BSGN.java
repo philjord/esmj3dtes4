@@ -22,31 +22,31 @@ public class BSGN extends RECO
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getSubrecordData();
+			byte[] bs = sr.getData();
 
-			if (sr.getSubrecordType().equals("EDID"))
+			if (sr.getType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("FULL"))
+			else if (sr.getType().equals("FULL"))
 			{
 				FULL = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("ICON"))
+			else if (sr.getType().equals("ICON"))
 			{
 				ICON = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("DESC"))
+			else if (sr.getType().equals("DESC"))
 			{
 				DESC = new ZString(bs);
 			}
-			else if (sr.getSubrecordType().equals("SPLO"))
+			else if (sr.getType().equals("SPLO"))
 			{
 
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
 			}
 
 		}
