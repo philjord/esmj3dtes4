@@ -1,11 +1,9 @@
 package esmj3dtes4.j3d.cell;
 
-import javax.media.j3d.Appearance;
 import javax.media.j3d.BranchGroup;
 import javax.media.j3d.GeometryArray;
 import javax.media.j3d.IndexedGeometryArray;
 import javax.media.j3d.Shape3D;
-import javax.media.j3d.Texture;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color4f;
@@ -25,7 +23,6 @@ import utils.source.TextureSource;
 import com.sun.j3d.utils.geometry.GeometryInfo;
 
 import esmj3d.j3d.cell.MorphingLandscape;
-import esmj3d.j3d.j3drecords.inst.J3dLAND;
 
 public class Tes4LODLandscape extends MorphingLandscape
 {
@@ -51,13 +48,8 @@ public class Tes4LODLandscape extends MorphingLandscape
 
 				Shape3D shape = new Shape3D();
 				shape.setGeometry(baseItsa);
-				Appearance app = new Appearance();
-				app.setMaterial(J3dLAND.getLandMaterial());
-
-				Texture tex = textureSource.getTexture(textureName);
-				app.setTexture(tex);
-				shape.setAppearance(app);
-
+				shape.setAppearance(createAppearance(textureSource.getTexture(textureName)));
+ 
 				TransformGroup tg = new TransformGroup();
 				NiTriStrips n = (NiTriStrips) blocks.root();
 				Transform3D t = new Transform3D(ConvertFromNif.toJ3d(n.rotation), ConvertFromNif.toJ3d(n.translation), n.scale);

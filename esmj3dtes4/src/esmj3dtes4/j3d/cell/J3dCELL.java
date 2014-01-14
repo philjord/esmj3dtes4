@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.media.j3d.Node;
 
-import utils.ESConfig;
 import utils.source.MeshSource;
 import utils.source.SoundSource;
 import utils.source.TextureSource;
@@ -37,7 +36,7 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		super(master, children, makePhys, meshSource, textureSource, soundSource);
 		cell = new CELL(cellRecord);
 		setCell(cell);
-		makeWater(cell.XCLW * ESConfig.ES_TO_METERS_SCALE, "textures\\water\\dungeonwater01.dds");
+		
 		BethRenderSettings.addUpdateListener(this);
 	}
 

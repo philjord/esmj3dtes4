@@ -3,6 +3,7 @@ package esmj3dtes4.j3d.cell;
 import java.util.Iterator;
 import java.util.List;
 
+import utils.ESConfig;
 import utils.source.MeshSource;
 import utils.source.SoundSource;
 import utils.source.TextureSource;
@@ -18,6 +19,7 @@ public class J3dCELLTemporary extends J3dCELL
 	{
 		super(master, cellRecord, children, makePhys, meshSource, textureSource, soundSource);
 		indexRecords();
+		makeWater(cell.XCLW * ESConfig.ES_TO_METERS_SCALE, "textures\\landscape\\landscapewater.dds");
 	}
 
 	private void indexRecords()

@@ -12,7 +12,7 @@ import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 
 public class J3dCELLDistant extends J3dCELL
 {	
-	//Notice this distnt has it's own children list(defined by DISTANT type children)
+	//Notice this distant has it's own children list(defined by DISTANT type children)
 	public J3dCELLDistant(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MeshSource meshSource,
 			TextureSource textureSource, SoundSource soundSource)
 	{
