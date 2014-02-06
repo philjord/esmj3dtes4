@@ -26,13 +26,13 @@ import esmj3d.j3d.cell.MorphingLandscape;
 
 public class Tes4LODLandscape extends MorphingLandscape
 {
-	public Tes4LODLandscape(int lodX, int lodY, int scale, int worldFormId, MeshSource meshSource, TextureSource textureSource)
+	public Tes4LODLandscape(int lodX, int lodY, int scale, String lodWorldFormId, MeshSource meshSource, TextureSource textureSource)
 	{
 		super(lodX, lodY, scale);
 
 		String xy = (lodX == 0 ? "00" : "" + lodX) + "." + (lodY == 0 ? "00" : "" + lodY);
-		String meshName = "landscape\\lod\\" + worldFormId + "." + xy + "." + scale + ".nif";
-		String textureName = "landscapelod\\generated\\" + worldFormId + "." + xy + "." + scale + ".dds";
+		String meshName = "landscape\\lod\\" + lodWorldFormId + "." + xy + "." + scale + ".nif";
+		String textureName = "landscapelod\\generated\\" + lodWorldFormId + "." + xy + "." + scale + ".dds";
 
 		setCapability(BranchGroup.ALLOW_DETACH);
 		if (meshSource.nifFileExists(meshName))
@@ -49,7 +49,7 @@ public class Tes4LODLandscape extends MorphingLandscape
 				Shape3D shape = new Shape3D();
 				shape.setGeometry(baseItsa);
 				shape.setAppearance(createAppearance(textureSource.getTexture(textureName)));
- 
+
 				TransformGroup tg = new TransformGroup();
 				NiTriStrips n = (NiTriStrips) blocks.root();
 				Transform3D t = new Transform3D(ConvertFromNif.toJ3d(n.rotation), ConvertFromNif.toJ3d(n.translation), n.scale);

@@ -40,7 +40,7 @@ public class J3dCellFactory implements J3dICellFactory
 	}
 
 	@Override
-	public MorphingLandscape makeLODLandscape(int lodX, int lodY, int scale, int worldFormId)
+	public String getLODWorldName(int worldFormId)
 	{
 		int formId = -1;
 		WRLD wrld = getWRLD(worldFormId);
@@ -53,7 +53,13 @@ public class J3dCellFactory implements J3dICellFactory
 		{
 			formId = worldFormId;
 		}
-		return new Tes4LODLandscape(lodX, lodY, scale, formId, meshSource, textureSource);
+		return "" + formId;
+	}
+
+	@Override
+	public MorphingLandscape makeLODLandscape(int lodX, int lodY, int scale, String lodWorldFormId)
+	{
+		return new Tes4LODLandscape(lodX, lodY, scale, lodWorldFormId, meshSource, textureSource);
 	}
 
 	private WRLD getWRLD(int formId)
