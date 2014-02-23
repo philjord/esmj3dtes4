@@ -36,7 +36,7 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		super(master, children, makePhys, meshSource, textureSource, soundSource);
 		cell = new CELL(cellRecord);
 		setCell(cell);
-		
+
 		BethRenderSettings.addUpdateListener(this);
 	}
 
@@ -109,7 +109,8 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 		catch (NullPointerException e)
 		{
-			System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType());
+			System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType() + " in "
+					+ e.getStackTrace()[0]);
 			if (record.getRecordType().equals("REFR"))
 			{
 				REFR refr = new REFR(record);
@@ -124,5 +125,4 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 		return ret;
 	}
-
 }
