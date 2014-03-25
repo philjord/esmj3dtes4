@@ -3,9 +3,7 @@ package esmj3dtes4.j3d.cell;
 import java.io.IOException;
 import java.util.zip.DataFormatException;
 
-import utils.source.MeshSource;
-import utils.source.SoundSource;
-import utils.source.TextureSource;
+import utils.source.MediaSources;
 import esmLoader.common.PluginException;
 import esmLoader.common.data.plugin.PluginGroup;
 import esmLoader.common.data.plugin.PluginRecord;
@@ -13,8 +11,8 @@ import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmLoader.loader.ESMManager;
 import esmLoader.loader.WRLDChildren;
-import esmj3d.j3d.cell.MorphingLandscape;
 import esmj3d.j3d.cell.J3dICellFactory;
+import esmj3d.j3d.cell.MorphingLandscape;
 import esmj3dtes4.data.records.WRLD;
 
 public class J3dCellFactory implements J3dICellFactory
@@ -23,20 +21,13 @@ public class J3dCellFactory implements J3dICellFactory
 
 	private IRecordStore recordStore;
 
-	private MeshSource meshSource;
+	private MediaSources mediaSources;
 
-	private TextureSource textureSource;
-
-	private SoundSource soundSource;
-
-	public J3dCellFactory(ESMManager esmManager, IRecordStore recordStore, MeshSource meshSource, TextureSource textureSource,
-			SoundSource soundSource)
+	public J3dCellFactory(ESMManager esmManager, IRecordStore recordStore, MediaSources mediaSources)
 	{
 		this.esmManager = esmManager;
 		this.recordStore = recordStore;
-		this.meshSource = meshSource;
-		this.textureSource = textureSource;
-		this.soundSource = soundSource;
+		this.mediaSources = mediaSources;
 	}
 
 	@Override
@@ -59,7 +50,7 @@ public class J3dCellFactory implements J3dICellFactory
 	@Override
 	public MorphingLandscape makeLODLandscape(int lodX, int lodY, int scale, String lodWorldFormId)
 	{
-		return new Tes4LODLandscape(lodX, lodY, scale, lodWorldFormId, meshSource, textureSource);
+		return new Tes4LODLandscape(lodX, lodY, scale, lodWorldFormId, mediaSources.getMeshSource(), mediaSources.getTextureSource());
 	}
 
 	private WRLD getWRLD(int formId)
@@ -107,7 +98,7 @@ public class J3dCellFactory implements J3dICellFactory
 				if (cellChildren != null)
 				{
 					return new J3dCELLPersistent(wrld, recordStore, new Record(cell, -1), ESMManager.getChildren(cellChildren,
-							PluginGroup.CELL_PERSISTENT), makePhys, meshSource, textureSource, soundSource);
+							PluginGroup.CELL_PERSISTENT), makePhys, mediaSources);
 				}
 			}
 
@@ -144,7 +135,7 @@ public class J3dCellFactory implements J3dICellFactory
 				if (cellChildren != null)
 				{
 					return new J3dCELLTemporary(recordStore, new Record(record, -1), ESMManager.getChildren(cellChildren,
-							PluginGroup.CELL_TEMPORARY), makePhys, meshSource, textureSource, soundSource);
+							PluginGroup.CELL_TEMPORARY), makePhys, mediaSources);
 				}
 			}
 
@@ -187,7 +178,7 @@ public class J3dCellFactory implements J3dICellFactory
 				if (cellChildren != null)
 				{
 					return new J3dCELLDistant(recordStore, new Record(record, -1), ESMManager.getChildren(cellChildren,
-							PluginGroup.CELL_DISTANT), makePhys, meshSource, textureSource, soundSource);
+							PluginGroup.CELL_DISTANT), makePhys, mediaSources);
 				}
 			}
 		}
@@ -218,7 +209,7 @@ public class J3dCellFactory implements J3dICellFactory
 				PluginGroup cellChildren = esmManager.getInteriorCELLChildren(cellId);
 
 				return new J3dCELLPersistent(null, recordStore, new Record(record, -1), ESMManager.getChildren(cellChildren,
-						PluginGroup.CELL_PERSISTENT), makePhys, meshSource, textureSource, soundSource);
+						PluginGroup.CELL_PERSISTENT), makePhys, mediaSources);
 			}
 		}
 		catch (PluginException e1)
@@ -249,7 +240,7 @@ public class J3dCellFactory implements J3dICellFactory
 				PluginGroup cellChildren = esmManager.getInteriorCELLChildren(cellId);
 
 				return new J3dCELLTemporary(recordStore, new Record(record, -1), ESMManager.getChildren(cellChildren,
-						PluginGroup.CELL_TEMPORARY), makePhys, meshSource, textureSource, soundSource);
+						PluginGroup.CELL_TEMPORARY), makePhys, mediaSources);
 			}
 		}
 		catch (PluginException e1)
@@ -280,7 +271,7 @@ public class J3dCellFactory implements J3dICellFactory
 				PluginGroup cellChildren = esmManager.getInteriorCELLChildren(cellId);
 
 				return new J3dCELLDistant(recordStore, new Record(record, -1), ESMManager.getChildren(cellChildren,
-						PluginGroup.CELL_DISTANT), makePhys, meshSource, textureSource, soundSource);
+						PluginGroup.CELL_DISTANT), makePhys, mediaSources);
 			}
 		}
 		catch (PluginException e1)

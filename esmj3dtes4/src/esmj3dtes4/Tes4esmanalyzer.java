@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.zip.DataFormatException;
 
 import utils.source.EsmSoundKeyToName;
+import utils.source.MediaSources;
 import utils.source.MeshSource;
 import utils.source.SoundSource;
 import utils.source.TextureSource;
@@ -89,7 +90,9 @@ public class Tes4esmanalyzer extends EsmFormatAnalyzer
 				ts = new FileTextureSource();
 				ms = new FileMeshSource();
 			}
-			j3dCellFactory = new J3dCellFactory(esmManager, esmManager, ms, ts, ss);
+
+			MediaSources mediaSources = new MediaSources(ms, ts, ss);
+			j3dCellFactory = new J3dCellFactory(esmManager, esmManager, mediaSources);
 			analyze(esmManager);
 			System.out.println("done analyzing");
 

@@ -3,9 +3,7 @@ package esmj3dtes4.j3d.cell;
 import java.util.Iterator;
 import java.util.List;
 
-import utils.source.MeshSource;
-import utils.source.SoundSource;
-import utils.source.TextureSource;
+import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.records.CommonWRLD;
@@ -34,9 +32,9 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	 */
 
 	public J3dCELLPersistent(CommonWRLD wrld, IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys,
-			MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
+			MediaSources mediaSources)
 	{
-		super(master, cellRecord, children, makePhys, meshSource, textureSource, soundSource);
+		super(master, cellRecord, children, makePhys, mediaSources);
 		this.wrld = wrld;
 		addChild(gridSpaces);
 		indexRecords();

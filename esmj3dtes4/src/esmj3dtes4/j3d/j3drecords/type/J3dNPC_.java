@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import nif.character.NifCharacter;
 import utils.ESConfig;
-import utils.source.MeshSource;
-import utils.source.SoundSource;
-import utils.source.TextureSource;
+import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
@@ -42,7 +40,7 @@ public class J3dNPC_ extends J3dRECOType
 
 	private NifCharacter nifCharacter;
 
-	public J3dNPC_(NPC_ npc_, IRecordStore master, MeshSource meshSource, TextureSource textureSource, SoundSource soundSource)
+	public J3dNPC_(NPC_ npc_, IRecordStore master, MediaSources mediaSources)
 	{
 		super(npc_, null);
 		female = npc_.ACBS.isFemale();
@@ -190,7 +188,7 @@ public class J3dNPC_ extends J3dRECOType
 		idleAnimations.add(ESConfig.TES_MESH_PATH + "characters\\_male\\idleanims\\idleguard.kf");
 		idleAnimations.add(ESConfig.TES_MESH_PATH + "characters\\_male\\idleanims\\sedance.kf");
 
-		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, meshSource, textureSource, soundSource, idleAnimations);
+		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
 		addChild(nifCharacter);
 	}
 
