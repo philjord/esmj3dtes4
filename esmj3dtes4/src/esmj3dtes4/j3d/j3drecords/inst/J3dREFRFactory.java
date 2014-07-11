@@ -178,6 +178,10 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("DOOR"))
 		{
+			if (refr.XTEL != null && !makePhys)
+			{
+				System.out.println("DOOR at " + refr.getTrans());
+			}
 			return new J3dRECOStatInst(refr, new J3dDOOR(new DOOR(baseRecord), makePhys, mediaSources), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("LIGH"))
