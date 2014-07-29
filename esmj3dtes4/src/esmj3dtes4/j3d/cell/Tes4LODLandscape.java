@@ -6,14 +6,11 @@ import javax.media.j3d.IndexedGeometryArray;
 import javax.media.j3d.Shape3D;
 import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
-import javax.vecmath.Color4f;
-import javax.vecmath.Point3f;
-import javax.vecmath.TexCoord2f;
-import javax.vecmath.Vector3f;
 
 import nif.NiObjectList;
 import nif.NifFile;
 import nif.NifToJ3d;
+import nif.j3d.J3dNiTriBasedGeom;
 import nif.niobject.NiTriStrips;
 import nif.niobject.NiTriStripsData;
 import utils.convert.ConvertFromNif;
@@ -77,60 +74,7 @@ public class Tes4LODLandscape extends MorphingLandscape
 	{
 		GeometryInfo gi = new GeometryInfo(GeometryInfo.TRIANGLE_STRIP_ARRAY);
 
-		if (data.hasVertices)
-		{
-			Point3f[] vertices = new Point3f[data.numVertices];
-			for (int i = 0; i < data.numVertices; i++)
-			{
-				vertices[i] = ConvertFromNif.toJ3dP3f(data.vertices[i]);
-			}
-			gi.setCoordinates(vertices);
-
-		}
-
-		if (data.hasNormals)
-		{
-			Vector3f[] normals = new Vector3f[data.numVertices];
-			for (int i = 0; i < data.numVertices; i++)
-			{
-				normals[i] = ConvertFromNif.toJ3dNoScale(data.normals[i]);
-			}
-			gi.setNormals(normals);
-
-		}
-
-		Color4f[] colors = new Color4f[data.numVertices];
-		for (int i = 0; i < data.numVertices; i++)
-		{
-			if (data.hasVertexColors)
-			{
-				colors[i] = ConvertFromNif.toJ3d(data.vertexColors[i]);
-			}
-			else
-			{
-				colors[i] = new Color4f(1, 1, 1, 1);
-			}
-		}
-		gi.setColors(colors);
-
-		// process UVsets hasUV or UVset2?? Num UV Sets 2
-		int actNumUVSets = data.actNumUVSets;
-		if (actNumUVSets > 0)
-		{
-			gi.setTextureCoordinateParams(actNumUVSets, 2);
-
-			for (int i = 0; i < actNumUVSets; i++)
-			{
-				TexCoord2f[] texCoords = new TexCoord2f[data.uVSets[i].length];
-				for (int j = 0; j < data.uVSets[i].length; j++)
-				{
-					texCoords[j] = ConvertFromNif.toJ3d(data.uVSets[i][j]);
-				}
-				gi.setTextureCoordinates(i, texCoords);
-
-			}
-
-		}
+		J3dNiTriBasedGeom.loadGIBaseData(gi, data);
 
 		int numStrips = data.numStrips;
 		int[] stripLengths = data.stripLengths;
