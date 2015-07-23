@@ -7,6 +7,7 @@ import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.BethRenderSettings;
+import esmj3d.j3d.TreeMaker;
 import esmj3d.j3d.j3drecords.inst.J3dRECODynInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOStatInst;
@@ -43,7 +44,6 @@ import esmj3dtes4.j3d.j3drecords.type.J3dCREA;
 import esmj3dtes4.j3d.j3drecords.type.J3dLIGH;
 import esmj3dtes4.j3d.j3drecords.type.J3dNPC_;
 import esmj3dtes4.j3d.j3drecords.type.J3dSOUN;
-import esmj3dtes4.j3d.j3drecords.type.J3dTREE;
 
 public class J3dREFRFactory
 {
@@ -190,11 +190,11 @@ public class J3dREFRFactory
 			return new J3dRECOStatInst(refr, new J3dLIGH(new LIGH(baseRecord), makePhys, mediaSources), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
-		{
-			if (!makePhys)
-			{
-				return new J3dRECOStatInst(refr, new J3dTREE(new TREE(baseRecord), mediaSources.getTextureSource()), false, makePhys);
-			}
+		{			
+			TREE tree = new TREE(baseRecord);			
+			String treeNif = tree.MODL.model.str;
+			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight);
+			return j3dinst;
 		}
 		else if (baseRecord.getRecordType().equals("SOUN"))
 		{
