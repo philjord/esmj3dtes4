@@ -19,10 +19,13 @@ public class J3dCELLDistant extends J3dCELL
 
 	private void indexRecords()
 	{
+		if(makePhys == true)
+			System.out.println("Hahahaha distant physics!");
+			
 		for (Iterator<Record> i = children.iterator(); i.hasNext();)
 		{
-			Record record = i.next();
-			J3dRECOInst jri = makeJ3dRECO(record, true);
+			Record record = i.next();			
+			J3dRECOInst jri = makeJ3dRECOFar(record);
 			addJ3dRECOInst(jri);
 		}
 	}

@@ -1,6 +1,7 @@
 package esmj3dtes4.j3d.cell;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.zip.DataFormatException;
 
 import utils.source.MediaSources;
@@ -134,8 +135,10 @@ public class J3dCellFactory implements J3dICellFactory
 
 				if (cellChildren != null)
 				{
-					return new J3dCELLTemporary(recordStore, new Record(record, -1), ESMManager.getChildren(cellChildren,
-							PluginGroup.CELL_TEMPORARY), makePhys, mediaSources);
+					//note distants are also part of close up
+					List<Record> records = ESMManager.getChildren(cellChildren, PluginGroup.CELL_TEMPORARY);
+					records.addAll(ESMManager.getChildren(cellChildren, PluginGroup.CELL_DISTANT));
+					return new J3dCELLTemporary(recordStore, new Record(record, -1), records, makePhys, mediaSources);
 				}
 			}
 
@@ -177,8 +180,8 @@ public class J3dCellFactory implements J3dICellFactory
 				PluginGroup cellChildren = esmManager.getWRLDExtBlockCELLChildren(record.getFormID());
 				if (cellChildren != null)
 				{
-					return new J3dCELLDistant(recordStore, new Record(record, -1), ESMManager.getChildren(cellChildren,
-							PluginGroup.CELL_DISTANT), makePhys, mediaSources);
+					List<Record> records = ESMManager.getChildren(cellChildren, PluginGroup.CELL_DISTANT);
+					return new J3dCELLDistant(recordStore, new Record(record, -1), records, makePhys, mediaSources);
 				}
 			}
 		}

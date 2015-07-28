@@ -58,14 +58,47 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 	}
 
-	public J3dRECOInst makeJ3dRECO(Record record, boolean noFade)
+	public J3dRECOInst makeJ3dRECOFar(Record record)
 	{
 		J3dRECOInst ret = null;
 		try
 		{
 			if (record.getRecordType().equals("REFR"))
 			{
-				ret = J3dREFRFactory.makeJ3DRefer(new REFR(record), makePhys, noFade, master, mediaSources);
+				ret = J3dREFRFactory.makeJ3DReferFar(new REFR(record), master, mediaSources);
+			}
+			else
+			{
+				System.err.println("Far record not REFR " + record.getRecordType());
+			}
+		}
+		catch (NullPointerException e)
+		{
+			System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType() + " in "
+					+ e.getStackTrace()[0]);
+			if (record.getRecordType().equals("REFR"))
+			{
+				REFR refr = new REFR(record);
+				Record baseRecord = master.getRecord(refr.NAME.formId);
+				System.out.println("And it's a REFR with base of " + baseRecord.getRecordType());
+			}
+		}
+
+		if (ret != null)
+		{
+			j3dRECOs.put(ret.getRecordId(), ret);
+		}
+		return ret;
+	}
+
+	public J3dRECOInst makeJ3dRECO(Record record)
+	{
+		J3dRECOInst ret = null;
+		try
+		{
+			if (record.getRecordType().equals("REFR"))
+			{
+				ret = J3dREFRFactory.makeJ3DRefer(new REFR(record), makePhys, master, mediaSources);
 			}
 			else if (record.getRecordType().equals("ACRE"))
 			{

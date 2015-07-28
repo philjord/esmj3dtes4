@@ -78,7 +78,7 @@ public class J3dREFRFactory
 		}
 	}
 
-	public static J3dRECOInst makeJ3DRefer(REFR refr, boolean makePhys, boolean noFade, IRecordStore master, MediaSources mediaSources)
+	public static J3dRECOInst makeJ3DReferFar(REFR refr, IRecordStore master, MediaSources mediaSources)
 	{
 		Record baseRecord = master.getRecord(refr.NAME.formId);
 
@@ -87,15 +87,58 @@ public class J3dREFRFactory
 			STAT stat = new STAT(baseRecord);
 			if (!stat.isFlagSet(0x00800000) || BethRenderSettings.isShowEditorMarkers())
 			{
-				//distant stat no fade
-				if (noFade)
+				String farNif = stat.MODL.model.str.substring(0, stat.MODL.model.str.toLowerCase().indexOf(".nif")) + "_far.nif";
+				J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, false);
+				j3dinst.addNodeChild(new J3dRECOTypeGeneral(stat, farNif, false, mediaSources));
+				return j3dinst;
+			}
+			else
+			{
+				return null;
+			}
+		}
+		else if (baseRecord.getRecordType().equals("TREE"))
+		{
+			TREE tree = new TREE(baseRecord);
+			String treeNif = tree.MODL.model.str;
+			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, false, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight,
+					true);
+			return j3dinst;
+		}
+		else
+		{
+			System.out.println("Far REFR record type not converted to j3d " + baseRecord.getRecordType());
+		}
+
+		return null;
+	}
+
+	public static J3dRECOInst makeJ3DRefer(REFR refr, boolean makePhys, IRecordStore master, MediaSources mediaSources)
+	{
+		Record baseRecord = master.getRecord(refr.NAME.formId);
+
+		if (baseRecord.getRecordType().equals("STAT"))
+		{
+			STAT stat = new STAT(baseRecord);
+			if (!stat.isFlagSet(0x00800000) || BethRenderSettings.isShowEditorMarkers())
+			{
+				if (stat.MODL != null)
 				{
-					return new J3dRECOStatInst(refr, new J3dRECOTypeGeneral(stat, stat.MODL.model.str, makePhys, mediaSources), false,
-							makePhys);
-				}
-				else
-				{
-					return makeJ3dRECOStatInst(refr, stat, stat.MODL, makePhys, mediaSources);
+					String farNif = stat.MODL.model.str.substring(0, stat.MODL.model.str.toLowerCase().indexOf(".nif")) + "_far.nif";
+					if (mediaSources.getMeshSource().nifFileExists(farNif))
+					{
+						J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
+						j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(stat, stat.MODL.model.str, makePhys, mediaSources),
+								J3dRECOTypeGeneral.loadNif(farNif, false, mediaSources));
+						return j3dinst;
+
+					}
+					else
+					{
+						J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
+						j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(stat, stat.MODL.model.str, makePhys, mediaSources));
+						return j3dinst;
+					}
 				}
 			}
 			else
@@ -190,10 +233,11 @@ public class J3dREFRFactory
 			return new J3dRECOStatInst(refr, new J3dLIGH(new LIGH(baseRecord), makePhys, mediaSources), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
-		{			
-			TREE tree = new TREE(baseRecord);			
+		{
+			TREE tree = new TREE(baseRecord);
 			String treeNif = tree.MODL.model.str;
-			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight);
+			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight,
+					false);
 			return j3dinst;
 		}
 		else if (baseRecord.getRecordType().equals("SOUN"))
