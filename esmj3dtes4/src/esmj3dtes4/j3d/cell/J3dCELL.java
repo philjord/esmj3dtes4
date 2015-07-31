@@ -58,14 +58,14 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 	}
 
-	public J3dRECOInst makeJ3dRECOFar(Record record)
+	public Node makeJ3dRECOFar(Record record)
 	{
-		J3dRECOInst ret = null;
+		Node ret = null;
 		try
 		{
 			if (record.getRecordType().equals("REFR"))
 			{
-				ret = J3dREFRFactory.makeJ3DReferFar(new REFR(record), master, mediaSources);
+				ret =  J3dREFRFactory.makeJ3DReferFar(new REFR(record), master, mediaSources);
 			}
 			else
 			{
@@ -84,10 +84,6 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 			}
 		}
 
-		if (ret != null)
-		{
-			j3dRECOs.put(ret.getRecordId(), ret);
-		}
 		return ret;
 	}
 
