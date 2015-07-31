@@ -123,7 +123,7 @@ public class J3dREFRFactory
 				{
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
 					j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(stat, stat.MODL.model.str, makePhys, mediaSources),
-							J3dRECOTypeGeneral.loadNif(farNif, false, mediaSources));
+							J3dRECOTypeGeneral.loadNif(farNif, false, mediaSources).getRootNode());
 					return j3dinst;
 
 				}
