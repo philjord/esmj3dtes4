@@ -16,6 +16,7 @@ import utils.convert.ConvertFromNif;
 import utils.source.MeshSource;
 import utils.source.TextureSource;
 import esmj3d.j3d.cell.MorphingLandscape;
+import esmj3d.j3d.j3drecords.inst.J3dLAND;
 
 public class Tes4LODLandscape extends MorphingLandscape
 {
@@ -23,7 +24,7 @@ public class Tes4LODLandscape extends MorphingLandscape
 	{
 		super(lodX, lodY, scale);
 		String xy = (lodX == 0 ? "00" : "" + lodX) + "." + (lodY == 0 ? "00" : "" + lodY);
-		String meshName = "landscape\\lod\\" + lodWorldFormId + "." + xy + "." + scale + ".nif";		
+		String meshName = "landscape\\lod\\" + lodWorldFormId + "." + xy + "." + scale + ".nif";
 
 		setCapability(BranchGroup.ALLOW_DETACH);
 		if (meshSource.nifFileExists(meshName))
@@ -42,12 +43,12 @@ public class Tes4LODLandscape extends MorphingLandscape
 
 				if (morphable)
 				{
-					this.setGeometryArray(baseItsa);
+					this.addGeometryArray(baseItsa);
 				}
 
 				Shape3D shape = new Shape3D();
 				shape.setGeometry(baseItsa);
-				
+
 				//names are generated
 				String textureName = "landscapelod\\generated\\" + lodWorldFormId + "." + xy + "." + scale + ".dds";
 				shape.setAppearance(createAppearance(textureSource.getTexture(textureName)));
@@ -57,6 +58,9 @@ public class Tes4LODLandscape extends MorphingLandscape
 				Transform3D t = new Transform3D(ConvertFromNif.toJ3d(root.rotation), ConvertFromNif.toJ3d(root.translation), root.scale);
 				tg.setTransform(t);
 				tg.addChild(shape);
+
+				tg.addChild(createBasicWater(scale * J3dLAND.LAND_SIZE, scale * J3dLAND.LAND_SIZE));
+
 				addChild(tg);
 			}
 			else
