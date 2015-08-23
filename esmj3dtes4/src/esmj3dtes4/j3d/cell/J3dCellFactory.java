@@ -6,6 +6,7 @@ import java.util.zip.DataFormatException;
 
 import utils.source.MediaSources;
 import esmLoader.common.PluginException;
+import esmLoader.common.data.plugin.IMaster;
 import esmLoader.common.data.plugin.PluginGroup;
 import esmLoader.common.data.plugin.PluginRecord;
 import esmLoader.common.data.record.IRecordStore;
@@ -18,15 +19,15 @@ import esmj3dtes4.data.records.WRLD;
 
 public class J3dCellFactory implements J3dICellFactory
 {
-	private ESMManager esmManager;
+	private IMaster esmManager;
 
 	private IRecordStore recordStore;
 
 	private MediaSources mediaSources;
 
-	public J3dCellFactory(ESMManager esmManager, IRecordStore recordStore, MediaSources mediaSources)
+	public J3dCellFactory(IMaster esmManager2, IRecordStore recordStore, MediaSources mediaSources)
 	{
-		this.esmManager = esmManager;
+		this.esmManager = esmManager2;
 		this.recordStore = recordStore;
 		this.mediaSources = mediaSources;
 	}
