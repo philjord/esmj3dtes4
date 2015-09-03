@@ -38,8 +38,11 @@ public class J3dLIGH extends J3dRECOType
 			}
 			else
 			{
-				j3dNiAVObject = NifToJ3d.loadShapes(nifFileName, mediaSources.getMeshSource(), mediaSources.getTextureSource())
-						.getVisualRoot();
+				if (nifFileName.length() > 0)
+				{
+					j3dNiAVObject = NifToJ3d.loadShapes(nifFileName, mediaSources.getMeshSource(), mediaSources.getTextureSource())
+							.getVisualRoot();
+				}
 
 				if (EsmFileLocations.ESM_MAKE_J3D_POINTLIGHTS)
 				{
@@ -55,7 +58,7 @@ public class J3dLIGH extends J3dRECOType
 
 			}
 
-			if (j3dNiAVObject == null)
+			if (j3dNiAVObject != null)
 			{
 				addChild(j3dNiAVObject);
 			}

@@ -52,7 +52,7 @@ public class ACHR extends InstRECO
 			}
 			else if (sr.getType().equals("XESP"))
 			{
-				XESP = new FormID(bs);
+				//XESP = new FormID(bs);
 			}
 			else if (sr.getType().equals("XHRS"))
 			{
