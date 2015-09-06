@@ -3,12 +3,15 @@ package esmj3dtes4.j3d.cell;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.media.j3d.Group;
+
 import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.records.CommonWRLD;
 import esmj3d.j3d.cell.GridSpaces;
 import esmj3d.j3d.cell.J3dICELLPersistent;
+import esmj3d.j3d.water.WaterApp;
 import esmj3dtes4.data.records.ACHR;
 import esmj3dtes4.data.records.ACRE;
 import esmj3dtes4.data.records.REFR;
@@ -18,6 +21,8 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	private GridSpaces gridSpaces = new GridSpaces(this);
 
 	private CommonWRLD wrld;
+
+	public static WaterApp waterApp; // the single water app used by all waters
 
 	/**
 	 * CELL presistent is different from temp and distant as it's dynamic refs and achar can move away
@@ -36,8 +41,24 @@ public class J3dCELLPersistent extends J3dCELL implements J3dICELLPersistent
 	{
 		super(master, cellRecord, children, makePhys, mediaSources);
 		this.wrld = wrld;
-		addChild(gridSpaces);
+		setCapability(Group.ALLOW_CHILDREN_WRITE);
+		setCapability(Group.ALLOW_CHILDREN_EXTEND);
+
 		indexRecords();
+		addChild(gridSpaces);
+
+		if (!makePhys)
+		{
+			if (waterApp == null)
+			{
+				waterApp = new WaterApp("textures\\landscape\\landscapewater.dds", mediaSources.getTextureSource());
+			}
+			else
+			{
+				waterApp.detach();
+			}
+			addChild(waterApp);
+		}
 	}
 
 	private void indexRecords()
