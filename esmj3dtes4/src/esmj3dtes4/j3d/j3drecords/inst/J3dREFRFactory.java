@@ -17,6 +17,7 @@ import esmj3d.j3d.j3drecords.type.J3dCONT;
 import esmj3d.j3d.j3drecords.type.J3dDOOR;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeGeneral;
+import esmj3dtes4.data.records.ACRE;
 import esmj3dtes4.data.records.ACTI;
 import esmj3dtes4.data.records.ALCH;
 import esmj3dtes4.data.records.AMMO;
@@ -49,6 +50,8 @@ import esmj3dtes4.j3d.j3drecords.type.J3dSOUN;
 
 public class J3dREFRFactory
 {
+
+	public static boolean NATURAL_ANIMALS_ONLY = false;
 
 	private static J3dRECODynInst makeJ3dRECODynInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MediaSources mediaSources)
 	{
@@ -90,7 +93,7 @@ public class J3dREFRFactory
 
 			String farNif = stat.MODL.model.str.substring(0, stat.MODL.model.str.toLowerCase().indexOf(".nif")) + "_far.nif";
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, false);
-			if( mediaSources.getMeshSource().nifFileExists(farNif))			
+			if (mediaSources.getMeshSource().nifFileExists(farNif))
 				j3dinst.addNodeChild(new LODNif(farNif, mediaSources));
 			else
 				j3dinst.addNodeChild(new J3dRECOTypeGeneral(stat, stat.MODL.model.str, false, mediaSources));
@@ -130,8 +133,8 @@ public class J3dREFRFactory
 				if (mediaSources.getMeshSource().nifFileExists(farNif))
 				{
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-					j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(stat, stat.MODL.model.str, makePhys, mediaSources),
-							J3dRECOTypeGeneral.loadNif(farNif, false, mediaSources).getRootNode());
+					j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(stat, stat.MODL.model.str, makePhys, mediaSources), J3dRECOTypeGeneral
+							.loadNif(farNif, false, mediaSources).getRootNode());
 					return j3dinst;
 
 				}
@@ -278,6 +281,7 @@ public class J3dREFRFactory
 	 */
 	protected static J3dRECOType makeLVLC(LVLC lvlc, IRecordStore master, MediaSources mediaSources)
 	{
+
 		// TODO: randomly picked for now
 		LVLO[] LVLOs = lvlc.LVLOs;
 
@@ -295,13 +299,18 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("CREA"))
 		{
 			CREA crea = new CREA(baseRecord);
-			return new J3dCREA(crea, master, mediaSources);
+			if (CREAallowed(crea))
+				return new J3dCREA(crea, master, mediaSources);
+			else
+				return null;
 		}
 		else if (baseRecord.getRecordType().equals("NPC_"))
 		{
-			// it is in fact a pointer across to another leveled creature (LVLC)
 			NPC_ npc_ = new NPC_(baseRecord);
-			return new J3dNPC_(npc_, master, mediaSources);
+			if (!NATURAL_ANIMALS_ONLY)
+				return new J3dNPC_(npc_, master, mediaSources);
+			else
+				return null;
 		}
 		else
 		{
@@ -310,4 +319,43 @@ public class J3dREFRFactory
 
 		return null;
 	}
+
+	public static boolean ACREallowed(ACRE acre, IRecordStore master)
+	{
+		Record baseRecord = master.getRecord(acre.NAME.formId);
+		if (baseRecord.getRecordType().equals("CREA"))
+		{
+			return CREAallowed(new CREA(baseRecord));
+		}
+		return false;
+	}
+
+	public static boolean CREAallowed(CREA crea)
+	{
+		if (NATURAL_ANIMALS_ONLY)
+		{
+			for (String nat : naturalAnimals)
+				if (crea.MODL.model.str.startsWith(nat))
+					return true;
+
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+	}
+
+	public static String[] naturalAnimals = new String[]
+	{ "Creatures\\Bear\\",//
+			"Creatures\\Boar\\",//
+			"Creatures\\Deer\\",//
+			"Creatures\\Dog\\",//
+			"Creatures\\Horse\\",//
+			"Creatures\\Mountainlion\\",//
+			"Creatures\\Mudcrab\\",//
+			"Creatures\\Rat\\",//
+			"Creatures\\Sheep\\",//
+			"Creatures\\Slaughterfish",//
+	};
 }

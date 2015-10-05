@@ -65,7 +65,7 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		{
 			if (record.getRecordType().equals("REFR"))
 			{
-				ret =  J3dREFRFactory.makeJ3DReferFar(new REFR(record), master, mediaSources);
+				ret = J3dREFRFactory.makeJ3DReferFar(new REFR(record), master, mediaSources);
 			}
 			else
 			{
@@ -100,14 +100,21 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 			{
 				if (!makePhys)
 				{
-					ret = new J3dACRE(new ACRE(record), master, mediaSources);
+					ACRE acre = new ACRE(record);
+					if (J3dREFRFactory.ACREallowed(acre, master))
+						ret = new J3dACRE(new ACRE(record), master, mediaSources);
+					else
+						return null;
 				}
 			}
 			else if (record.getRecordType().equals("ACHR"))
 			{
 				if (!makePhys)
 				{
-					ret = new J3dACHR(new ACHR(record), master, mediaSources);
+					if (!J3dREFRFactory.NATURAL_ANIMALS_ONLY)
+						ret = new J3dACHR(new ACHR(record), master, mediaSources);
+					else
+						return null;
 				}
 			}
 			else if (record.getRecordType().equals("PGRD"))
