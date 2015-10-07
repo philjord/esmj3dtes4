@@ -6,6 +6,7 @@ import javax.media.j3d.Transform3D;
 import javax.media.j3d.TransformGroup;
 
 import nif.character.NifCharacter;
+import utils.ESConfig;
 import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
@@ -176,8 +177,8 @@ public class J3dCREA extends J3dRECOType
 				}
 			}
 
-			idleAnimations.add(path + "\\idle.kf");
-			idleAnimations.addAll(mediaSources.getMeshSource().getFilesInFolder(path + "\\idleanims"));
+			idleAnimations.add(ESConfig.TES_MESH_PATH + path + "\\idle.kf");
+			idleAnimations.addAll(mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + path + "\\idleanims"));
 
 			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
 
