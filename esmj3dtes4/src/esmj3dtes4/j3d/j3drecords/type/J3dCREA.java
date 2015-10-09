@@ -12,7 +12,7 @@ import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.j3d.j3drecords.type.J3dRECOType;
+import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
 import esmj3dtes4.data.records.ARMO;
 import esmj3dtes4.data.records.CLOT;
 import esmj3dtes4.data.records.CREA;
@@ -20,7 +20,7 @@ import esmj3dtes4.data.records.LVLI;
 import esmj3dtes4.data.records.WEAP;
 import esmj3dtes4.data.subrecords.LVLO;
 
-public class J3dCREA extends J3dRECOType
+public class J3dCREA extends J3dRECOTypeCha
 {
 	private String helmetStr = null;
 
@@ -38,11 +38,9 @@ public class J3dCREA extends J3dRECOType
 
 	private boolean female = false;
 
-	private NifCharacter nifCharacter;
-
 	public J3dCREA(CREA crea, IRecordStore master, MediaSources mediaSources)
 	{
-		super(crea, null);
+		super(crea);
 		//MODL is a bone file and the NIFZ are no path othe files to add
 		if (crea.NIFZ != null && crea.MODL != null)
 		{

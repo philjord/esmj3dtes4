@@ -10,12 +10,13 @@ import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.LODNif;
 import esmj3d.j3d.TreeMaker;
+import esmj3d.j3d.j3drecords.inst.J3dRECOChaInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECODynInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOStatInst;
 import esmj3d.j3d.j3drecords.type.J3dCONT;
 import esmj3d.j3d.j3drecords.type.J3dDOOR;
-import esmj3d.j3d.j3drecords.type.J3dRECOType;
+import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeGeneral;
 import esmj3dtes4.data.records.ACRE;
 import esmj3dtes4.data.records.ACTI;
@@ -50,6 +51,7 @@ import esmj3dtes4.j3d.j3drecords.type.J3dSOUN;
 
 public class J3dREFRFactory
 {
+	public static boolean DEBUG_FIRST_LIST_ITEM_ONLY = false;
 
 	public static boolean NATURAL_ANIMALS_ONLY = false;
 
@@ -257,7 +259,7 @@ public class J3dREFRFactory
 			if (!makePhys)
 			{
 				LVLC lvlc = new LVLC(baseRecord);
-				J3dRECODynInst j3dinst = new J3dRECODynInst(refr, false, makePhys);
+				J3dRECOChaInst j3dinst = new J3dRECOChaInst(refr);
 				j3dinst.setJ3dRECOType(makeLVLC(lvlc, master, mediaSources));
 				return j3dinst;
 			}
@@ -279,7 +281,7 @@ public class J3dREFRFactory
 	 * @param soundSource
 	 * @return
 	 */
-	protected static J3dRECOType makeLVLC(LVLC lvlc, IRecordStore master, MediaSources mediaSources)
+	protected static J3dRECOTypeCha makeLVLC(LVLC lvlc, IRecordStore master, MediaSources mediaSources)
 	{
 
 		// TODO: randomly picked for now
@@ -287,6 +289,9 @@ public class J3dREFRFactory
 
 		int idx = (int) (Math.random() * LVLOs.length);
 		idx = idx == LVLOs.length ? 0 : idx;
+		
+		if (DEBUG_FIRST_LIST_ITEM_ONLY)
+			idx = 0;
 
 		Record baseRecord = master.getRecord(LVLOs[idx].itemFormId);
 

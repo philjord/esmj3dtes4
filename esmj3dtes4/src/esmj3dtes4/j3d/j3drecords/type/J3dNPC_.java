@@ -9,7 +9,7 @@ import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.j3d.j3drecords.type.J3dRECOType;
+import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
 import esmj3dtes4.data.records.ARMO;
 import esmj3dtes4.data.records.CLOT;
 import esmj3dtes4.data.records.LVLI;
@@ -18,7 +18,7 @@ import esmj3dtes4.data.records.RACE;
 import esmj3dtes4.data.records.WEAP;
 import esmj3dtes4.data.subrecords.LVLO;
 
-public class J3dNPC_ extends J3dRECOType
+public class J3dNPC_ extends J3dRECOTypeCha
 {
 	private String helmetStr = null;
 
@@ -38,11 +38,9 @@ public class J3dNPC_ extends J3dRECOType
 
 	private boolean female = false;
 
-	private NifCharacter nifCharacter;
-
 	public J3dNPC_(NPC_ npc_, IRecordStore master, MediaSources mediaSources)
 	{
-		super(npc_, null);
+		super(npc_);
 		female = npc_.ACBS.isFemale();
 
 		Record rrec = master.getRecord(npc_.RNAM.formId);
@@ -185,7 +183,7 @@ public class J3dNPC_ extends J3dRECOType
 		fileNames.add(weapStr);
 
 		ArrayList<String> idleAnimations = new ArrayList<String>();
- 
+
 		idleAnimations.addAll(mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + "characters\\_male\\idleanims"));
 
 		nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);

@@ -3,16 +3,16 @@ package esmj3dtes4.j3d.j3drecords.inst;
 import utils.source.MediaSources;
 import esmLoader.common.data.record.IRecordStore;
 import esmLoader.common.data.record.Record;
-import esmj3d.j3d.j3drecords.inst.J3dRECODynInst;
+import esmj3d.j3d.j3drecords.inst.J3dRECOChaInst;
 import esmj3dtes4.data.records.ACHR;
 import esmj3dtes4.data.records.NPC_;
 import esmj3dtes4.j3d.j3drecords.type.J3dNPC_;
 
-public class J3dACHR extends J3dRECODynInst
+public class J3dACHR extends J3dRECOChaInst
 {
 	public J3dACHR(ACHR achr, IRecordStore master, MediaSources mediaSources)
 	{
-		super(achr, false, false);
+		super(achr);
 		Record baseRecord = master.getRecord(achr.NAME.formId);
 		if (baseRecord.getRecordType().equals("NPC_"))
 		{
