@@ -71,7 +71,7 @@ public class Tes4LODLandscape extends MorphingLandscape
 		else
 		{
 			//fine the systems just askign for empty space which is fine
-			System.out.println("Bad landscape name " + meshName);
+			//System.out.println("Bad landscape name " + meshName);
 		}
 
 	}
