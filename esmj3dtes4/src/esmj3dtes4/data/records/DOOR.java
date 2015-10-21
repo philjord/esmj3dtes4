@@ -11,8 +11,6 @@ import esmj3d.data.shared.subrecords.LString;
 
 public class DOOR extends GenericDOOR
 {
-	public LString FULL;
-
 	public FormID SCRI;
 
 	public int TNAM = -1; //random teleport destination

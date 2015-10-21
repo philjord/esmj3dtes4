@@ -10,8 +10,6 @@ import esmj3d.data.shared.subrecords.LString;
 
 public class CONT extends GenericCONT
 {
-	public LString FULL;
-
 	public DATA DATA;
 
 	public FormID SCRI;
@@ -29,7 +27,7 @@ public class CONT extends GenericCONT
 			Subrecord sr = subrecords.get(i);
 			byte[] bs = sr.getData();
 
-			  if (sr.getType().equals("FULL"))
+			if (sr.getType().equals("FULL"))
 			{
 				FULL = new LString(bs);
 			}
@@ -40,11 +38,11 @@ public class CONT extends GenericCONT
 			else if (sr.getType().equals("SCRI"))
 			{
 				SCRI = new FormID(bs);
-			}			 
+			}
 			else if (sr.getType().equals("MNAM"))
 			{
 				MNAM = bs;
-			}			 
+			}
 			else
 			{
 				//System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
@@ -53,7 +51,6 @@ public class CONT extends GenericCONT
 		}
 	}
 
-	
 	public class DATA
 	{
 		public byte[] data;
@@ -64,5 +61,4 @@ public class CONT extends GenericCONT
 		}
 	}
 
-	
 }
