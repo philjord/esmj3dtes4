@@ -1,12 +1,12 @@
 package esmj3dtes4.j3d.j3drecords.inst;
 
 import utils.source.MediaSources;
-import esmLoader.common.data.record.IRecordStore;
-import esmLoader.common.data.record.Record;
 import esmj3d.j3d.j3drecords.inst.J3dRECOChaInst;
 import esmj3dtes4.data.records.ACRE;
 import esmj3dtes4.data.records.CREA;
 import esmj3dtes4.j3d.j3drecords.type.J3dCREA;
+import esmmanager.common.data.record.IRecordStore;
+import esmmanager.common.data.record.Record;
 
 public class J3dACRE extends J3dRECOChaInst
 {

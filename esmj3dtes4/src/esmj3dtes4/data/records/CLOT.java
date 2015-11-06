@@ -2,8 +2,6 @@ package esmj3dtes4.data.records;
 
 import java.util.ArrayList;
 
-import esmLoader.common.data.record.Record;
-import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.ANAM;
 import esmj3d.data.shared.subrecords.FormID;
@@ -11,6 +9,8 @@ import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes4.data.subrecords.BMDT;
+import esmmanager.common.data.record.Record;
+import esmmanager.common.data.record.Subrecord;
 
 public class CLOT extends RECO
 {

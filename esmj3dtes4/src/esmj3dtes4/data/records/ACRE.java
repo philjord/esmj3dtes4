@@ -3,13 +3,13 @@ package esmj3dtes4.data.records;
 import java.util.ArrayList;
 
 import tools.io.ESMByteConvert;
-import esmLoader.common.data.record.Record;
-import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.InstRECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.XRNK;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes4.data.subrecords.XRGD;
+import esmmanager.common.data.record.Record;
+import esmmanager.common.data.record.Subrecord;
 
 //TODO: does not appear in oblivion esm and I cna't load esp files yet
 public class ACRE extends InstRECO

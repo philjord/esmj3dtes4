@@ -2,10 +2,10 @@ package esmj3dtes4.data.records;
 
 import java.util.ArrayList;
 
-import esmLoader.common.data.record.Record;
-import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.GenericSOUN;
 import esmj3dtes4.data.subrecords.SNDX;
+import esmmanager.common.data.record.Record;
+import esmmanager.common.data.record.Subrecord;
 
 public class SOUN extends GenericSOUN
 {

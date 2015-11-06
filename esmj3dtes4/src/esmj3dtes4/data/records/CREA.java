@@ -3,8 +3,6 @@ package esmj3dtes4.data.records;
 import java.util.ArrayList;
 
 import tools.io.ESMByteConvert;
-import esmLoader.common.data.record.Record;
-import esmLoader.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.FormID;
@@ -23,6 +21,8 @@ import esmj3dtes4.data.subrecords.RNAM;
 import esmj3dtes4.data.subrecords.SNAM;
 import esmj3dtes4.data.subrecords.TNAM_b;
 import esmj3dtes4.data.subrecords.WNAM;
+import esmmanager.common.data.record.Record;
+import esmmanager.common.data.record.Subrecord;
 
 public class CREA extends RECO
 {
