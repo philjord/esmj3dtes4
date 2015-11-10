@@ -39,7 +39,6 @@ public class J3dCellFactory extends J3dICellFactory
 
 	}
 
-	//TODO: the first 2 could just be collapsed and cast inside each setsource
 	public void setSources(IESMManager esmManager2, MediaSources mediaSources)
 	{
 		this.esmManager = esmManager2;
