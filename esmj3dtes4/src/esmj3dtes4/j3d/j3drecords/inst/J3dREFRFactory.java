@@ -14,8 +14,11 @@ import esmj3d.j3d.j3drecords.inst.J3dRECOStatInst;
 import esmj3d.j3d.j3drecords.type.J3dCONT;
 import esmj3d.j3d.j3drecords.type.J3dDOOR;
 import esmj3d.j3d.j3drecords.type.J3dLIGH;
+import esmj3d.j3d.j3drecords.type.J3dRECOType;
+import esmj3d.j3d.j3drecords.type.J3dRECOTypeActionable;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
-import esmj3d.j3d.j3drecords.type.J3dRECOTypeGeneral;
+import esmj3d.j3d.j3drecords.type.J3dRECOTypeDynamic;
+import esmj3d.j3d.j3drecords.type.J3dRECOTypeStatic;
 import esmj3d.j3d.j3drecords.type.J3dSOUN;
 import esmj3d.j3d.trees.TreeMaker;
 import esmj3dtes4.data.records.ACRE;
@@ -62,7 +65,22 @@ public class J3dREFRFactory
 		if (modl != null)
 		{
 			J3dRECODynInst j3dinst = new J3dRECODynInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, modl.model.str, makePhys, mediaSources));
+			j3dinst.setJ3dRECOType(new J3dRECOTypeDynamic(reco, modl.model.str, makePhys, mediaSources));
+			return j3dinst;
+		}
+		else
+		{
+			System.out.println("null modl there " + reco);
+			return null;
+		}
+	}
+	
+	private static J3dRECOStatInst makeJ3dRECOActionInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MediaSources mediaSources)
+	{
+		if (modl != null)
+		{
+			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
+			j3dinst.setJ3dRECOType(new J3dRECOTypeActionable(reco, modl.model.str, makePhys, mediaSources));
 			return j3dinst;
 		}
 		else
@@ -77,7 +95,7 @@ public class J3dREFRFactory
 		if (modl != null)
 		{
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(reco, modl.model.str, makePhys, mediaSources));
+			j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(reco, modl.model.str, makePhys, mediaSources));
 			return j3dinst;
 		}
 		else
@@ -100,7 +118,7 @@ public class J3dREFRFactory
 			if (mediaSources.getMeshSource().nifFileExists(farNif))
 				j3dinst.addNodeChild(new LODNif(farNif, mediaSources));
 			else
-				j3dinst.addNodeChild(new J3dRECOTypeGeneral(stat, stat.MODL.model.str, false, mediaSources));
+				j3dinst.addNodeChild(new J3dRECOTypeStatic(stat, stat.MODL.model.str, false, mediaSources));
 			return j3dinst;
 
 		}
@@ -142,7 +160,7 @@ public class J3dREFRFactory
 				if (mediaSources.getMeshSource().nifFileExists(farNif))
 				{
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-					j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(stat, stat.MODL.model.str, makePhys, mediaSources), J3dRECOTypeGeneral
+					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources), J3dRECOType
 							.loadNif(farNif, false, mediaSources).getRootNode());
 					return j3dinst;
 
@@ -150,7 +168,7 @@ public class J3dREFRFactory
 				else
 				{
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-					j3dinst.setJ3dRECOType(new J3dRECOTypeGeneral(stat, stat.MODL.model.str, makePhys, mediaSources));
+					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources));
 					return j3dinst;
 				}
 			}
@@ -164,12 +182,12 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("FURN"))
 		{
 			FURN furn = new FURN(baseRecord);
-			return makeJ3dRECOStatInst(refr, furn, furn.MODL, makePhys, mediaSources);
+			return makeJ3dRECOActionInst(refr, furn, furn.MODL, makePhys, mediaSources);
 		}
 		else if (baseRecord.getRecordType().equals("MISC"))
 		{
 			MISC misc = new MISC(baseRecord);
-			return makeJ3dRECODynInst(refr, misc, misc.MODL, makePhys, mediaSources);
+			return makeJ3dRECODynInst(refr, misc, misc.MODL, makePhys, mediaSources);			
 		}
 		else if (baseRecord.getRecordType().equals("CONT"))
 		{
@@ -183,7 +201,7 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("FLOR"))
 		{
 			FLOR flor = new FLOR(baseRecord);
-			return makeJ3dRECOStatInst(refr, flor, flor.MODL, makePhys, mediaSources);
+			return makeJ3dRECOActionInst(refr, flor, flor.MODL, makePhys, mediaSources);
 		}
 		else if (baseRecord.getRecordType().equals("BOOK"))
 		{
@@ -203,7 +221,7 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("ACTI"))
 		{
 			ACTI acti = new ACTI(baseRecord);
-			return makeJ3dRECOStatInst(refr, acti, acti.MODL, makePhys, mediaSources);
+			return makeJ3dRECOActionInst(refr, acti, acti.MODL, makePhys, mediaSources);
 		}
 		else if (baseRecord.getRecordType().equals("WEAP"))
 		{
