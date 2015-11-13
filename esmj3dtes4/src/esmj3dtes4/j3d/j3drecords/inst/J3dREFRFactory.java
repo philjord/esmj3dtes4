@@ -74,7 +74,7 @@ public class J3dREFRFactory
 			return null;
 		}
 	}
-	
+
 	private static J3dRECOStatInst makeJ3dRECOActionInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MediaSources mediaSources)
 	{
 		if (modl != null)
@@ -160,8 +160,8 @@ public class J3dREFRFactory
 				if (mediaSources.getMeshSource().nifFileExists(farNif))
 				{
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources), J3dRECOType
-							.loadNif(farNif, false, mediaSources).getRootNode());
+					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources),
+							J3dRECOType.loadNif(farNif, false, mediaSources).getRootNode());
 					return j3dinst;
 
 				}
@@ -174,11 +174,7 @@ public class J3dREFRFactory
 			}
 
 		}
-		else if (baseRecord.getRecordType().equals("APPA"))
-		{
-			APPA appa = new APPA(baseRecord);
-			return makeJ3dRECODynInst(refr, appa, appa.MODL, makePhys, mediaSources);
-		}
+
 		else if (baseRecord.getRecordType().equals("FURN"))
 		{
 			FURN furn = new FURN(baseRecord);
@@ -187,7 +183,7 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("MISC"))
 		{
 			MISC misc = new MISC(baseRecord);
-			return makeJ3dRECODynInst(refr, misc, misc.MODL, makePhys, mediaSources);			
+			return makeJ3dRECODynInst(refr, misc, misc.MODL, makePhys, mediaSources);
 		}
 		else if (baseRecord.getRecordType().equals("CONT"))
 		{
@@ -196,7 +192,22 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("CLOT"))
 		{
 			CLOT clot = new CLOT(baseRecord);
-			return makeJ3dRECODynInst(refr, clot, clot.MODL, makePhys, mediaSources);
+			return makeJ3dRECODynInst(refr, clot, clot.MOD2, makePhys, mediaSources);
+		}
+		else if (baseRecord.getRecordType().equals("ARMO"))
+		{
+			ARMO armo = new ARMO(baseRecord);
+			return makeJ3dRECODynInst(refr, armo, armo.MOD2, makePhys, mediaSources);
+		}
+		else if (baseRecord.getRecordType().equals("WEAP"))
+		{
+			WEAP weap = new WEAP(baseRecord);
+			return makeJ3dRECODynInst(refr, weap, weap.MODL, makePhys, mediaSources);
+		}
+		else if (baseRecord.getRecordType().equals("AMMO"))
+		{
+			AMMO ammo = new AMMO(baseRecord);
+			return makeJ3dRECODynInst(refr, ammo, ammo.MODL, makePhys, mediaSources);
 		}
 		else if (baseRecord.getRecordType().equals("FLOR"))
 		{
@@ -207,6 +218,11 @@ public class J3dREFRFactory
 		{
 			BOOK book = new BOOK(baseRecord);
 			return makeJ3dRECODynInst(refr, book, book.MODL, makePhys, mediaSources);
+		}
+		else if (baseRecord.getRecordType().equals("APPA"))
+		{
+			APPA appa = new APPA(baseRecord);
+			return makeJ3dRECODynInst(refr, appa, appa.MODL, makePhys, mediaSources);
 		}
 		else if (baseRecord.getRecordType().equals("ALCH"))
 		{
@@ -223,16 +239,6 @@ public class J3dREFRFactory
 			ACTI acti = new ACTI(baseRecord);
 			return makeJ3dRECOActionInst(refr, acti, acti.MODL, makePhys, mediaSources);
 		}
-		else if (baseRecord.getRecordType().equals("WEAP"))
-		{
-			WEAP weap = new WEAP(baseRecord);
-			return makeJ3dRECODynInst(refr, weap, weap.MODL, makePhys, mediaSources);
-		}
-		else if (baseRecord.getRecordType().equals("AMMO"))
-		{
-			AMMO ammo = new AMMO(baseRecord);
-			return makeJ3dRECODynInst(refr, ammo, ammo.MODL, makePhys, mediaSources);
-		}
 		else if (baseRecord.getRecordType().equals("KEYM"))
 		{
 			KEYM keym = new KEYM(baseRecord);
@@ -242,11 +248,6 @@ public class J3dREFRFactory
 		{
 			SLGM slgm = new SLGM(baseRecord);
 			return makeJ3dRECODynInst(refr, slgm, slgm.MODL, makePhys, mediaSources);
-		}
-		else if (baseRecord.getRecordType().equals("ARMO"))
-		{
-			ARMO armo = new ARMO(baseRecord);
-			return makeJ3dRECODynInst(refr, armo, armo.MODL, makePhys, mediaSources);
 		}
 		else if (baseRecord.getRecordType().equals("DOOR"))
 		{
