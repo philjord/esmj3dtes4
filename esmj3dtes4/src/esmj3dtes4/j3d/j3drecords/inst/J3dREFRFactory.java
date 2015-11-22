@@ -2,10 +2,10 @@ package esmj3dtes4.j3d.j3drecords.inst;
 
 import javax.media.j3d.Node;
 
-import utils.source.MediaSources;
+import esmj3d.data.shared.records.CommonREFR;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.XESP;
+import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.LODNif;
 import esmj3d.j3d.j3drecords.inst.J3dRECOChaInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECODynInst;
@@ -51,14 +51,13 @@ import esmj3dtes4.j3d.j3drecords.type.J3dCREA;
 import esmj3dtes4.j3d.j3drecords.type.J3dNPC_;
 import esmmanager.common.data.record.IRecordStore;
 import esmmanager.common.data.record.Record;
+import utils.source.MediaSources;
 
 public class J3dREFRFactory
 {
 	public static boolean DEBUG_FIRST_LIST_ITEM_ONLY = false;
 
 	public static boolean NATURAL_ANIMALS_ONLY = false;
-
-	public static boolean ENABLE_OBLIVION = false;
 
 	private static J3dRECODynInst makeJ3dRECODynInst(REFR refr, RECO reco, MODL modl, boolean makePhys, MediaSources mediaSources)
 	{
@@ -107,6 +106,10 @@ public class J3dREFRFactory
 
 	public static Node makeJ3DReferFar(REFR refr, IRecordStore master, MediaSources mediaSources)
 	{
+		// does a parent enablage flag exists, and is is defaulted to off?
+		if (refr.xesp != null && CommonREFR.getParentEnable(refr, master) != BethRenderSettings.isFlipParentEnableDefault())
+			return null;
+
 		Record baseRecord = master.getRecord(refr.NAME.formId);
 
 		if (baseRecord.getRecordType().equals("STAT"))
@@ -145,9 +148,8 @@ public class J3dREFRFactory
 	{
 		Record baseRecord = master.getRecord(refr.NAME.formId);
 
-		// check oblivion crazy stuff
-		boolean requiresOblivionEnable = enableOblivionState(refr, master);
-		if (requiresOblivionEnable != ENABLE_OBLIVION)
+		// does a parent enablage flag exists, and is is defaulted to off?
+		if (refr.xesp != null && CommonREFR.getParentEnable(refr, master) != BethRenderSettings.isFlipParentEnableDefault())
 			return null;
 
 		if (baseRecord.getRecordType().equals("STAT"))
@@ -160,8 +162,7 @@ public class J3dREFRFactory
 				if (mediaSources.getMeshSource().nifFileExists(farNif))
 				{
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources),
-							J3dRECOType.loadNif(farNif, false, mediaSources).getRootNode());
+					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources), J3dRECOType.loadNif(farNif, false, mediaSources).getRootNode());
 					return j3dinst;
 
 				}
@@ -261,8 +262,7 @@ public class J3dREFRFactory
 		{
 			TREE tree = new TREE(baseRecord);
 			String treeNif = tree.MODL.model.str;
-			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight,
-					false);
+			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight, false);
 			return j3dinst;
 		}
 		else if (baseRecord.getRecordType().equals("SOUN"))
@@ -347,73 +347,6 @@ public class J3dREFRFactory
 		return null;
 	}
 
-	private static boolean enableOblivionState(REFR refr, IRecordStore master)
-	{
-		boolean isOblivionEnable = false;
-		boolean opp = false;
-
-		// appears to be "disabled" flag in the Obliv wrlds bits 110000000000
-		// used at least by oblivion gates
-		// formid - Parent reference (Object to take enable state from)
-		if (refr.XESP != null)
-		{
-			//System.out.println("********** refr has parent XESP ");
-
-			/*		Record baseRecord = master.getRecord(refr.NAME.formId);
-
-					if (baseRecord.getRecordType().equals("STAT"))
-					{
-						System.out.println("0STAT of " + new STAT(baseRecord).MODL.model.str);
-					}
-					else if (baseRecord.getRecordType().equals("DOOR"))
-					{
-						System.out.println("0DOOR of " + new DOOR(baseRecord).MODL.model.str);
-					}
-					else
-						System.out.println("0refer type " + baseRecord);
-					int level = 1;*/
-
-			XESP xesp = refr.XESP;
-
-			while (xesp != null)
-			{
-				//	System.out.println("" + (level - 1) + "xesp " + xesp.parentId + " opposite? " + (xesp.flags & XESP.ENABLE_OPPOSITE_FLAG));
-
-				// flip opp flag if required
-				opp = ((xesp.flags & XESP.ENABLE_OPPOSITE_FLAG) != 0) ? !opp : opp;
-
-				REFR p1REFR = new REFR(master.getRecord(xesp.parentId));
-
-				//isOblivionEnable is just equal to the highest/last parent
-				isOblivionEnable = p1REFR.isFlagSet(RECO.InitiallyDisabled_Flag);
-
-				//	System.out.println("" + level + "refr " + p1REFR);
-				//	System.out.println("" + level + "flags " + p1REFR.flags1 + " " + Integer.toBinaryString(p1REFR.flags1));
-
-				/*		Record baseRecord2 = master.getRecord(p1REFR.NAME.formId);
-
-						if (baseRecord2.getRecordType().equals("STAT"))
-						{
-							System.out.println("STAT of " + new STAT(baseRecord2).MODL.model.str);
-						}
-						else if (baseRecord2.getRecordType().equals("DOOR"))
-						{
-							System.out.println("DOOR of " + new DOOR(baseRecord2).MODL.model.str);
-						}
-						else
-							System.out.println("" + level + "refer type " + baseRecord2);
-
-						level++;*/
-				xesp = p1REFR.XESP;
-			}
-
-		}
-
-		// flip it if opp is set
-		return opp ? !isOblivionEnable : isOblivionEnable;
-
-	}
-
 	public static boolean ACREallowed(ACRE acre, IRecordStore master)
 	{
 		Record baseRecord = master.getRecord(acre.NAME.formId);
@@ -440,16 +373,15 @@ public class J3dREFRFactory
 		}
 	}
 
-	public static String[] naturalAnimals = new String[]
-	{ "Creatures\\Bear\\",//
-			"Creatures\\Boar\\",//
-			"Creatures\\Deer\\",//
-			"Creatures\\Dog\\",//
-			"Creatures\\Horse\\",//
-			"Creatures\\Mountainlion\\",//
-			"Creatures\\Mudcrab\\",//
-			"Creatures\\Rat\\",//
-			"Creatures\\Sheep\\",//
+	public static String[] naturalAnimals = new String[] { "Creatures\\Bear\\", //
+			"Creatures\\Boar\\", //
+			"Creatures\\Deer\\", //
+			"Creatures\\Dog\\", //
+			"Creatures\\Horse\\", //
+			"Creatures\\Mountainlion\\", //
+			"Creatures\\Mudcrab\\", //
+			"Creatures\\Rat\\", //
+			"Creatures\\Sheep\\", //
 			"Creatures\\Slaughterfish",//
 	};
 }

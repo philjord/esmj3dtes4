@@ -6,6 +6,7 @@ import java.util.List;
 import javax.media.j3d.Node;
 
 import utils.source.MediaSources;
+import esmj3d.data.shared.records.InstRECO;
 import esmj3d.data.shared.records.LAND;
 import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.BethRenderSettings.UpdateListener;
@@ -104,7 +105,12 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 			{
 				if (!makePhys)
 				{
-					ACRE acre = new ACRE(record);
+					ACRE acre = new ACRE(record);				
+					
+					// does a parent enablage flag exists, and is is defaulted to off?
+					if (acre.xesp != null && InstRECO.getParentEnable(acre, master) != BethRenderSettings.isFlipParentEnableDefault())
+						return null;
+					
 					if (J3dREFRFactory.ACREallowed(acre, master))
 						ret = new J3dACRE(new ACRE(record), master, mediaSources);
 					else
@@ -115,6 +121,11 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 			{
 				if (!makePhys)
 				{
+					ACHR achr = new ACHR(record);
+					// does a parent enablage flag exists, and is is defaulted to off?
+					if (achr.xesp != null && InstRECO.getParentEnable(achr, master) != BethRenderSettings.isFlipParentEnableDefault())
+						return null;
+					
 					if (!J3dREFRFactory.NATURAL_ANIMALS_ONLY)
 						ret = new J3dACHR(new ACHR(record), master, mediaSources);
 					else

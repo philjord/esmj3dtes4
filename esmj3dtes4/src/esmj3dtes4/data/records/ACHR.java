@@ -2,13 +2,14 @@ package esmj3dtes4.data.records;
 
 import java.util.ArrayList;
 
-import tools.io.ESMByteConvert;
 import esmj3d.data.shared.records.InstRECO;
 import esmj3d.data.shared.subrecords.FormID;
+import esmj3d.data.shared.subrecords.XESP;
 import esmj3d.data.shared.subrecords.ZString;
 import esmj3dtes4.data.subrecords.XRGD;
 import esmmanager.common.data.record.Record;
 import esmmanager.common.data.record.Subrecord;
+import tools.io.ESMByteConvert;
 
 public class ACHR extends InstRECO
 {
@@ -52,7 +53,7 @@ public class ACHR extends InstRECO
 			}
 			else if (sr.getType().equals("XESP"))
 			{
-				//XESP = new FormID(bs);
+				xesp = new XESP(bs);
 			}
 			else if (sr.getType().equals("XHRS"))
 			{
