@@ -29,9 +29,9 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 
 	private ArrayList<J3dRECOInst> j3dRECOInsts = new ArrayList<J3dRECOInst>();
 
-	public J3dCELL(IRecordStore master, Record cellRecord, List<Record> children, boolean makePhys, MediaSources mediaSources)
+	public J3dCELL(IRecordStore master, Record cellRecord, int worldId, List<Record> children, boolean makePhys, MediaSources mediaSources)
 	{
-		super(master, children, makePhys, mediaSources);
+		super(master, worldId, children, makePhys, mediaSources);
 		cell = new CELL(cellRecord);
 		setCell(cell);
 
@@ -76,8 +76,7 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		catch (NullPointerException e)
 		{
 			if (e.getStackTrace().length > 0)
-				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType()
-						+ " in " + e.getStackTrace()[0]);
+				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType() + " in " + e.getStackTrace()[0]);
 			else
 				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType());
 
@@ -105,12 +104,12 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 			{
 				if (!makePhys)
 				{
-					ACRE acre = new ACRE(record);				
-					
+					ACRE acre = new ACRE(record);
+
 					// does a parent enablage flag exists, and is is defaulted to off?
 					if (acre.xesp != null && InstRECO.getParentEnable(acre, master) != BethRenderSettings.isFlipParentEnableDefault())
 						return null;
-					
+
 					if (J3dREFRFactory.ACREallowed(acre, master))
 						ret = new J3dACRE(new ACRE(record), master, mediaSources);
 					else
@@ -125,7 +124,7 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 					// does a parent enablage flag exists, and is is defaulted to off?
 					if (achr.xesp != null && InstRECO.getParentEnable(achr, master) != BethRenderSettings.isFlipParentEnableDefault())
 						return null;
-					
+
 					if (!J3dREFRFactory.NATURAL_ANIMALS_ONLY)
 						ret = new J3dACHR(new ACHR(record), master, mediaSources);
 					else
@@ -140,11 +139,19 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 				J3dLAND j3dLAND;
 				if (makePhys)
 				{
-					j3dLAND = new J3dLAND(new LAND(record));
+					Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
+					if (parentLANDrec != null)
+						j3dLAND = new J3dLAND(new LAND(parentLANDrec));
+					else
+						j3dLAND = new J3dLAND(new LAND(record));
 				}
 				else
 				{
-					j3dLAND = new J3dLAND(new LAND(record), master, mediaSources.getTextureSource());
+					Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x, (int) instCell.getTrans().y);
+					if (parentLANDrec != null)
+						j3dLAND = new J3dLAND(new LAND(parentLANDrec), master, mediaSources.getTextureSource());
+					else
+						j3dLAND = new J3dLAND(new LAND(record), master, mediaSources.getTextureSource());
 				}
 
 				j3dLAND.setLocation(cellLocation);
@@ -158,8 +165,7 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		catch (NullPointerException e)
 		{
 			if (e.getStackTrace().length > 0)
-				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType()
-						+ " in " + e.getStackTrace()[0]);
+				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType() + " in " + e.getStackTrace()[0]);
 			else
 				System.out.println("J3dCELL " + cell.formId + " - null pointer making record " + record + " " + record.getRecordType());
 
