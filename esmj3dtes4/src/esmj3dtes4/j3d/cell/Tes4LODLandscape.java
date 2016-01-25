@@ -59,6 +59,7 @@ public class Tes4LODLandscape extends MorphingLandscape
 				tg.setTransform(t);
 				tg.addChild(shape);
 
+				//TODO: the water needs to disappear up close somehow, though it'll be difficult
 				tg.addChild(createBasicWater(scale * J3dLAND.LAND_SIZE, scale * J3dLAND.LAND_SIZE));
 
 				addChild(tg);
