@@ -11,6 +11,6 @@
         </sealing>
     </manifest>
     <selectedElements exportClassFiles="true" exportJavaFiles="false" exportOutputFolder="false">
-        <javaElement handleIdentifier="=esmj3dtes4"/>
+        <javaElement handleIdentifier="=esmj3dtes4/src"/>
     </selectedElements>
 </jardesc>
