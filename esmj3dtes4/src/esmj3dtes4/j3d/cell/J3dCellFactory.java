@@ -11,14 +11,8 @@ import esmmanager.common.PluginException;
 import esmmanager.common.data.plugin.PluginGroup;
 import esmmanager.common.data.plugin.PluginRecord;
 import esmmanager.common.data.record.Record;
-import esmmanager.loader.CELLPointer;
-import esmmanager.loader.ESMManager;
-import esmmanager.loader.IESMManager;
-import esmmanager.loader.InteriorCELLTopGroup;
 import esmmanager.loader.WRLDChildren;
-import esmmanager.loader.WRLDTopGroup;
 import utils.ESMUtils;
-import utils.source.MediaSources;
 
 /**
  * This is no longer just for creating cells of teh correct class but now also handles the 
@@ -30,83 +24,6 @@ public class J3dCellFactory extends J3dICellFactory
 {
 	public J3dCellFactory()
 	{
-
-	}
-
-	public void setSources(IESMManager esmManager2, MediaSources mediaSources)
-	{
-		this.esmManager = esmManager2;
-		this.mediaSources = mediaSources;
-
-		//Carefully laod on a seperate thread, might cause trouble
-		Thread t = new Thread() {
-			public void run()
-			{
-
-				long start = System.currentTimeMillis();
-
-				//let's load all WRLD, CELL persistent children now!
-				//I need to pre-load ALL persistent children for all CELLS and keep them for XTEL look ups
-				// and one day I would imagine for scripting of actors too 
-				int wrldCount = 0;
-
-				for (WRLDTopGroup WRLDTopGroup : ((ESMManager) esmManager).getWRLDTopGroups())
-				{
-					for (PluginRecord wrldPR : WRLDTopGroup.WRLDByFormId.values())
-					{
-						// it looks like no temps in wrld cell so no saving by making a special call
-						WRLDChildren children = esmManager.getWRLDChildren(wrldPR.getFormID());
-						PluginGroup cellChildGroups = children.getCellChildren();
-						if (cellChildGroups != null && cellChildGroups.getRecordList() != null)
-						{
-							for (PluginRecord pgr : cellChildGroups.getRecordList())
-							{
-								PluginGroup pg = (PluginGroup) pgr;
-								if (pg.getGroupType() == PluginGroup.CELL_PERSISTENT)
-								{
-									cachePersistentChildren(pg, wrldPR.getFormID());
-								}
-							}
-						}
-						wrldCount++;
-					}
-				}
-
-				int cellCount = 0;
-
-				List<InteriorCELLTopGroup> interiorCELLTopGroups = ((ESMManager) esmManager).getInteriorCELLTopGroups();
-				for (InteriorCELLTopGroup interiorCELLTopGroup : interiorCELLTopGroups)
-				{
-					for (CELLPointer cp : interiorCELLTopGroup.getAllInteriorCELLFormIds())
-					{
-						try
-						{
-							PluginGroup cellChildGroups = esmManager.getInteriorCELLPersistentChildren(cp.formId);
-							cachePersistentChildren(cellChildGroups, cp.formId);
-							cellCount++;
-						}
-						catch (DataFormatException e)
-						{
-							e.printStackTrace();
-						}
-						catch (IOException e)
-						{
-							e.printStackTrace();
-						}
-						catch (PluginException e)
-						{
-							e.printStackTrace();
-						}
-					}
-				}
-
-				System.out.println("Persistent Records loaded in " + (System.currentTimeMillis() - start) //
-						+ " WRLD count = " + wrldCount//
-						+ " CELL count = " + cellCount//
-						+ " record count = " + persistentChildrenByFormId.size());
-			}
-		};
-		t.start();
 
 	}
 
