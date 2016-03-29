@@ -1,15 +1,11 @@
 package esmj3dtes4.j3d.cell;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
-import utils.ESMUtils;
-import utils.source.MediaSources;
 import esmj3d.j3d.cell.J3dICellFactory;
 import esmj3d.j3d.cell.MorphingLandscape;
-import esmj3dtes4.data.records.CELL;
 import esmj3dtes4.data.records.WRLD;
 import esmmanager.common.PluginException;
 import esmmanager.common.data.plugin.PluginGroup;
@@ -21,6 +17,8 @@ import esmmanager.loader.IESMManager;
 import esmmanager.loader.InteriorCELLTopGroup;
 import esmmanager.loader.WRLDChildren;
 import esmmanager.loader.WRLDTopGroup;
+import utils.ESMUtils;
+import utils.source.MediaSources;
 
 /**
  * This is no longer just for creating cells of teh correct class but now also handles the 
@@ -30,10 +28,6 @@ import esmmanager.loader.WRLDTopGroup;
  */
 public class J3dCellFactory extends J3dICellFactory
 {
-	private HashMap<Integer, WRLD> wrldByFormId = new HashMap<Integer, WRLD>();
-
-	private HashMap<Integer, CELL> cellByFormId = new HashMap<Integer, CELL>();
-
 	public J3dCellFactory()
 	{
 
@@ -44,43 +38,52 @@ public class J3dCellFactory extends J3dICellFactory
 		this.esmManager = esmManager2;
 		this.mediaSources = mediaSources;
 
-		//Carefully load on a separate thread, might cause trouble
+		//Carefully laod on a seperate thread, might cause trouble
 		Thread t = new Thread() {
 			public void run()
 			{
 
 				long start = System.currentTimeMillis();
 
-				//let's load all WRLD, CELL and their persistent children now!
-				//I need to pre load ALL persistent children for all CELLS and keep them
-				List<WRLDTopGroup> WRLDTopGroups = ((ESMManager) esmManager).getWRLDTopGroups();
-				for (WRLDTopGroup WRLDTopGroup : WRLDTopGroups)
+				//let's load all WRLD, CELL persistent children now!
+				//I need to pre-load ALL persistent children for all CELLS and keep them for XTEL look ups
+				// and one day I would imagine for scripting of actors too 
+				int wrldCount = 0;
+
+				for (WRLDTopGroup WRLDTopGroup : ((ESMManager) esmManager).getWRLDTopGroups())
 				{
 					for (PluginRecord wrldPR : WRLDTopGroup.WRLDByFormId.values())
 					{
-						WRLD wrld = getWRLD(wrldPR.getFormID());
-						wrldByFormId.put(wrldPR.getFormID(), wrld);
-
+						// it looks like no temps in wrld cell so no saving by making a special call
 						WRLDChildren children = esmManager.getWRLDChildren(wrldPR.getFormID());
 						PluginGroup cellChildGroups = children.getCellChildren();
-						cachePersistentChildren(cellChildGroups, wrldPR.getFormID());
+						if (cellChildGroups != null && cellChildGroups.getRecordList() != null)
+						{
+							for (PluginRecord pgr : cellChildGroups.getRecordList())
+							{
+								PluginGroup pg = (PluginGroup) pgr;
+								if (pg.getGroupType() == PluginGroup.CELL_PERSISTENT)
+								{
+									cachePersistentChildren(pg, wrldPR.getFormID());
+								}
+							}
+						}
+						wrldCount++;
 					}
 				}
+
+				int cellCount = 0;
 
 				List<InteriorCELLTopGroup> interiorCELLTopGroups = ((ESMManager) esmManager).getInteriorCELLTopGroups();
 				for (InteriorCELLTopGroup interiorCELLTopGroup : interiorCELLTopGroups)
 				{
-					for (CELLPointer cp : interiorCELLTopGroup.interiorCELLByFormId.values())
+					for (CELLPointer cp : interiorCELLTopGroup.getAllInteriorCELLFormIds())
 					{
 						try
 						{
-							PluginRecord cellPR = esmManager.getInteriorCELL(cp.formId);
-							CELL cell = new CELL(new Record(cellPR));
-							cellByFormId.put(cellPR.getFormID(), cell);
-
-							PluginGroup cellChildGroups = esmManager.getInteriorCELLChildren(cellPR.getFormID());
-							cachePersistentChildren(cellChildGroups, cellPR.getFormID());
-
+							PluginGroup cellChildGroups = esmManager.getInteriorCELLPersistentChildren(cp.formId);
+							cachePersistentChildren(cellChildGroups, cp.formId);
+							cellCount++;
 						}
 						catch (DataFormatException e)
 						{
@@ -98,8 +101,8 @@ public class J3dCellFactory extends J3dICellFactory
 				}
 
 				System.out.println("Persistent Records loaded in " + (System.currentTimeMillis() - start) //
-						+ " WRLD count = " + wrldByFormId.size()//
-						+ " CELL count = " + cellByFormId.size()//
+						+ " WRLD count = " + wrldCount//
+						+ " CELL count = " + cellCount//
 						+ " record count = " + persistentChildrenByFormId.size());
 			}
 		};
