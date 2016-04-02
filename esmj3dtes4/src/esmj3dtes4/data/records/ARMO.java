@@ -1,6 +1,6 @@
 package esmj3dtes4.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.ANAM;
@@ -42,100 +42,100 @@ public class ARMO extends RECO
 
 		super(recordData);
 
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("EDID"))
+			if (sr.getSubrecordType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getType().equals("FULL"))
+			else if (sr.getSubrecordType().equals("FULL"))
 			{
 
 			}
-			else if (sr.getType().equals("SCRI"))
+			else if (sr.getSubrecordType().equals("SCRI"))
 			{
 				SCRI = new FormID(bs);
 			}
-			else if (sr.getType().equals("BMDT"))
+			else if (sr.getSubrecordType().equals("BMDT"))
 			{
 				BMDT = new BMDT(bs);
 			}
-			else if (sr.getType().equals("MODL"))
+			else if (sr.getSubrecordType().equals("MODL"))
 			{
 				MODL = new MODL(bs);
 			}
-			else if (sr.getType().equals("MODB"))
+			else if (sr.getSubrecordType().equals("MODB"))
 			{
 				MODL.addMODBSub(bs);
 			}
-			else if (sr.getType().equals("MODT"))
+			else if (sr.getSubrecordType().equals("MODT"))
 			{
 				MODL.addMODTSub(bs);
 			}
-			else if (sr.getType().equals("MOD2"))
+			else if (sr.getSubrecordType().equals("MOD2"))
 			{
 				MOD2 = new MODL(bs);
 			}
-			else if (sr.getType().equals("MO2B"))
+			else if (sr.getSubrecordType().equals("MO2B"))
 			{
 				MOD2.addMODBSub(bs);
 			}
-			else if (sr.getType().equals("MO2T"))
+			else if (sr.getSubrecordType().equals("MO2T"))
 			{
 				MOD2.addMODTSub(bs);
 			}
-			else if (sr.getType().equals("MOD3"))
+			else if (sr.getSubrecordType().equals("MOD3"))
 			{
 				MOD3 = new MODL(bs);
 			}
-			else if (sr.getType().equals("MO3B"))
+			else if (sr.getSubrecordType().equals("MO3B"))
 			{
 				MOD3.addMODBSub(bs);
 			}
-			else if (sr.getType().equals("MO3T"))
+			else if (sr.getSubrecordType().equals("MO3T"))
 			{
 				MOD3.addMODTSub(bs);
 			}
-			else if (sr.getType().equals("MOD4"))
+			else if (sr.getSubrecordType().equals("MOD4"))
 			{
 				MOD4 = new MODL(bs);
 			}
-			else if (sr.getType().equals("MO4B"))
+			else if (sr.getSubrecordType().equals("MO4B"))
 			{
 				MOD4.addMODBSub(bs);
 			}
-			else if (sr.getType().equals("MO4T"))
+			else if (sr.getSubrecordType().equals("MO4T"))
 			{
 				MOD4.addMODTSub(bs);
 			}
-			else if (sr.getType().equals("ICON"))
+			else if (sr.getSubrecordType().equals("ICON"))
 			{
 				ICON = new ZString(bs);
 			}
-			else if (sr.getType().equals("ICO2"))
+			else if (sr.getSubrecordType().equals("ICO2"))
 			{
 				ICO2 = new ZString(bs);
 			}
-			else if (sr.getType().equals("ANAM"))
+			else if (sr.getSubrecordType().equals("ANAM"))
 			{
 				ANAM = new ANAM(bs);
 			}
-			else if (sr.getType().equals("ENAM"))
+			else if (sr.getSubrecordType().equals("ENAM"))
 			{
 				ENAM = new FormID(bs);
 			}
-			else if (sr.getType().equals("DATA"))
+			else if (sr.getSubrecordType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
 
 			else
 			{
-				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

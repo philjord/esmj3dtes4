@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 import javax.vecmath.Color3f;
 
-import nif.character.NifCharacter;
-import tools3d.utils.scenegraph.Fadable;
-import utils.ESConfig;
-import utils.source.MediaSources;
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.BethRenderSettings;
@@ -21,6 +17,10 @@ import esmj3dtes4.data.records.WEAP;
 import esmj3dtes4.data.subrecords.LVLO;
 import esmmanager.common.data.record.IRecordStore;
 import esmmanager.common.data.record.Record;
+import nif.character.NifCharacter;
+import tools3d.utils.scenegraph.Fadable;
+import utils.ESConfig;
+import utils.source.MediaSources;
 
 public class J3dNPC_ extends J3dRECOTypeCha
 {

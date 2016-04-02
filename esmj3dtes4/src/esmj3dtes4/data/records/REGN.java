@@ -1,6 +1,6 @@
 package esmj3dtes4.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.ZString;
@@ -14,71 +14,71 @@ public class REGN extends RECO
 	public REGN(Record recordData)
 	{
 		super(recordData);
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("EDID"))
+			if (sr.getSubrecordType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getType().equals("ICON"))
+			else if (sr.getSubrecordType().equals("ICON"))
 			{
 
 			}
-			else if (sr.getType().equals("RDGS"))
+			else if (sr.getSubrecordType().equals("RDGS"))
 			{
 
 			}
-			else if (sr.getType().equals("RCLR"))
+			else if (sr.getSubrecordType().equals("RCLR"))
 			{
 				//RCLR = new RCLR(bs);
 			}
-			else if (sr.getType().equals("WNAM"))
+			else if (sr.getSubrecordType().equals("WNAM"))
 			{
 				//WNAM = new WNAM(bs);
 			}
-			else if (sr.getType().equals("RPLI"))
+			else if (sr.getSubrecordType().equals("RPLI"))
 			{
 				//RPLI = new RPLI(bs);
 			}
-			else if (sr.getType().equals("RPLD"))
+			else if (sr.getSubrecordType().equals("RPLD"))
 			{
 				//RPLD = new RPLD(bs);
 			}
-			else if (sr.getType().equals("RDAT"))
+			else if (sr.getSubrecordType().equals("RDAT"))
 			{
 				//RDAT = new RDAT(bs);
 			}
-			else if (sr.getType().equals("RDWT"))
+			else if (sr.getSubrecordType().equals("RDWT"))
 			{
 				//RDWT = new RDWT(bs);
 			}
-			else if (sr.getType().equals("RDAT"))
+			else if (sr.getSubrecordType().equals("RDAT"))
 			{
 				//RDAT = new RDAT(bs);
 			}
-			else if (sr.getType().equals("RDOT"))
+			else if (sr.getSubrecordType().equals("RDOT"))
 			{
 				//RDOT = new RDOT(bs);
 			}
-			else if (sr.getType().equals("RDMD"))
+			else if (sr.getSubrecordType().equals("RDMD"))
 			{
 				//RDMD = new RDMD(bs);
 			}
-			else if (sr.getType().equals("RDMP"))
+			else if (sr.getSubrecordType().equals("RDMP"))
 			{
 				//RDMP = new RDMP(bs);
 			}
-			else if (sr.getType().equals("RDSD"))
+			else if (sr.getSubrecordType().equals("RDSD"))
 			{
 				//RDSD = new RDSD(bs);
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 		}
 	}

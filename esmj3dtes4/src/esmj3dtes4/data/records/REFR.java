@@ -1,6 +1,6 @@
 package esmj3dtes4.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.CommonREFR;
 import esmj3dtes4.data.subrecords.XPCI;
@@ -19,18 +19,18 @@ public class REFR extends CommonREFR
 	{
 		super(recordData);
 
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("XSED"))
+			if (sr.getSubrecordType().equals("XSED"))
 			{
 				XSED = new XSED(bs);
 			}
 
-			else if (sr.getType().equals("XPCI"))
+			else if (sr.getSubrecordType().equals("XPCI"))
 			{
 				XPCI = new XPCI(bs);
 			}

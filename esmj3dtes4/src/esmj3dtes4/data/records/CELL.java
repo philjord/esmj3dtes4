@@ -1,11 +1,11 @@
 package esmj3dtes4.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
-import tools.io.ESMByteConvert;
 import esmj3d.data.shared.records.CommonCELL;
 import esmmanager.common.data.record.Record;
 import esmmanager.common.data.record.Subrecord;
+import tools.io.ESMByteConvert;
 
 public class CELL extends CommonCELL
 {
@@ -22,25 +22,25 @@ public class CELL extends CommonCELL
 	{
 		super(recordData);
 
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("DATA"))
+			if (sr.getSubrecordType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getType().equals("XCMT"))
+			else if (sr.getSubrecordType().equals("XCMT"))
 			{
 				musicType = bs[0];
 			}
-			else if (sr.getType().equals("XRNK"))
+			else if (sr.getSubrecordType().equals("XRNK"))
 			{
 				XRNK = ESMByteConvert.extractInt(bs, 0);
 			}
-			else if (sr.getType().equals("XGLB"))
+			else if (sr.getSubrecordType().equals("XGLB"))
 			{
 
 			}

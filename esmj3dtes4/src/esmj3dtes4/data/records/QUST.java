@@ -1,6 +1,6 @@
 package esmj3dtes4.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.ZString;
@@ -15,84 +15,84 @@ public class QUST extends RECO
 	public QUST(Record recordData)
 	{
 		super(recordData);
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("EDID"))
+			if (sr.getSubrecordType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getType().equals("DATA"))
+			else if (sr.getSubrecordType().equals("DATA"))
 			{
 
 			}
-			else if (sr.getType().equals("ICON"))
+			else if (sr.getSubrecordType().equals("ICON"))
 			{
 
 			}
-			else if (sr.getType().equals("CTDA"))
+			else if (sr.getSubrecordType().equals("CTDA"))
 			{
 
 			}
-			else if (sr.getType().equals("SCRI"))
+			else if (sr.getSubrecordType().equals("SCRI"))
 			{
 
 			}
-			else if (sr.getType().equals("FULL"))
+			else if (sr.getSubrecordType().equals("FULL"))
 			{
 
 			}
-			else if (sr.getType().equals("INDX"))
+			else if (sr.getSubrecordType().equals("INDX"))
 			{
 
 			}
-			else if (sr.getType().equals("QSDT"))
+			else if (sr.getSubrecordType().equals("QSDT"))
 			{
 
 			}
-			else if (sr.getType().equals("CNAM"))
+			else if (sr.getSubrecordType().equals("CNAM"))
 			{
 
 			}
-			else if (sr.getType().equals("SCHR"))
+			else if (sr.getSubrecordType().equals("SCHR"))
 			{
 
 			}
-			else if (sr.getType().equals("SCDA"))
+			else if (sr.getSubrecordType().equals("SCDA"))
 			{
 
 			}
-			else if (sr.getType().equals("SCTX"))
+			else if (sr.getSubrecordType().equals("SCTX"))
 			{
 
 			}
-			else if (sr.getType().equals("SCRO"))
+			else if (sr.getSubrecordType().equals("SCRO"))
 			{
 
 			}
-			else if (sr.getType().equals("QOBJ"))
+			else if (sr.getSubrecordType().equals("QOBJ"))
 			{
 
 			}
-			else if (sr.getType().equals("NNAM"))
+			else if (sr.getSubrecordType().equals("NNAM"))
 			{
 
 			}
-			else if (sr.getType().equals("QSTA"))
+			else if (sr.getSubrecordType().equals("QSTA"))
 			{
 
 			}
-			else if (sr.getType().equals("NAM0"))
+			else if (sr.getSubrecordType().equals("NAM0"))
 			{
 
 			}
 
 			else
 			{
-				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 
 		}

@@ -1,6 +1,6 @@
 package esmj3dtes4.data.records;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.ZString;
@@ -15,32 +15,32 @@ public class CSTY extends RECO
 	public CSTY(Record recordData)
 	{
 		super(recordData);
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("EDID"))
+			if (sr.getSubrecordType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getType().equals("CSAD"))
+			else if (sr.getSubrecordType().equals("CSAD"))
 			{
 
 			}
-			else if (sr.getType().equals("CSTD"))
+			else if (sr.getSubrecordType().equals("CSTD"))
 			{
 
 			}
-			else if (sr.getType().equals("CSSD"))
+			else if (sr.getSubrecordType().equals("CSSD"))
 			{
 
 			}
 
 			else
 			{
-				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 
 		}

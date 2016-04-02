@@ -1,8 +1,8 @@
 package esmj3dtes4.data.records;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import tools.io.ESMByteConvert;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.FormID;
@@ -20,6 +20,7 @@ import esmj3dtes4.data.subrecords.LNAM;
 import esmj3dtes4.data.subrecords.SNAM;
 import esmmanager.common.data.record.Record;
 import esmmanager.common.data.record.Subrecord;
+import tools.io.ESMByteConvert;
 
 public class NPC_ extends RECO
 {
@@ -141,117 +142,117 @@ public class NPC_ extends RECO
 		ArrayList<CNTO> CNTOsl = new ArrayList<CNTO>();
 		ArrayList<FormID> PKIDsl = new ArrayList<FormID>();
 
-		ArrayList<Subrecord> subrecords = recordData.getSubrecords();
+		List<Subrecord> subrecords = recordData.getSubrecords();
 		for (int i = 0; i < subrecords.size(); i++)
 		{
 			Subrecord sr = subrecords.get(i);
-			byte[] bs = sr.getData();
+			byte[] bs = sr.getSubrecordData();
 
-			if (sr.getType().equals("EDID"))
+			if (sr.getSubrecordType().equals("EDID"))
 			{
 				EDID = new ZString(bs);
 			}
-			else if (sr.getType().equals("FULL"))
+			else if (sr.getSubrecordType().equals("FULL"))
 			{
 				FULL = new LString(bs);
 			}
-			else if (sr.getType().equals("MODL"))
+			else if (sr.getSubrecordType().equals("MODL"))
 			{
 				MODL = new MODL(bs);
 			}
-			else if (sr.getType().equals("MODB"))
+			else if (sr.getSubrecordType().equals("MODB"))
 			{
 				MODL.addMODBSub(bs);
 			}
  
-			else if (sr.getType().equals("ACBS"))
+			else if (sr.getSubrecordType().equals("ACBS"))
 			{
 				ACBS = new ACBS(bs);
 			}
-			else if (sr.getType().equals("SNAM"))
+			else if (sr.getSubrecordType().equals("SNAM"))
 			{
 				SNAMsl.add(new SNAM(bs));
 			}
-			else if (sr.getType().equals("INAM"))
+			else if (sr.getSubrecordType().equals("INAM"))
 			{
 				INAM = new FormID(bs);
 			}
-			else if (sr.getType().equals("RNAM"))
+			else if (sr.getSubrecordType().equals("RNAM"))
 			{
 				RNAM = new FormID(bs);
 			}
-			else if (sr.getType().equals("SPLO"))
+			else if (sr.getSubrecordType().equals("SPLO"))
 			{
 				SPLOsl.add(new FormID(bs));
 			}
-			else if (sr.getType().equals("SCRI"))
+			else if (sr.getSubrecordType().equals("SCRI"))
 			{
 				SCRI = new FormID(bs);
 			}
-			else if (sr.getType().equals("CNTO"))
+			else if (sr.getSubrecordType().equals("CNTO"))
 			{
 				CNTOsl.add(new CNTO(bs));
 
 			}
-			else if (sr.getType().equals("AIDT"))
+			else if (sr.getSubrecordType().equals("AIDT"))
 			{
 				AIDT = new AIDT(bs);
 			}
-			else if (sr.getType().equals("PKID"))
+			else if (sr.getSubrecordType().equals("PKID"))
 			{
 				PKIDsl.add(new FormID(bs));
 			}
-			else if (sr.getType().equals("CNAM"))
+			else if (sr.getSubrecordType().equals("CNAM"))
 			{
 				CNAM = new FormID(bs);
 			}
-			else if (sr.getType().equals("DATA"))
+			else if (sr.getSubrecordType().equals("DATA"))
 			{
 				DATA = new DATA(bs);
 			}
-			else if (sr.getType().equals("HNAM"))
+			else if (sr.getSubrecordType().equals("HNAM"))
 			{
 				HNAM = new FormID(bs);
 			}
-			else if (sr.getType().equals("LNAM"))
+			else if (sr.getSubrecordType().equals("LNAM"))
 			{
 				LNAM = new LNAM(bs);
 			}
-			else if (sr.getType().equals("ENAM"))
+			else if (sr.getSubrecordType().equals("ENAM"))
 			{
 				ENAM = new FormID(bs);
 			}
-			else if (sr.getType().equals("HCLR"))
+			else if (sr.getSubrecordType().equals("HCLR"))
 			{
 				HCLR = new HCLR(bs);
 			}
-			else if (sr.getType().equals("ZNAM"))
+			else if (sr.getSubrecordType().equals("ZNAM"))
 			{
 				ZNAM = new FormID(bs);
 			}
-			else if (sr.getType().equals("INGR"))
+			else if (sr.getSubrecordType().equals("INGR"))
 			{
 				INGR = new FormID(bs);
 			}
-			else if (sr.getType().equals("FGGS"))
+			else if (sr.getSubrecordType().equals("FGGS"))
 			{
 				FGGS = new FGGS(bs);
 			}
-			else if (sr.getType().equals("FGGA"))
+			else if (sr.getSubrecordType().equals("FGGA"))
 			{
 				FGGA = new FGGA(bs);
 			}
-			else if (sr.getType().equals("FGTS"))
+			else if (sr.getSubrecordType().equals("FGTS"))
 			{
 				FGTS = new FGTS(bs);
 			}
-			else if (sr.getType().equals("FNAM"))
+			else if (sr.getSubrecordType().equals("FNAM"))
 			{
 				FNAM = new FNAM_b(bs);
 			}
 			else
 			{
-				System.out.println("unhandled : " + sr.getType() + " in record " + recordData + " in " + this);
+				System.out.println("unhandled : " + sr.getSubrecordType() + " in record " + recordData + " in " + this);
 			}
 
 			// transfer to arrays
