@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.zip.DataFormatException;
 
+import esmj3d.j3d.cell.AIActorLocator;
+import esmj3d.j3d.cell.AICellGeneral;
 import esmj3d.j3d.cell.J3dICellFactory;
 import esmj3d.j3d.cell.MorphingLandscape;
 import esmj3dtes4.data.records.WRLD;
@@ -107,6 +109,7 @@ public class J3dCellFactory extends J3dICellFactory
 		return null;
 	}
 
+	@Override
 	public Record getParentWRLDLAND(int wrldFormId, int x, int y)
 	{
 
@@ -324,5 +327,20 @@ public class J3dCellFactory extends J3dICellFactory
 	public String getMainESMFileName()
 	{
 		return esmManager.getName();
+	}
+	
+	
+	@Override
+	public AICellGeneral makeAICell(int cellId, AIActorLocator aiActorLocator)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AICellGeneral makeAICell(int wrldFormId, int x, int y, AIActorLocator aiActorLocator)
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

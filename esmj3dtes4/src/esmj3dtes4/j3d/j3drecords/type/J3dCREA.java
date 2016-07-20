@@ -43,7 +43,7 @@ public class J3dCREA extends J3dRECOTypeCha
 
 	public J3dCREA(CREA crea, IRecordStore master, MediaSources mediaSources)
 	{
-		super(crea);
+		super(crea, false);
 		//MODL is a bone file and the NIFZ are no path othe files to add
 		if (crea.NIFZ != null && crea.MODL != null)
 		{

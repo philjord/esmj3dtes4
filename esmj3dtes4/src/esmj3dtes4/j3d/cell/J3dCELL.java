@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.media.j3d.Node;
+import javax.vecmath.Quat4f;
 
 import esmj3d.data.shared.records.InstRECO;
 import esmj3d.data.shared.records.LAND;
@@ -59,6 +60,7 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		}
 	}
 
+	@Override
 	public Node makeJ3dRECOFar(Record record)
 	{
 		Node ret = null;
@@ -92,6 +94,7 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 		return ret;
 	}
 
+	@Override
 	public J3dRECOInst makeJ3dRECO(Record record)
 	{
 		J3dRECOInst ret = null;
@@ -156,7 +159,7 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 					else
 						j3dLAND = new J3dLAND(new LAND(record), master, mediaSources.getTextureSource());
 				}
-				j3dLAND.setLocation(cellLocation);
+				j3dLAND.setLocation(cellLocation, new Quat4f(0, 0, 0, 1));
 				ret = j3dLAND;
 			}
 			else
