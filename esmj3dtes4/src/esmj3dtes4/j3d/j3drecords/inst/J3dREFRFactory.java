@@ -13,13 +13,13 @@ import esmj3d.j3d.j3drecords.inst.J3dRECOInst;
 import esmj3d.j3d.j3drecords.inst.J3dRECOStatInst;
 import esmj3d.j3d.j3drecords.type.J3dCONT;
 import esmj3d.j3d.j3drecords.type.J3dDOOR;
-import esmj3d.j3d.j3drecords.type.J3dLIGH;
+import esmj3d.j3d.j3drecords.type.J3dGeneralLIGH;
 import esmj3d.j3d.j3drecords.type.J3dRECOType;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeActionable;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeDynamic;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeStatic;
-import esmj3d.j3d.j3drecords.type.J3dSOUN;
+import esmj3d.j3d.j3drecords.type.J3dGeneralSOUN;
 import esmj3d.j3d.trees.TreeMaker;
 import esmj3dtes4.data.records.ACRE;
 import esmj3dtes4.data.records.ACTI;
@@ -162,7 +162,8 @@ public class J3dREFRFactory
 				if (mediaSources.getMeshSource().nifFileExists(farNif))
 				{
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources), J3dRECOType.loadNif(farNif, false, mediaSources).getRootNode());
+					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources),
+							J3dRECOType.loadNif(farNif, false, mediaSources).getRootNode());
 					return j3dinst;
 
 				}
@@ -256,20 +257,21 @@ public class J3dREFRFactory
 		}
 		else if (baseRecord.getRecordType().equals("LIGH"))
 		{
-			return new J3dRECOStatInst(refr, new J3dLIGH(new LIGH(baseRecord), makePhys, mediaSources), true, makePhys);
+			return new J3dRECOStatInst(refr, new J3dGeneralLIGH(new LIGH(baseRecord), makePhys, mediaSources), true, makePhys);
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
 			TREE tree = new TREE(baseRecord);
 			String treeNif = tree.MODL.model.str;
-			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight, false);
+			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight,
+					false);
 			return j3dinst;
 		}
 		else if (baseRecord.getRecordType().equals("SOUN"))
 		{
 			if (!makePhys)
 			{
-				return new J3dRECOStatInst(refr, new J3dSOUN(new SOUN(baseRecord), master, mediaSources.getSoundSource()), false, makePhys);
+				return new J3dRECOStatInst(refr, new J3dGeneralSOUN(new SOUN(baseRecord), master, mediaSources), false, makePhys);
 			}
 		}
 		else if (baseRecord.getRecordType().equals("SBSP"))
