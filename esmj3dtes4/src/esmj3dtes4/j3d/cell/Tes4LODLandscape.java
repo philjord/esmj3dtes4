@@ -51,7 +51,6 @@ public class Tes4LODLandscape extends MorphingLandscape
 				}
 
 				Shape3D shape = new Shape3D();
-				shape.clearCapabilities();
 				shape.setPickable(false);
 				shape.setCollidable(false);
 				shape.setGeometry(baseItsa);
@@ -122,7 +121,6 @@ public class Tes4LODLandscape extends MorphingLandscape
 		rect.setNormalRefBuffer(new J3DBuffer(Utils3D.makeFloatBuffer(normals)));
 
 		Shape3D shape = new Shape3D(rect, createBasicWaterApp());
-		shape.clearCapabilities();
 		rect.setCapability(TriangleArray.ALLOW_COORDINATE_WRITE);
 		return shape;
 	}
