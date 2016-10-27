@@ -2,9 +2,10 @@ package esmj3dtes4.j3d.j3drecords.type;
 
 import java.util.ArrayList;
 
-import javax.media.j3d.Transform3D;
-import javax.media.j3d.TransformGroup;
 import javax.vecmath.Color3f;
+
+import org.jogamp.java3d.Transform3D;
+import org.jogamp.java3d.TransformGroup;
 
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.MODL;

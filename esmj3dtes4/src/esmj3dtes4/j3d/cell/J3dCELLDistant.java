@@ -3,7 +3,7 @@ package esmj3dtes4.j3d.cell;
 import java.util.Iterator;
 import java.util.List;
 
-import javax.media.j3d.Node;
+import org.jogamp.java3d.Node;
 
 import esmmanager.common.data.record.IRecordStore;
 import esmmanager.common.data.record.Record;
