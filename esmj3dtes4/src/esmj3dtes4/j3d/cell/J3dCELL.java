@@ -3,9 +3,8 @@ package esmj3dtes4.j3d.cell;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.vecmath.Quat4f;
-
 import org.jogamp.java3d.Node;
+import org.jogamp.vecmath.Quat4f;
 
 import esmj3d.data.shared.records.InstRECO;
 import esmj3d.data.shared.records.LAND;

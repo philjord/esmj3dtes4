@@ -2,7 +2,7 @@ package esmj3dtes4.data.records;
 
 import java.util.List;
 
-import javax.vecmath.Color3f;
+import org.jogamp.vecmath.Color3f;
 
 import esmj3d.data.shared.records.CommonLIGH;
 import esmj3d.data.shared.subrecords.FormID;

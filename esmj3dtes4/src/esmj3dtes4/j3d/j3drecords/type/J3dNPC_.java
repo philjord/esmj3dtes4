@@ -2,7 +2,7 @@ package esmj3dtes4.j3d.j3drecords.type;
 
 import java.util.ArrayList;
 
-import javax.vecmath.Color3f;
+import org.jogamp.vecmath.Color3f;
 
 import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.MODL;
