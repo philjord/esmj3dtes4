@@ -2,11 +2,11 @@ package esmj3dtes4.data.records;
 
 import java.util.List;
 
+import esmio.common.data.record.Record;
+import esmio.common.data.record.Subrecord;
 import esmj3d.data.shared.records.GenericCONT;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.LString;
-import esmmanager.common.data.record.Record;
-import esmmanager.common.data.record.Subrecord;
 
 public class CONT extends GenericCONT
 {

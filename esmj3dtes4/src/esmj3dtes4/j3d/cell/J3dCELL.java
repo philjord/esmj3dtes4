@@ -6,6 +6,8 @@ import java.util.List;
 import org.jogamp.java3d.Node;
 import org.jogamp.vecmath.Quat4f;
 
+import esmio.common.data.record.IRecordStore;
+import esmio.common.data.record.Record;
 import esmj3d.data.shared.records.InstRECO;
 import esmj3d.data.shared.records.LAND;
 import esmj3d.j3d.BethRenderSettings;
@@ -20,8 +22,6 @@ import esmj3dtes4.data.records.REFR;
 import esmj3dtes4.j3d.j3drecords.inst.J3dACHR;
 import esmj3dtes4.j3d.j3drecords.inst.J3dACRE;
 import esmj3dtes4.j3d.j3drecords.inst.J3dREFRFactory;
-import esmmanager.common.data.record.IRecordStore;
-import esmmanager.common.data.record.Record;
 import utils.source.MediaSources;
 
 public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener

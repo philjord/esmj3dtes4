@@ -5,8 +5,8 @@ import java.util.List;
 
 import org.jogamp.java3d.Node;
 
-import esmmanager.common.data.record.IRecordStore;
-import esmmanager.common.data.record.Record;
+import esmio.common.data.record.IRecordStore;
+import esmio.common.data.record.Record;
 import utils.source.MediaSources;
 
 public class J3dCELLDistant extends J3dCELL
