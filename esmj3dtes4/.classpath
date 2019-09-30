@@ -11,5 +11,6 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/vecmath"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/java3d-core-and"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/java3d-core"/>
 	<classpathentry kind="output" path="output"/>
 </classpath>
