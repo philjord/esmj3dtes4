@@ -3,8 +3,8 @@ package esmj3dtes4.data;
 import java.util.HashSet;
 import java.util.List;
 
-import esmio.common.data.record.IRecordStore;
-import esmio.common.data.record.Record;
+import esfilemanager.common.data.record.IRecordStore;
+import esfilemanager.common.data.record.Record;
 import esmj3d.data.shared.records.LAND;
 import esmj3d.data.shared.records.LTEX;
 import esmj3d.data.shared.records.RECO;

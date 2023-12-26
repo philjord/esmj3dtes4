@@ -2,8 +2,8 @@ package esmj3dtes4.j3d.j3drecords.inst;
 
 import org.jogamp.java3d.Node;
 
-import esmio.common.data.record.IRecordStore;
-import esmio.common.data.record.Record;
+import esfilemanager.common.data.record.IRecordStore;
+import esfilemanager.common.data.record.Record;
 import esmj3d.data.shared.records.CommonREFR;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;

@@ -6,8 +6,8 @@ import java.util.List;
 import org.jogamp.java3d.Node;
 import org.jogamp.vecmath.Quat4f;
 
-import esmio.common.data.record.IRecordStore;
-import esmio.common.data.record.Record;
+import esfilemanager.common.data.record.IRecordStore;
+import esfilemanager.common.data.record.Record;
 import esmj3d.data.shared.records.InstRECO;
 import esmj3d.data.shared.records.LAND;
 import esmj3d.j3d.BethRenderSettings;
