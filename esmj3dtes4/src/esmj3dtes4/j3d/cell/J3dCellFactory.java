@@ -22,6 +22,8 @@ import esmj3dtes4.data.records.WRLD;
  * @author phil
  *
  */
+
+//https://en.uesp.net/wiki/Oblivion_Mod:Mod_File_Format
 public class J3dCellFactory extends J3dICellFactory
 {
 	public J3dCellFactory()
