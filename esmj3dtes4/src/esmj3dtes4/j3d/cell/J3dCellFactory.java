@@ -49,9 +49,9 @@ public class J3dCellFactory extends J3dICellFactory
 	}
 
 	@Override
-	public MorphingLandscape makeLODLandscape(int lodX, int lodY, int scale, String lodWorldFormId)
+	public MorphingLandscape makeLODLandscape(int worldFormId, int lodX, int lodY, int scale, String lodWorldName)
 	{
-		return new Tes4LODLandscape(lodX, lodY, scale, lodWorldFormId, mediaSources.getMeshSource(), mediaSources.getTextureSource());
+		return new Tes4LODLandscape(lodX, lodY, scale, lodWorldName, mediaSources.getMeshSource(), mediaSources.getTextureSource());
 	}
 
 	private WRLD getWRLD(int formId)
