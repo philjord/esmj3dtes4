@@ -29,6 +29,8 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 	protected CELL cell;
 
 	private ArrayList<J3dRECOInst> j3dRECOInsts = new ArrayList<J3dRECOInst>();
+	
+	protected J3dLAND j3dLAND;
 
 	public J3dCELL(IRecordStore master, Record cellRecord, int worldId, List<Record> children, boolean makePhys, MediaSources mediaSources)
 	{
@@ -188,5 +190,33 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 			j3dRECOs.put(ret.getRecordId(), ret);
 		}
 		return ret;
+	}
+	
+	@Override
+	public J3dLAND getJ3dLAND() {
+		//If  didn't load land from a record above, check if the parent land should be used
+		if(j3dLAND == null) {		
+			if (makePhys)
+			{
+				Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x,
+						(int) instCell.getTrans().y);
+				if (parentLANDrec != null) {
+					j3dLAND = new J3dLAND(new LAND(parentLANDrec));
+					j3dLAND.setLocation(cellLocation, new Quat4f(0, 0, 0, 1));
+				}
+			}
+			else
+			{
+				Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x,
+						(int) instCell.getTrans().y);
+									
+				if (parentLANDrec != null) {
+					j3dLAND = new J3dLAND(new LAND(parentLANDrec), master, mediaSources.getTextureSource());
+					j3dLAND.setLocation(cellLocation, new Quat4f(0, 0, 0, 1));
+				}				
+			}
+		}
+		
+		return j3dLAND;
 	}
 }
