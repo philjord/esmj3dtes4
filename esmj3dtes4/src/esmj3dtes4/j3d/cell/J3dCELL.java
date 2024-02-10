@@ -142,7 +142,6 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 			}
 			else if (record.getRecordType().equals("LAND"))
 			{
-				J3dLAND j3dLAND;
 				if (makePhys)
 				{
 					Record parentLANDrec = ((J3dCellFactory) master).getParentWRLDLAND(worldId, (int) instCell.getTrans().x,
