@@ -9,6 +9,7 @@ import org.jogamp.vecmath.Color3f;
 import esfilemanager.common.data.record.IRecordStore;
 import esfilemanager.common.data.record.Record;
 import esmj3d.data.shared.subrecords.CNTO;
+import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.j3d.BethRenderSettings;
 import esmj3d.j3d.j3drecords.type.J3dRECOTypeCha;
@@ -166,6 +167,14 @@ public class J3dCREA extends J3dRECOTypeCha
 			fileNames.add(footStr);
 			fileNames.add(shieldStr);
 			fileNames.add(weapStr);
+			
+			
+			/*FormID[] PKIDs = crea.PKIDs;
+			for (int i = 0; i < PKIDs.length; i++)
+			{
+				Record pkRecord = master.getRecord(PKIDs[i].formId);
+				System.out.println("pkRecord " + pkRecord.getSubrecords() );
+			}*/
 
 			ArrayList<String> idleAnimations = new ArrayList<String>();
 			if (crea.KFFZ != null)
@@ -173,14 +182,39 @@ public class J3dCREA extends J3dRECOTypeCha
 				for (int i = 0; i < crea.KFFZ.fileNames.length; i++)
 				{
 					//Mainly specials under specialanims??
-					//System.out.println("crea.KFFZ.fileNames[i] " + crea.KFFZ.fileNames[i]);
+					//System.out.println(""+crea.MODL.model.str+" crea.KFFZ.fileNames[i] " + crea.KFFZ.fileNames[i]);
 					//idleAnimations.add(path + "\\specialanims\\" + crea.KFFZ.fileNames[i]);
 				}
 			}
 
 			idleAnimations.add(ESConfig.TES_MESH_PATH + path + "\\idle.kf");
- 
-			addIdleAnimations( idleAnimations, mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + path + "\\idleanims"));
+			//FIXME:!!! idleanims aren't even nothing like the idles! mtidle seem to be the main one
+			
+			//ok so bear has \\idle.kf and under idleanims 3 specialidle_* that look good
+			addIdleAnimations( idleAnimations, mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + path + "\\idleanims"), 
+					new String[]{
+						"specialidle_aware","specialidle_sit","specialidle_smell",//bear
+						"specialidle_rooting",//boar
+						"look","search",//clanfear lich,ogre
+						"roar","scan","dig", //daedroth //imp//landdrugh
+						"graze","startle",//deer						
+						"specialidle_dogbark","specialidle_howl","specialidle_scratch","specialidle_sit","specialidle_sitbark","specialidle_sleeplookaround","specialidle_smell",//dog
+						"idleb","idlec",//flame atronach
+						"idleclench","idlelook",//frost atronach
+						"specialidle_b","specialidle_c",//ghost
+						"specialldle_guard", //goblin						
+						"graze","look","paw","rest","scratch","swat",//horse
+						"idledrool","idlescratch","idleslack","idlestamp",//minotaur
+						"specialidle_aware","specialidle_clean","specialidle_look",//lion
+						"specialidle_eat",//mudcrab
+						"check",//ogre
+						"scratch2",//rat
+						"snif",//scamp
+						"bah","grazes",//sheep
+						
+						
+						
+			});
 
 			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
 
