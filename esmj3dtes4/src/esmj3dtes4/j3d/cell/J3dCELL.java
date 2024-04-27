@@ -1,7 +1,6 @@
 package esmj3dtes4.j3d.cell;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.jogamp.java3d.Node;
 import org.jogamp.vecmath.Quat4f;
@@ -32,9 +31,9 @@ public abstract class J3dCELL extends J3dCELLGeneral implements UpdateListener
 	
 	protected J3dLAND j3dLAND;
 
-	public J3dCELL(IRecordStore master, Record cellRecord, int worldId, List<Record> children, boolean makePhys, MediaSources mediaSources)
+	public J3dCELL(IRecordStore master, Record cellRecord, int worldId, boolean makePhys, MediaSources mediaSources)
 	{
-		super(master, worldId, children, makePhys, mediaSources);
+		super(master, worldId, makePhys, mediaSources);
 		cell = new CELL(cellRecord);
 		setCell(cell);
 
