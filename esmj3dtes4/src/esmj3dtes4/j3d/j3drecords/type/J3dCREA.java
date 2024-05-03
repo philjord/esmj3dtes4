@@ -191,7 +191,7 @@ public class J3dCREA extends J3dRECOTypeCha
 			//FIXME:!!! idleanims aren't even nothing like the idles! mtidle seem to be the main one
 			
 			//ok so bear has \\idle.kf and under idleanims 3 specialidle_* that look good
-			addIdleAnimations( idleAnimations, mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + path + "\\idleanims"), 
+/*			addIdleAnimations( idleAnimations, mediaSources.getMeshSource().getFilesInFolder(ESConfig.TES_MESH_PATH + path + "\\idleanims"), 
 					new String[]{
 						"specialidle_aware","specialidle_sit","specialidle_smell",//bear
 						"specialidle_rooting",//boar
@@ -212,11 +212,10 @@ public class J3dCREA extends J3dRECOTypeCha
 						"snif",//scamp
 						"bah","grazes",//sheep
 						
-						
-						
-			});
+			});*/
 
-			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources, idleAnimations);
+			nifCharacter = new NifCharacter(skeletonNifFile, fileNames, mediaSources);
+			nifCharacter.setIdleAnimations(idleAnimations);
 
 			if (crea.BNAM.baseScale == 1)
 			{
