@@ -10,12 +10,12 @@ import esmj3d.data.shared.records.CommonLIGH;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
+
 import tools.io.ESMByteConvert;
 
 public class LIGH extends CommonLIGH
 {
-	public ZString EDID;
+	
 
 	public LString FULL;
 
@@ -37,7 +37,7 @@ public class LIGH extends CommonLIGH
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("FULL"))
 			{

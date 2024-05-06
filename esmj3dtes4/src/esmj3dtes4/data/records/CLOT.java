@@ -14,7 +14,7 @@ import esmj3dtes4.data.subrecords.BMDT;
 
 public class CLOT extends RECO
 {
-	public ZString EDID;
+	
 
 	public LString FULL;
 
@@ -30,9 +30,9 @@ public class CLOT extends RECO
 
 	public MODL MOD4; // female ground
 
-	public ZString ICON; //male icon
+	public String ICON; //male icon
 
-	public ZString ICO2; //female icon
+	public String ICO2; //female icon
 
 	public FormID ENAM;
 
@@ -53,7 +53,7 @@ public class CLOT extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("FULL"))
 			{
@@ -117,11 +117,11 @@ public class CLOT extends RECO
 			}
 			else if (sr.getSubrecordType().equals("ICON"))
 			{
-				ICON = new ZString(bs);
+				ICON = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("ICO2"))
 			{
-				ICO2 = new ZString(bs);
+				ICO2 = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("ENAM"))
 			{

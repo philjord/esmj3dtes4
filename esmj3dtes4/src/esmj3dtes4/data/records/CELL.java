@@ -52,11 +52,8 @@ public class CELL extends CommonCELL
 
 		}
 	}
+ 
 
-	public String showDetails()
-	{
-		return "CELL : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str + " : " + FULL.str;
-	}
 
 	public class DATA
 	{

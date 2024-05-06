@@ -11,9 +11,10 @@ import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 
+
 public class AMMO extends RECO
 {
-	public ZString EDID;
+	
 
 	public LString FULL;
 
@@ -23,7 +24,7 @@ public class AMMO extends RECO
 
 	 
 
-	public ZString ICON;
+	public String ICON;
 
 	public ANAM ANAM;
 
@@ -44,7 +45,7 @@ public class AMMO extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("FULL"))
 			{
@@ -68,7 +69,7 @@ public class AMMO extends RECO
 			}
 			else if (sr.getSubrecordType().equals("ICON"))
 			{
-				ICON = new ZString(bs);
+				ICON = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("ANAM"))
 			{

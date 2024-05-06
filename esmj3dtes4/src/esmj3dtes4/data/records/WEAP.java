@@ -11,9 +11,10 @@ import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 
+
 public class WEAP extends RECO
 {
-	public ZString EDID;
+	
 
 	public LString FULL;
 
@@ -21,7 +22,7 @@ public class WEAP extends RECO
 
 	public MODL MODL;
 
-	public ZString ICON;
+	public String ICON;
 
 	public ANAM ANAM;
 
@@ -39,7 +40,7 @@ public class WEAP extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("FULL"))
 			{
@@ -63,7 +64,7 @@ public class WEAP extends RECO
 			}
 			else if (sr.getSubrecordType().equals("ICON"))
 			{
-				ICON = new ZString(bs);
+				ICON = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("ANAM"))
 			{
@@ -84,10 +85,12 @@ public class WEAP extends RECO
 		}
 	}
 
+	@Override
 	public String showDetails()
 	{
-		return "STAT : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str + " : " + MODL.model;
+		return super.showDetails() + " : " + MODL.model;
 	}
+
 
 	public class DATA
 	{

@@ -13,7 +13,7 @@ public class WRLD extends CommonWRLD
 
 	public SNAM_d SNAM = null;
 
-	public ZString ICON = null;
+	public String ICON = null;
 
 	public WRLD(Record recordData)
 	{
@@ -30,7 +30,7 @@ public class WRLD extends CommonWRLD
 			}
 			else if (sr.getSubrecordType().equals("ICON"))
 			{
-				ICON = new ZString(bs);
+				ICON = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("NAM0"))
 			{

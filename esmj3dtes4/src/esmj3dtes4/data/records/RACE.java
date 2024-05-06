@@ -25,7 +25,7 @@ import tools.io.ESMByteConvert;
 
 public class RACE extends RECO
 {
-	public ZString EDID = null;
+	
 
 	public LString FULL = null;
 
@@ -52,7 +52,7 @@ public class RACE extends RECO
 
 	public ArrayList<MODB> MODBs = new ArrayList<MODB>();
 
-	public ArrayList<ZString> ICONs = new ArrayList<ZString>();
+	public ArrayList<String> ICONs = new ArrayList<String>();
 
 	public boolean NAM1 = false;
 
@@ -90,7 +90,7 @@ public class RACE extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("FULL"))
 			{
@@ -142,7 +142,7 @@ public class RACE extends RECO
 			}
 			else if (sr.getSubrecordType().equals("ICON"))
 			{
-				ICONs.add(new ZString(bs));
+				ICONs.add(ZString.toString(bs));
 			}
 			else if (sr.getSubrecordType().equals("NAM1"))
 			{

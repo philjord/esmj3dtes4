@@ -64,7 +64,7 @@ public class J3dREFRFactory
 		if (modl != null)
 		{
 			J3dRECODynInst j3dinst = new J3dRECODynInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(new J3dRECOTypeDynamic(reco, modl.model.str, makePhys, mediaSources));
+			j3dinst.setJ3dRECOType(new J3dRECOTypeDynamic(reco, modl.model, makePhys, mediaSources));
 			return j3dinst;
 		}
 		else
@@ -79,7 +79,7 @@ public class J3dREFRFactory
 		if (modl != null)
 		{
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(new J3dRECOTypeActionable(reco, modl.model.str, makePhys, mediaSources));
+			j3dinst.setJ3dRECOType(new J3dRECOTypeActionable(reco, modl.model, makePhys, mediaSources));
 			return j3dinst;
 		}
 		else
@@ -94,7 +94,7 @@ public class J3dREFRFactory
 		if (modl != null)
 		{
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-			j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(reco, modl.model.str, makePhys, mediaSources));
+			j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(reco, modl.model, makePhys, mediaSources));
 			return j3dinst;
 		}
 		else
@@ -116,19 +116,19 @@ public class J3dREFRFactory
 		{
 			STAT stat = new STAT(baseRecord);
 
-			String farNif = stat.MODL.model.str.substring(0, stat.MODL.model.str.toLowerCase().indexOf(".nif")) + "_far.nif";
+			String farNif = stat.MODL.model.substring(0, stat.MODL.model.toLowerCase().indexOf(".nif")) + "_far.nif";
 			J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, false, false);
 			if (mediaSources.getMeshSource().nifFileExists(farNif))
 				j3dinst.addNodeChild(new LODNif(farNif, mediaSources));
 			else
-				j3dinst.addNodeChild(new J3dRECOTypeStatic(stat, stat.MODL.model.str, false, mediaSources));
+				j3dinst.addNodeChild(new J3dRECOTypeStatic(stat, stat.MODL.model, false, mediaSources));
 			return j3dinst;
 
 		}
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
 			TREE tree = new TREE(baseRecord);
-			String treeNif = tree.MODL.model.str;
+			String treeNif = tree.MODL.model;
 			return TreeMaker.makeTreeFar(refr, false, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight);
 		}
 		else if (baseRecord.getRecordType().equals("FLOR"))
@@ -158,11 +158,11 @@ public class J3dREFRFactory
 
 			if (stat.MODL != null)
 			{
-				String farNif = stat.MODL.model.str.substring(0, stat.MODL.model.str.toLowerCase().indexOf(".nif")) + "_far.nif";
+				String farNif = stat.MODL.model.substring(0, stat.MODL.model.toLowerCase().indexOf(".nif")) + "_far.nif";
 				if (mediaSources.getMeshSource().nifFileExists(farNif))
 				{
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources),
+					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model, makePhys, mediaSources),
 							J3dRECOType.loadNif(farNif, false, mediaSources).getRootNode());
 					return j3dinst;
 
@@ -170,7 +170,7 @@ public class J3dREFRFactory
 				else
 				{
 					J3dRECOStatInst j3dinst = new J3dRECOStatInst(refr, true, makePhys);
-					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model.str, makePhys, mediaSources));
+					j3dinst.setJ3dRECOType(new J3dRECOTypeStatic(stat, stat.MODL.model, makePhys, mediaSources));
 					return j3dinst;
 				}
 			}
@@ -262,7 +262,7 @@ public class J3dREFRFactory
 		else if (baseRecord.getRecordType().equals("TREE"))
 		{
 			TREE tree = new TREE(baseRecord);
-			String treeNif = tree.MODL.model.str;
+			String treeNif = tree.MODL.model;
 			J3dRECOStatInst j3dinst = TreeMaker.makeTree(refr, makePhys, mediaSources, treeNif, tree.billBoardWidth, tree.billBoardHeight,
 					false);
 			return j3dinst;
@@ -364,7 +364,7 @@ public class J3dREFRFactory
 		if (NATURAL_ANIMALS_ONLY)
 		{
 			for (String nat : naturalAnimals)
-				if (crea.MODL.model.str.startsWith(nat))
+				if (crea.MODL.model.startsWith(nat))
 					return true;
 
 			return false;

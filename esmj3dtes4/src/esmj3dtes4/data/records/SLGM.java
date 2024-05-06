@@ -8,12 +8,13 @@ import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;
 import esmj3d.data.shared.subrecords.ZString;
 
+
 public class SLGM extends RECO
 {
 
-	public ZString EDID = null;
+	
 
-	public ZString FULL = null;
+	public String FULL = null;
 
 	public MODL MODL;
 
@@ -28,11 +29,11 @@ public class SLGM extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("FULL"))
 			{
-				FULL = new ZString(bs);
+				FULL = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("ICON"))
 			{

@@ -7,13 +7,13 @@ import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.InstRECO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.XESP;
-import esmj3d.data.shared.subrecords.ZString;
+
 import esmj3dtes4.data.subrecords.XRGD;
 import tools.io.ESMByteConvert;
 
 public class ACHR extends InstRECO
 {
-	public ZString EDID = null;
+	
 
 	public FormID NAME = null;
 
@@ -37,7 +37,7 @@ public class ACHR extends InstRECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("NAME"))
 			{

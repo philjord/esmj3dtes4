@@ -55,7 +55,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		// the defaults
 		if (female)
 		{
-			headStr = modls.get(0).model.str;//TODO: no female head
+			headStr = modls.get(0).model;//TODO: no female head
 			//All beast races are just humans with a different texture
 			upperStr = ESConfig.TES_MESH_PATH + "characters\\_male\\femaleupperbodynude.nif";
 			lowerStr = ESConfig.TES_MESH_PATH + "characters\\_male\\femalelowerbody.nif";
@@ -65,7 +65,7 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		}
 		else
 		{
-			headStr = modls.get(0).model.str;
+			headStr = modls.get(0).model;
 			upperStr = ESConfig.TES_MESH_PATH + "characters\\_male\\upperbody.nif";
 			lowerStr = ESConfig.TES_MESH_PATH + "characters\\_male\\lowerbody.nif";
 			handStr = ESConfig.TES_MESH_PATH + "characters\\_male\\hand.nif";
@@ -208,11 +208,11 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		{
 			m = clot.MOD3;
 		}
-		helmetStr = clot.BMDT.isHair() ? m.model.str : helmetStr;
-		upperStr = clot.BMDT.isUpperBody() ? m.model.str : upperStr;
-		lowerStr = clot.BMDT.isLowerBody() ? m.model.str : lowerStr;
-		handStr = clot.BMDT.isHand() ? m.model.str : handStr;
-		footStr = clot.BMDT.isFoot() ? m.model.str : footStr;
+		helmetStr = clot.BMDT.isHair() ? m.model : helmetStr;
+		upperStr = clot.BMDT.isUpperBody() ? m.model : upperStr;
+		lowerStr = clot.BMDT.isLowerBody() ? m.model : lowerStr;
+		handStr = clot.BMDT.isHand() ? m.model : handStr;
+		footStr = clot.BMDT.isFoot() ? m.model : footStr;
 
 	}
 
@@ -224,16 +224,16 @@ public class J3dNPC_ extends J3dRECOTypeCha
 		{
 			m = armo.MOD3;
 		}
-		helmetStr = armo.BMDT.isHair() ? m.model.str : helmetStr;
-		upperStr = armo.BMDT.isUpperBody() ? m.model.str : upperStr;
-		lowerStr = armo.BMDT.isLowerBody() ? m.model.str : lowerStr;
-		handStr = armo.BMDT.isHand() ? m.model.str : handStr;
-		footStr = armo.BMDT.isFoot() ? m.model.str : footStr;
-		shieldStr = armo.BMDT.isShield() ? m.model.str : shieldStr;
+		helmetStr = armo.BMDT.isHair() ? m.model : helmetStr;
+		upperStr = armo.BMDT.isUpperBody() ? m.model : upperStr;
+		lowerStr = armo.BMDT.isLowerBody() ? m.model : lowerStr;
+		handStr = armo.BMDT.isHand() ? m.model : handStr;
+		footStr = armo.BMDT.isFoot() ? m.model : footStr;
+		shieldStr = armo.BMDT.isShield() ? m.model : shieldStr;
 	}
 
 	private void addWEAP(WEAP weap)
 	{
-		weapStr = weap.MODL.model.str;
+		weapStr = weap.MODL.model;
 	}
 }

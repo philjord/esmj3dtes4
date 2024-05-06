@@ -10,7 +10,7 @@ import esmj3d.data.shared.subrecords.CNTO;
 import esmj3d.data.shared.subrecords.FormID;
 import esmj3d.data.shared.subrecords.LString;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
+
 import esmj3dtes4.data.subrecords.ACBS;
 import esmj3dtes4.data.subrecords.AIDT;
 import esmj3dtes4.data.subrecords.FGGA;
@@ -24,7 +24,7 @@ import tools.io.ESMByteConvert;
 
 public class NPC_ extends RECO
 {
-	public ZString EDID = null;
+	
 
 	public LString FULL = null;
 
@@ -150,7 +150,7 @@ public class NPC_ extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("FULL"))
 			{

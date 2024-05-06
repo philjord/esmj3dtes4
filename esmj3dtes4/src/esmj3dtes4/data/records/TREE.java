@@ -11,12 +11,12 @@ import tools.io.ESMByteConvert;
 
 public class TREE extends RECO
 {
-	public ZString EDID;
+	
 
 	public MODL MODL;
 
 	 
-	public ZString ICON;
+	public String ICON;
 
 	public float billBoardWidth = 0;
 
@@ -34,7 +34,7 @@ public class TREE extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("MODL"))
 			{
@@ -54,7 +54,7 @@ public class TREE extends RECO
 			}
 			else if (sr.getSubrecordType().equals("ICON"))
 			{
-				ICON = new ZString(bs);
+				ICON = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("SNAM"))
 			{
@@ -76,9 +76,11 @@ public class TREE extends RECO
 		}
 	}
 
+	@Override
 	public String showDetails()
 	{
-		return "TREE : (" + formId + "|" + Integer.toHexString(formId) + ") " + EDID.str + " : " + MODL.model;
+		return super.showDetails() + " : " + MODL.model;
 	}
+
 
 }

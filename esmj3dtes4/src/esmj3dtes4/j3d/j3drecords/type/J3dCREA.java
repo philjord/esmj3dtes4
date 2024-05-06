@@ -48,9 +48,9 @@ public class J3dCREA extends J3dRECOTypeCha
 		//MODL is a bone file and the NIFZ are no path othe files to add
 		if (crea.NIFZ != null && crea.MODL != null)
 		{
-			String path = crea.MODL.model.str.substring(0, crea.MODL.model.str.lastIndexOf("\\"));
+			String path = crea.MODL.model.substring(0, crea.MODL.model.lastIndexOf("\\"));
 
-			String skeletonNifFile = crea.MODL.model.str;
+			String skeletonNifFile = crea.MODL.model;
 
 			ArrayList<String> fileNames = new ArrayList<String>();
 
@@ -182,7 +182,7 @@ public class J3dCREA extends J3dRECOTypeCha
 				for (int i = 0; i < crea.KFFZ.fileNames.length; i++)
 				{
 					//Mainly specials under specialanims??
-					//System.out.println(""+crea.MODL.model.str+" crea.KFFZ.fileNames[i] " + crea.KFFZ.fileNames[i]);
+					//System.out.println(""+crea.MODL.model+" crea.KFFZ.fileNames[i] " + crea.KFFZ.fileNames[i]);
 					//idleAnimations.add(path + "\\specialanims\\" + crea.KFFZ.fileNames[i]);
 				}
 			}
@@ -250,11 +250,11 @@ public class J3dCREA extends J3dRECOTypeCha
 		{
 			m = clot.MOD3;
 		}
-		helmetStr = clot.BMDT.isHair() ? m.model.str : helmetStr;
-		upperStr = clot.BMDT.isUpperBody() ? m.model.str : upperStr;
-		lowerStr = clot.BMDT.isLowerBody() ? m.model.str : lowerStr;
-		handStr = clot.BMDT.isHand() ? m.model.str : handStr;
-		footStr = clot.BMDT.isFoot() ? m.model.str : footStr;
+		helmetStr = clot.BMDT.isHair() ? m.model : helmetStr;
+		upperStr = clot.BMDT.isUpperBody() ? m.model : upperStr;
+		lowerStr = clot.BMDT.isLowerBody() ? m.model : lowerStr;
+		handStr = clot.BMDT.isHand() ? m.model : handStr;
+		footStr = clot.BMDT.isFoot() ? m.model : footStr;
 
 	}
 
@@ -266,17 +266,17 @@ public class J3dCREA extends J3dRECOTypeCha
 		{
 			m = armo.MOD3;
 		}
-		helmetStr = armo.BMDT.isHair() ? m.model.str : helmetStr;
-		upperStr = armo.BMDT.isUpperBody() ? m.model.str : upperStr;
-		lowerStr = armo.BMDT.isLowerBody() ? m.model.str : lowerStr;
-		handStr = armo.BMDT.isHand() ? m.model.str : handStr;
-		footStr = armo.BMDT.isFoot() ? m.model.str : footStr;
-		shieldStr = armo.BMDT.isShield() ? m.model.str : shieldStr;
+		helmetStr = armo.BMDT.isHair() ? m.model : helmetStr;
+		upperStr = armo.BMDT.isUpperBody() ? m.model : upperStr;
+		lowerStr = armo.BMDT.isLowerBody() ? m.model : lowerStr;
+		handStr = armo.BMDT.isHand() ? m.model : handStr;
+		footStr = armo.BMDT.isFoot() ? m.model : footStr;
+		shieldStr = armo.BMDT.isShield() ? m.model : shieldStr;
 	}
 
 	private void addWEAP(WEAP weap)
 	{
-		weapStr = weap.MODL.model.str;
+		weapStr = weap.MODL.model;
 	}
 
 }

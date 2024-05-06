@@ -6,12 +6,12 @@ import esfilemanager.common.data.record.Record;
 import esfilemanager.common.data.record.Subrecord;
 import esmj3d.data.shared.records.RECO;
 import esmj3d.data.shared.subrecords.MODL;
-import esmj3d.data.shared.subrecords.ZString;
+
 import esmj3dtes4.data.subrecords.DNAM;
 
 public class IDLE extends RECO
 {
-	public ZString EDID = null;
+	
 
 	public DNAM DNAM = null;
 
@@ -30,7 +30,7 @@ public class IDLE extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("OBND"))
 			{

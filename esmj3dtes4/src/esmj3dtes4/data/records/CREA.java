@@ -27,7 +27,7 @@ import tools.io.ESMByteConvert;
 
 public class CREA extends RECO
 {
-	public ZString EDID = null;
+	
 
 	public LString FULL = null;
 
@@ -69,9 +69,9 @@ public class CREA extends RECO
 
 	public WNAM WNAM = null;
 
-	public ZString NAM0 = null;
+	public String NAM0 = null;
 
-	public ZString NAM1 = null;
+	public String NAM1 = null;
 
 	public KFFZ KFFZ = null;
 
@@ -122,7 +122,7 @@ public class CREA extends RECO
 
 			if (sr.getSubrecordType().equals("EDID"))
 			{
-				EDID = new ZString(bs);
+				setEDID(bs);
 			}
 			else if (sr.getSubrecordType().equals("FULL"))
 			{
@@ -221,11 +221,11 @@ public class CREA extends RECO
 			}
 			else if (sr.getSubrecordType().equals("NAM0"))
 			{
-				NAM0 = new ZString(bs);
+				NAM0 = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("NAM1"))
 			{
-				NAM1 = new ZString(bs);
+				NAM1 = ZString.toString(bs);
 			}
 			else if (sr.getSubrecordType().equals("KFFZ"))
 			{
